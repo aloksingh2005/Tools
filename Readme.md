@@ -18,7 +18,7 @@ A responsive, feature-rich portfolio website showcasing a collection of develope
 
 ## Overview
 
-This portfolio website showcases over 35+ projects across 7 different categories including Developer Tools, Productivity Utilities, Media Processing Tools, AI & Chatbots, Finance Applications, Fun Experiments, and All-In-One Solutions. The site features a modern dark/light theme toggle, responsive design, and intuitive filtering system.
+This portfolio website showcases over 40+ projects across 7 different categories including Developer Tools, Productivity Utilities, Media Processing Tools, AI & Chatbots, Finance Applications, and All-In-One Solutions. The site features a modern dark/light theme toggle, responsive design, and intuitive filtering system.
 
 ## Features
 
@@ -40,8 +40,7 @@ This portfolio website showcases over 35+ projects across 7 different categories
 3. **Media Tools** - Image and video processing applications
 4. **AI & Chatbots** - Artificial intelligence and conversational interfaces
 5. **Finance & Business** - Financial management and business solutions
-6. **Fun & Experiments** - Creative projects and experimental applications
-7. **All-In-One Projects** - Comprehensive suites combining multiple tools
+6. **All-In-One Projects** - Comprehensive suites combining multiple tools
 
 ## Technologies Used
 

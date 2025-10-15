@@ -254,6 +254,7 @@ class PortfolioManager {
     updateStats() {
         const projectCount = document.getElementById('project-count');
         if (projectCount) {
+            // Count unique projects
             projectCount.textContent = `${this.projects.length}+`;
         }
     }
