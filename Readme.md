@@ -1,6 +1,6 @@
 # Developer Tools Portfolio
 
-A responsive, feature-rich portfolio website showcasing a collection of developer tools, utilities, and applications built with modern web technologies. This portfolio serves as a centralized hub for browsing, searching, and accessing various projects organized by categories.
+A modern, responsive portfolio website showcasing a collection of developer tools, utilities, and applications built with cutting-edge web technologies. This portfolio serves as a centralized hub for browsing, searching, and accessing various projects organized by categories.
 
 ## Table of Contents
 
@@ -18,10 +18,12 @@ A responsive, feature-rich portfolio website showcasing a collection of develope
 
 ## Overview
 
-This portfolio website showcases over 40+ projects across 7 different categories including Developer Tools, Productivity Utilities, Media Processing Tools, AI & Chatbots, Finance Applications, and All-In-One Solutions. The site features a modern dark/light theme toggle, responsive design, and intuitive filtering system.
+This portfolio website showcases over 40+ projects across 7 different categories including Developer Tools, Productivity Utilities, Media Processing Tools, AI & Chatbots, Finance Applications, and All-In-One Solutions. The site features a modern dark/light theme toggle, responsive design, and intuitive filtering system with enhanced visual aesthetics.
 
 ## Features
 
+- **Modern UI Design**: Sleek, contemporary interface with improved visual hierarchy
+- **Enhanced Animations**: Smooth transitions, hover effects, and scroll animations
 - **Responsive Design**: Works seamlessly across desktop, tablet, and mobile devices
 - **Theme Switching**: Toggle between light and dark modes with preference saving
 - **Project Filtering**: Sort projects by category with 7 distinct filters
@@ -29,7 +31,6 @@ This portfolio website showcases over 40+ projects across 7 different categories
 - **Project Showcase**: Detailed project cards with GitHub links and live demos
 - **Modal Details**: Interactive modals with expanded project information
 - **Pinned Projects**: Highlighted featured projects for easy access
-- **Animated UI**: Smooth animations and transitions for enhanced UX
 - **Keyboard Shortcuts**: Efficient navigation using keyboard commands
 - **Statistics Display**: Project counts and user metrics
 
@@ -79,7 +80,7 @@ Alternatively, you can simply double-click the `index.html` file to open it in y
 portfolio/
 │
 ├── index.html              # Main HTML file
-├── styles.css              # Custom styling
+├── styles.css              # Custom styling with modern design
 ├── script.js               # JavaScript functionality
 ├── projects-data.js        # Project information data
 ├── img/                    # Image assets
@@ -173,4 +174,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-*Built with ❤️ by Alok | Web Developer & Software Engineer*
+*Built with ❤️ by Alok Kumar | Web Developer & Software Engineer*

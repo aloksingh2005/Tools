@@ -4,6 +4,7 @@ class PortfolioManager {
         this.filteredProjects = [...this.projects];
         this.currentFilter = 'all';
         this.searchTerm = '';
+        this.isMenuOpen = false;
         this.init();
     }
 
@@ -13,6 +14,9 @@ class PortfolioManager {
         this.renderProjects();
         this.updateStats();
         this.animateOnScroll();
+        this.addHeaderAnimation();
+        this.setupNavigation();
+        this.setupFormHandling();
     }
 
     setupEventListeners() {
@@ -47,6 +51,16 @@ class PortfolioManager {
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+
+        // Navigation links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => this.handleNavClick(e));
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        navToggle.addEventListener('click', () => this.toggleMobileMenu());
     }
 
     setupTheme() {
@@ -66,6 +80,12 @@ class PortfolioManager {
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('portfolio-theme', newTheme);
         this.updateThemeIcon(newTheme === 'dark');
+        
+        // Add animation effect
+        document.body.style.transition = 'background-color 0.5s ease, color 0.5s ease';
+        setTimeout(() => {
+            document.body.style.transition = '';
+        }, 500);
     }
 
     updateThemeIcon(isDark) {
@@ -150,15 +170,21 @@ class PortfolioManager {
         // Add click listeners to cards
         this.addCardListeners();
 
-        // Animate cards
+        // Animate cards with staggered delay
         this.animateCards();
     }
 
     createProjectCard(project, isPinned = false) {
-            const pinnedClass = isPinned ? 'pinned' : '';
-            const pinnedBadge = isPinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Pinned</span>' : '';
+        const pinnedClass = isPinned ? 'pinned' : '';
+        const pinnedBadge = isPinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Pinned</span>' : '';
+        
+        // Truncate description to 2 lines (approximately 100-120 characters)
+        let shortDescription = project.description;
+        if (shortDescription.length > 120) {
+            shortDescription = project.description.substring(0, 120) + '...';
+        }
 
-            return `
+        return `
       <article class="project-card ${pinnedClass}" data-project='${JSON.stringify(project)}'>
         <div class="project-header">
           <div>
@@ -167,20 +193,20 @@ class PortfolioManager {
           </div>
         </div>
         
-        <p class="project-description">${project.description}</p>
+        <p class="project-description">${shortDescription}</p>
         
         <div class="project-tags">
-          ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          ${project.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
         </div>
         
         <div class="project-links">
           <a href="${project.repo}" target="_blank" rel="noopener" class="project-link secondary">
             <i class="fab fa-github"></i>
-            Repository
+            Repo
           </a>
           <a href="${project.demo}" target="_blank" rel="noopener" class="project-link primary">
             <i class="fas fa-external-link-alt"></i>
-            Live Demo
+            Demo
           </a>
         </div>
       </article>
@@ -196,6 +222,15 @@ class PortfolioManager {
 
                 const projectData = JSON.parse(card.dataset.project);
                 this.openModal(projectData);
+            });
+            
+            // Add hover effect enhancement
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
             });
         });
     }
@@ -262,13 +297,15 @@ class PortfolioManager {
     animateCards() {
         const cards = document.querySelectorAll('.project-card');
         cards.forEach((card, index) => {
+            // Reset animation
             card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-
+            card.style.transform = 'translateY(20px) scale(0.95)';
+            
+            // Staggered animation with enhanced effect
             setTimeout(() => {
-                card.style.transition = 'all 0.5s ease';
+                card.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
+                card.style.transform = 'translateY(0) scale(1)';
             }, index * 100);
         });
     }
@@ -280,28 +317,96 @@ class PortfolioManager {
                     entry.target.classList.add('animate');
                 }
             });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
 
-        const animateElements = document.querySelectorAll('.project-card, .section-header');
+        const animateElements = document.querySelectorAll('.project-card, .section-header, .hero-content');
         animateElements.forEach(el => observer.observe(el));
     }
-
-    handleKeyboard(e) {
-        // ESC to close modal
-        if (e.key === 'Escape') {
-            this.closeModal();
+    
+    addHeaderAnimation() {
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            // Add a subtle animation to the hero title
+            heroTitle.style.opacity = '0';
+            heroTitle.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                heroTitle.style.transition = 'all 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translateY(0)';
+            }, 300);
         }
+    }
 
-        // Ctrl/Cmd + K to focus search
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-            e.preventDefault();
-            document.getElementById('search-input').focus();
+    setupNavigation() {
+        // Handle scroll for main navigation
+        window.addEventListener('scroll', () => {
+            const mainNav = document.querySelector('.main-nav');
+            if (window.scrollY > 50) {
+                mainNav.classList.add('scrolled');
+            } else {
+                mainNav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    handleNavClick(e) {
+        // Update active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        
+        // Close mobile menu if open
+        if (this.isMenuOpen) {
+            this.toggleMobileMenu();
         }
+    }
 
-        // Ctrl/Cmd + T to toggle theme
-        if ((e.ctrlKey || e.metaKey) && e.key === 't') {
-            e.preventDefault();
-            this.toggleTheme();
+    toggleMobileMenu() {
+        const navMenu = document.querySelector('.nav-menu');
+        const navToggle = document.querySelector('.nav-toggle');
+        this.isMenuOpen = !this.isMenuOpen;
+        
+        if (this.isMenuOpen) {
+            navMenu.classList.add('active');
+            navToggle.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            navMenu.classList.remove('active');
+            navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    }
+
+    setupFormHandling() {
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real implementation, you would send the form data to a server
+                alert('Thank you for your message! In a real implementation, this would be sent to a server.');
+                contactForm.reset();
+            });
         }
     }
 }
@@ -321,60 +426,64 @@ const additionalStyles = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
   .modal-header h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 800;
   }
   
   .modal-meta {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .category-badge, .language-badge, .stars-badge {
     background: var(--bg-secondary);
     color: var(--text-secondary);
-    padding: 0.25rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     border-radius: 1rem;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
   
   .language-badge {
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     color: white;
   }
   
   .stars-badge {
-    background: var(--accent-color);
+    background: var(--gradient-secondary);
     color: white;
   }
   
   .modal-description {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
     color: var(--text-secondary);
   }
   
   .modal-tags h4 {
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text-secondary);
+    font-weight: 600;
   }
   
   .tags-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
   }
   
   .modal-links {
@@ -384,13 +493,17 @@ const additionalStyles = `
   }
   
   .featured-badge {
-    background: linear-gradient(135deg, var(--accent-color), #f97316);
+    background: var(--gradient-secondary);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--border-radius-md);
     text-align: center;
-    font-weight: 500;
-    font-size: 0.875rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
   }
   
   @media (max-width: 768px) {
@@ -400,6 +513,11 @@ const additionalStyles = `
     
     .modal-meta {
       justify-content: center;
+    }
+    
+    .modal-header {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 `;

@@ -2,31 +2,64 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alok | Developer & Software Engineer</title>
-    <meta name="description" content="Building Tools, Apps & Utilities for Web, AI & Productivity">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Building Tools, Apps & Utilities for Web, AI & Productivity" />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Theme Toggle -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-    </button>
+    <!-- Main Navigation with Search -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="nav-brand">
+                    <h2>Alok </h2>
+                </div>
+
+                <div class="nav-search">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Search your tools..." />
+                        <button id="clear-search" class="clear-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="nav-menu">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+
+                <!-- Theme Toggle moved inside navbar -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <div class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-bg-image"></div>
+    <header class="hero" id="home">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="gradient-text">Alok</span> | Web - Developer & Software Engineer
-                    </h1>
-                    <p class="hero-subtitle">Building Tools, Apps & Utilities for Web, AI & Productivity</p>
+                    <h1 class="hero-title">Alok</h1>
+                    <p class="hero-subtitle">
+                        Building Innovative Tools, Apps & Utilities for Web, AI &
+                        Productivity
+                    </p>
                     <div class="hero-stats">
                         <div class="stat">
                             <span class="stat-number" id="project-count">40+</span>
@@ -40,6 +73,10 @@
                             <span class="stat-number">1000+</span>
                             <span class="stat-label">Users Served</span>
                         </div>
+                    </div>
+                    <div class="hero-cta">
+                        <a href="#projects" class="cta-button primary">View Projects</a>
+                        <a href="#contact" class="cta-button secondary">Get In Touch</a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -60,41 +97,31 @@
         </div>
     </header>
 
-    <!-- Navigation & Filters -->
-    <nav class="navbar">
+    <!-- Category Filters (Simplified) -->
+    <nav class="category-nav" id="projects">
         <div class="container">
-            <div class="nav-content">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Search projects...">
-                    <button id="clear-search" class="clear-btn">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <div class="filters">
-                    <button class="filter-btn active" data-category="all">
-                        <i class="fas fa-th"></i> All
-                    </button>
-                    <button class="filter-btn" data-category="Developer Tools">
-                        <i class="fas fa-code"></i> Developer Tools
-                    </button>
-                    <button class="filter-btn" data-category="Productivity & Utilities">
-                        <i class="fas fa-calculator"></i> Productivity
-                    </button>
-                    <button class="filter-btn" data-category="Media Tools">
-                        <i class="fas fa-image"></i> Media Tools
-                    </button>
-                    <button class="filter-btn" data-category="AI & Chatbots">
-                        <i class="fas fa-robot"></i> AI & Chatbots
-                    </button>
-                    <button class="filter-btn" data-category="Finance & Business">
-                        <i class="fas fa-chart-line"></i> Finance
-                    </button>
-                    <button class="filter-btn" data-category="All-In-One Projects">
-                        <i class="fas fa-layer-group"></i> All-In-One
-                    </button>
-                </div>
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">
+                    <i class="fas fa-th"></i> All
+                </button>
+                <button class="filter-btn" data-category="Developer Tools">
+                    <i class="fas fa-code"></i> Developer Tools
+                </button>
+                <button class="filter-btn" data-category="Productivity & Utilities">
+                    <i class="fas fa-calculator"></i> Productivity
+                </button>
+                <button class="filter-btn" data-category="Media Tools">
+                    <i class="fas fa-image"></i> Media Tools
+                </button>
+                <button class="filter-btn" data-category="AI & Chatbots">
+                    <i class="fas fa-robot"></i> AI & Chatbots
+                </button>
+                <button class="filter-btn" data-category="Finance & Business">
+                    <i class="fas fa-chart-line"></i> Finance
+                </button>
+                <button class="filter-btn" data-category="All-In-One Projects">
+                    <i class="fas fa-layer-group"></i> All-In-One
+                </button>
             </div>
         </div>
     </nav>
@@ -104,7 +131,9 @@
         <div class="container">
             <div class="section-header">
                 <h2>Featured Projects</h2>
-                <p class="results-count">Showing <span id="results-count">0</span> projects</p>
+                <p class="results-count">
+                    Showing <span id="results-count">0</span> projects
+                </p>
             </div>
 
             <!-- Pinned Projects -->
@@ -126,6 +155,94 @@
             </div>
         </div>
     </main>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <p>Learn more about my journey and expertise</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Hello! I'm Alok, a passionate developer and software
+                        engineer dedicated to creating innovative tools and applications
+                        that solve real-world problems.
+                    </p>
+                    <p>
+                        With expertise in web development, AI technologies, and utility
+                        applications, I've built over 40+ projects that have served
+                        thousands of users worldwide.
+                    </p>
+                    <p>
+                        My focus is on creating efficient, user-friendly solutions that
+                        bridge the gap between complex technology and everyday usability.
+                    </p>
+                    <div class="skills">
+                        <h3>Technical Skills</h3>
+                        <div class="skills-grid">
+                            <div class="skill">JavaScript</div>
+                            <div class="skill">Python</div>
+                            <div class="skill">HTML/CSS</div>
+                            <div class="skill">React</div>
+                            <div class="skill">Node.js</div>
+                            <div class="skill">AI/ML</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="placeholder-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have a project in mind? Let's work together!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>
+                        Feel free to reach out if you want to collaborate with me, or
+                        simply have a chat.
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>alokk298690@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span>github.com/aloksingh2005</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required />
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
