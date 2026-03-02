@@ -503,23 +503,28 @@ class PortfolioManager {
         const originalText = submitBtn.textContent;
         const formStatus = document.getElementById('formStatus');
 
-        // Google Apps Script deployment URL
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykP5LWyrI5Gh8k-uS7IScKnarJrNw7OQdj0ZOdBlf-wHGJcJhseQuSgHlO3HD8Q0aXYQ/exec';
+        // Formspree endpoint
+        const FORMSPREE_URL = 'https://formspree.io/f/mojnzgav';
 
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         this.hideFormStatus(formStatus);
 
-        fetch(GOOGLE_APPS_SCRIPT_URL, {
+        fetch(FORMSPREE_URL, {
           method: 'POST',
           body: formData,
-          mode: 'no-cors'
+          headers: {
+            'Accept': 'application/json'
+          }
         })
           .then(response => {
-            // Note: no-cors mode doesn't allow reading response, so we assume success
-            this.showFormStatus(formStatus, '✅ Thank you! Your message has been sent. I\'ll get back to you soon.', 'success');
-            contactForm.reset();
-            return new Promise(resolve => setTimeout(resolve, 3000));
+            if (response.ok) {
+              this.showFormStatus(formStatus, '✅ Thank you! Your message has been sent. I\'ll get back to you soon.', 'success');
+              contactForm.reset();
+              return new Promise(resolve => setTimeout(resolve, 3000));
+            } else {
+              throw new Error('Form submission failed');
+            }
           })
           .catch(error => {
             this.showFormStatus(formStatus, '❌ Error sending message. Please try again.', 'error');
