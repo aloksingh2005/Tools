@@ -146,6 +146,38 @@ const projectsData = [
         stars: 29,
         language: "JavaScript"
     },
+    {
+        name: "Todo App",
+        category: "Productivity & Utilities",
+        description: "A modern, feature-rich todo list application with a clean interface. Manage your daily tasks efficiently with categories, priority levels, and local storage.",
+        tags: ["JavaScript", "Task Management", "Productivity"],
+        repo: "https://github.com/aloksingh2005/Todo",
+        demo: "https://aloksingh2005.github.io/Todo/",
+        stars: 36,
+        language: "JavaScript"
+    },
+
+    // Games & Fun
+    {
+        name: "Number Guessing Game",
+        category: "Games & Fun",
+        description: "An interactive number guessing game where players try to guess a random number within a specified range. Features difficulty levels, hints, and score tracking.",
+        tags: ["JavaScript", "Game", "Interactive"],
+        repo: "https://github.com/aloksingh2005/Number-Guessing",
+        demo: "https://aloksingh2005.github.io/Number-Guessing/",
+        stars: 18,
+        language: "JavaScript"
+    },
+    {
+        name: "Number Counting",
+        category: "Games & Fun",
+        description: "A fun and interactive number counting application perfect for learning and practicing number skills.",
+        tags: ["JavaScript", "Educational", "Interactive"],
+        repo: "https://github.com/aloksingh2005/Number-Count",
+        demo: "https://aloksingh2005.github.io/Number-Count/",
+        stars: 15,
+        language: "JavaScript"
+    },
 
     // Media Tools
     {
@@ -208,6 +240,26 @@ const projectsData = [
         repo: "https://github.com/aloksingh2005/Audio-Joiner",
         demo: "https://aloksingh2005.github.io/Audio-Joiner/",
         stars: 35,
+        language: "JavaScript"
+    },
+    {
+        name: "Voice Recorder Online",
+        category: "Media Tools",
+        description: "A modern web-based voice recording application that allows users to record, playback, and download audio directly from their browser.",
+        tags: ["JavaScript", "Audio Recording", "Web Audio API"],
+        repo: "https://github.com/aloksingh2005/Voice-Recorder-Online",
+        demo: "https://aloksingh2005.github.io/Voice-Recorder-Online/",
+        stars: 42,
+        language: "JavaScript"
+    },
+    {
+        name: "Video Trimmer Cropper",
+        category: "Media Tools",
+        description: "A powerful browser-based video editing tool that allows users to trim and crop videos without uploading them to any server. All processing happens locally for maximum privacy.",
+        tags: ["JavaScript", "Video Processing", "Editor"],
+        repo: "https://github.com/aloksingh2005/Video-Trimmer-Cropper",
+        demo: "https://aloksingh2005.github.io/Video-Trimmer-Cropper/",
+        stars: 51,
         language: "JavaScript"
     },
     {
@@ -354,5 +406,98 @@ const projectsData = [
         demo: "https://aloksingh2005.github.io/Dairy-Management/",
         stars: 33,
         language: "JavaScript"
+    },
+
+    // Business & Portfolio Websites
+    {
+        name: "Tools Website",
+        category: "Business & Portfolio Websites",
+        description: "A comprehensive collection of web-based tools and utilities aggregated in one platform. Features various productivity tools, converters, and utilities for everyday use.",
+        tags: ["JavaScript", "Multi-tool", "Web Platform"],
+        repo: "https://github.com/aloksingh2005/Tools",
+        demo: "https://tools.techsoftechs.com/",
+        featured: true,
+        stars: 145,
+        language: "JavaScript"
+    },
+    {
+        name: "NexCorp",
+        category: "Business & Portfolio Websites",
+        description: "A modern corporate business website showcasing professional services, portfolio, and company information with a sleek design.",
+        tags: ["HTML", "CSS", "Business Website"],
+        repo: "https://github.com/aloksingh2005/NexCorp",
+        demo: "https://aloksingh2005.github.io/NexCorp/",
+        stars: 62,
+        language: "HTML"
+    },
+    {
+        name: "ConsultPro",
+        category: "Business & Portfolio Websites",
+        description: "A professional consulting business website template featuring service offerings, team profiles, and client testimonials with responsive design.",
+        tags: ["HTML", "CSS", "Consulting"],
+        repo: "https://github.com/aloksingh2005/ConsultPro",
+        demo: "https://aloksingh2005.github.io/ConsultPro/",
+        stars: 48,
+        language: "HTML"
+    },
+    {
+        name: "SR Computer",
+        category: "Business & Portfolio Websites",
+        description: "A comprehensive website for computer services, repairs, and sales. Features service listings, pricing, and contact information.",
+        tags: ["HTML", "CSS", "Service Website"],
+        repo: "https://github.com/aloksingh2005/SR-Computer",
+        demo: "https://aloksingh2005.github.io/SR-Computer/",
+        stars: 39,
+        language: "HTML"
+    },
+    {
+        name: "Smart Sky",
+        category: "Business & Portfolio Websites",
+        description: "A modern weather and sky monitoring website with real-time data visualization and forecasting features.",
+        tags: ["JavaScript", "Weather API", "Data Visualization"],
+        repo: "https://github.com/aloksingh2005/Smart-Sky",
+        demo: "https://aloksingh2005.github.io/Smart-Sky/",
+        stars: 71,
+        language: "JavaScript"
+    },
+    {
+        name: "Brother's Esports",
+        category: "Business & Portfolio Websites",
+        description: "A dynamic esports team website featuring team rosters, tournament schedules, match results, and gaming community features.",
+        tags: ["HTML", "CSS", "Esports"],
+        repo: "https://github.com/aloksingh2005/Brother-s-Esports",
+        demo: "https://aloksingh2005.github.io/Brother-s-Esports/",
+        stars: 54,
+        language: "HTML"
+    },
+    {
+        name: "NovaTech",
+        category: "Business & Portfolio Websites",
+        description: "A cutting-edge technology company website showcasing innovative tech solutions, products, and services with a futuristic design.",
+        tags: ["HTML", "CSS", "Technology"],
+        repo: "https://github.com/aloksingh2005/NovaTech",
+        demo: "https://aloksingh2005.github.io/NovaTech/",
+        stars: 67,
+        language: "HTML"
+    },
+    {
+        name: "Digital Empire",
+        category: "Business & Portfolio Websites",
+        description: "A comprehensive digital marketing agency website featuring services in SEO, social media marketing, and digital strategy.",
+        tags: ["HTML", "CSS", "Digital Marketing"],
+        repo: "https://github.com/aloksingh2005/Digital-Empire",
+        demo: "https://aloksingh2005.github.io/Digital-Empire/",
+        stars: 58,
+        language: "HTML"
+    },
+    {
+        name: "Code Empire",
+        category: "Business & Portfolio Websites",
+        description: "A professional software development company website showcasing coding services, development projects, and technical expertise.",
+        tags: ["HTML", "CSS", "Software Development"],
+        repo: "https://github.com/aloksingh2005/Code-Empire",
+        demo: "https://aloksingh2005.github.io/Code-Empire/",
+        stars: 76,
+        language: "HTML"
     }
 ];
