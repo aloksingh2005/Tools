@@ -71,10 +71,9 @@ class PortfolioManager {
     const savedTheme = localStorage.getItem('portfolio-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme || (!savedTheme && prefersDark)) {
-      document.documentElement.setAttribute('data-theme', savedTheme || 'dark');
-      this.updateThemeIcon(savedTheme === 'dark' || prefersDark);
-    }
+    const appliedTheme = (savedTheme === 'dark' || (!savedTheme && prefersDark)) ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', appliedTheme);
+    this.updateThemeIcon(appliedTheme === 'dark');
   }
 
   toggleTheme() {
@@ -124,7 +123,14 @@ class PortfolioManager {
     const hash = window.location.hash;
     if (hash.startsWith('#filter=')) {
       // Convert hash to readable string: "#filter=developer-tools" -> "Developer Tools"
-      let categorySlug = decodeURIComponent(hash.replace('#filter=', ''));
+      let categorySlug = '';
+      try {
+        categorySlug = decodeURIComponent(hash.replace('#filter=', ''));
+      } catch (error) {
+        this.currentFilter = 'all';
+        this.filterProjects();
+        return;
+      }
 
       // Reconstruct likely original category string (basic heuristic)
       let categoryName = 'all';
@@ -168,7 +174,8 @@ class PortfolioManager {
     if (category === 'all') {
       // Remove filter from hash carefully to not break page anchors
       if (window.location.hash.startsWith('#filter=')) {
-        history.replaceState(null, null, ' ');
+        const cleanUrl = `${window.location.pathname}${window.location.search}`;
+        history.replaceState(null, '', cleanUrl);
       }
     } else {
       // Create a slug for the URL
@@ -340,6 +347,38 @@ class PortfolioManager {
     document.body.style.overflow = '';
   }
 
+  handleKeyboard(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('project-modal');
+      if (modal && modal.classList.contains('visible')) {
+        this.closeModal();
+      }
+
+      if (this.isMenuOpen) {
+        this.toggleMobileMenu();
+      }
+      return;
+    }
+
+    const activeElement = document.activeElement;
+    const isTyping = activeElement && (
+      activeElement.tagName === 'INPUT' ||
+      activeElement.tagName === 'TEXTAREA' ||
+      activeElement.tagName === 'SELECT' ||
+      activeElement.isContentEditable
+    );
+
+    if (isTyping) return;
+
+    if (e.key === '/') {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    }
+  }
+
   updateStats() {
     const projectCount = document.getElementById('project-count');
     if (projectCount) {
@@ -411,7 +450,8 @@ class PortfolioManager {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
+        if (!targetId || targetId === '#' || targetId.startsWith('#!')) return;
+        if (!/^#[A-Za-z][\w-]*$/.test(targetId)) return;
 
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
@@ -461,27 +501,29 @@ class PortfolioManager {
         const formData = new FormData(contactForm);
         const submitBtn = contactForm.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
+        const formStatus = document.getElementById('formStatus');
+
+        // Google Apps Script deployment URL
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykP5LWyrI5Gh8k-uS7IScKnarJrNw7OQdj0ZOdBlf-wHGJcJhseQuSgHlO3HD8Q0aXYQ/exec';
 
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
+        this.hideFormStatus(formStatus);
 
-        fetch(contactForm.action, {
+        fetch(GOOGLE_APPS_SCRIPT_URL, {
           method: 'POST',
           body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
+          mode: 'no-cors'
         })
           .then(response => {
-            if (response.ok) {
-              alert('Thank you for your message! I will get back to you soon.');
-              contactForm.reset();
-            } else {
-              alert('Oops! There was a problem submitting your form.');
-            }
+            // Note: no-cors mode doesn't allow reading response, so we assume success
+            this.showFormStatus(formStatus, '✅ Thank you! Your message has been sent. I\'ll get back to you soon.', 'success');
+            contactForm.reset();
+            return new Promise(resolve => setTimeout(resolve, 3000));
           })
           .catch(error => {
-            alert('Error submitting the form.');
+            this.showFormStatus(formStatus, '❌ Error sending message. Please try again.', 'error');
+            console.error('Form error:', error);
           })
           .finally(() => {
             submitBtn.textContent = originalText;
@@ -489,6 +531,16 @@ class PortfolioManager {
           });
       });
     }
+  }
+
+  showFormStatus(statusEl, message, type) {
+    statusEl.textContent = message;
+    statusEl.style.display = 'block';
+    statusEl.className = `form-status form-status--${type}`;
+  }
+
+  hideFormStatus(statusEl) {
+    statusEl.style.display = 'none';
   }
 }
 

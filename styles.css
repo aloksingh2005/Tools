@@ -9,6 +9,7 @@
     --bg-color: #ffffff;
     --bg-secondary: #f9fafb;
     --bg-card: #ffffff;
+    --bg-card-rgb: 255, 255, 255;
     --text-primary: #111827;
     --text-secondary: #6b7280;
     --border-color: #e5e7eb;
@@ -28,6 +29,7 @@
     --bg-color: #0f172a;
     --bg-secondary: #1e293b;
     --bg-card: #1e293b;
+    --bg-card-rgb: 30, 41, 59;
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --border-color: #334155;
@@ -994,6 +996,46 @@ body {
     background: var(--primary-dark);
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Form Status Messages */
+.form-status {
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    animation: slideDown 0.3s ease;
+}
+
+.form-status--success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-left: 4px solid #10b981;
+}
+
+.form-status--error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-left: 4px solid #ef4444;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* No Results */
