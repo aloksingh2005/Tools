@@ -320,18 +320,6 @@ const projectsData = [
 
     // All-In-One Projects
     {
-        name: "Universal Converter",
-        category: "All-In-One Projects",
-        description: "A comprehensive, offline file format converter that supports PDF tools, document conversion, image conversion, media conversion, archive conversion, and data conversion.",
-        tags: ["Python", "Conversion", "Multi-format"],
-        repo: "https://github.com/aloksingh2005/Universal-Converter",
-        demo: "https://aloksingh2005.github.io/Universal-Converter/",
-        featured: true,
-        pinned: true,
-        stars: 198,
-        language: "Python"
-    },
-    {
         name: "All-In-One App",
         category: "All-In-One Projects",
         description: "A comprehensive web-based application that combines 28 different tools in a single interface. This application provides utilities, media tools, communication tools, and sensor-based tools all in one place.",
@@ -354,18 +342,6 @@ const projectsData = [
         pinned: true,
         featured: true,
         stars: 112,
-        language: "JavaScript"
-    },
-
-    // Authentication Tools
-    {
-        name: "Login Signup",
-        category: "Productivity & Utilities",
-        description: "A responsive and feature-rich authentication system with login and signup forms, built with HTML, CSS, and JavaScript.",
-        tags: ["JavaScript", "Authentication", "Security"],
-        repo: "https://github.com/aloksingh2005/Login-Signup",
-        demo: "https://aloksingh2005.github.io/Login-Signup/",
-        stars: 42,
         language: "JavaScript"
     },
 
