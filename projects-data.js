@@ -64,7 +64,7 @@ const projectsData = [
         stars: 67,
         language: "JavaScript"
     },
-    
+
     // Productivity & Utilities
     {
         name: "Password Generator",
@@ -146,7 +146,7 @@ const projectsData = [
         stars: 29,
         language: "JavaScript"
     },
-    
+
     // Media Tools
     {
         name: "Image Compressor",
@@ -241,7 +241,7 @@ const projectsData = [
         stars: 72,
         language: "JavaScript"
     },
-    
+
     // AI & Chatbots
     {
         name: "AI ChatBot",
@@ -265,7 +265,7 @@ const projectsData = [
         stars: 87,
         language: "JavaScript"
     },
-    
+
     // All-In-One Projects
     {
         name: "Universal Converter",
@@ -290,7 +290,7 @@ const projectsData = [
         stars: 234,
         language: "JavaScript"
     },
-    
+
     // PDF Tools
     {
         name: "PDF Tool",
@@ -304,7 +304,7 @@ const projectsData = [
         stars: 112,
         language: "JavaScript"
     },
-    
+
     // Authentication Tools
     {
         name: "Login Signup",
@@ -316,7 +316,7 @@ const projectsData = [
         stars: 42,
         language: "JavaScript"
     },
-    
+
     // Time Tools
     {
         name: "Time Tools",
@@ -328,19 +328,10 @@ const projectsData = [
         stars: 38,
         language: "JavaScript"
     },
-    
+
     // Exam Tools
-    {
-        name: "Exam Buddy",
-        category: "Productivity & Utilities",
-        description: "A Telegram bot designed to help Bihar Board Class 10 students access study materials, previous year papers, and practice quizzes in a single, organized platform.",
-        tags: ["Python", "Telegram Bot", "Education"],
-        repo: "https://github.com/aloksingh2005/Exam-Buddy",
-        demo: "https://aloksingh2005.github.io/Exam-Buddy/",
-        stars: 29,
-        language: "Python"
-    },
-    
+    // Removed Exam Buddy as requested
+
     // Gradient Tools
     {
         name: "Gradient Generator",
@@ -352,7 +343,7 @@ const projectsData = [
         stars: 47,
         language: "JavaScript"
     },
-    
+
     // Dairy Management
     {
         name: "Dairy Management",

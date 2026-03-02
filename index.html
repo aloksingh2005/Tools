@@ -75,8 +75,10 @@
                         </div>
                     </div>
                     <div class="hero-cta">
-                        <a href="#projects" class="cta-button primary">View Projects</a>
-                        <a href="#contact" class="cta-button secondary">Get In Touch</a>
+                        <a href="#projects" class="cta-button primary"><i class="fas fa-rocket"
+                                style="margin-right: 8px;"></i> View Projects</a>
+                        <a href="#contact" class="cta-button secondary"><i class="fas fa-envelope"
+                                style="margin-right: 8px;"></i> Get In Touch</a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -149,9 +151,14 @@
 
             <!-- No Results -->
             <div class="no-results" id="no-results">
-                <i class="fas fa-search"></i>
-                <h3>No projects found</h3>
-                <p>Try adjusting your search or filter criteria</p>
+                <div class="no-results-icon">
+                    <i class="fas fa-search-minus"></i>
+                </div>
+                <h3>Oops! No tools found</h3>
+                <p>We couldn't find any projects matching your current search or category filters.</p>
+                <button class="cta-button secondary"
+                    onclick="document.getElementById('clear-search').click(); document.querySelector('.filter-btn[data-category=\'all\']').click();">Reset
+                    Filters</button>
             </div>
         </div>
     </main>
@@ -192,9 +199,7 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <div class="placeholder-image">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <img src="img/developer.png" alt="Alok - Developer" class="developer-img" />
                 </div>
             </div>
         </div>
@@ -227,17 +232,28 @@
                 </div>
                 <div class="contact-form">
                     <h3>Send a Message</h3>
-                    <form id="contactForm">
+                    <p class="form-description">Don't see the tool you're looking for? Please let me know and I'll
+                        create it as soon as possible for you!</p>
+                    <form id="contactForm" action="https://formsubmit.co/alokk298690@gmail.com" method="POST"
+                        class="validated-form" novalidate>
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required />
+                            <input type="text" name="name" placeholder="Your Name" required minlength="2" />
+                            <span class="validation-message">Please enter your name</span>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required />
+                            <input type="email" name="email" placeholder="Your Email" required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+                            <span class="validation-message">Please enter a valid email address</span>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <textarea name="message" placeholder="Your Message" rows="5" required
+                                minlength="10"></textarea>
+                            <span class="validation-message">Please enter a message (at least 10 characters)</span>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <input type="hidden" name="_subject" value="New Tool Request or Portfolio Message!">
+                        <input type="hidden" name="_template" value="box">
+                        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"
+                                style="margin-right: 8px;"></i> Send Message</button>
                     </form>
                 </div>
             </div>
