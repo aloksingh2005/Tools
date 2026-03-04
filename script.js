@@ -513,14 +513,14 @@ class PortfolioManager {
   }
 
   toggleMobileFilters() {
-    const mobileFilters = document.getElementById('mobile-filters');
+    const mobileFilters = document.querySelector('.mobile-filters-dropdown');
     if (mobileFilters) {
       mobileFilters.classList.toggle('active');
     }
   }
 
   closeMobileFilters() {
-    const mobileFilters = document.getElementById('mobile-filters');
+    const mobileFilters = document.querySelector('.mobile-filters-dropdown');
     if (mobileFilters) {
       mobileFilters.classList.remove('active');
     }
