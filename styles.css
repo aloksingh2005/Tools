@@ -110,6 +110,19 @@ body {
     gap: 1rem;
 }
 
+.nav-brand {
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.nav-brand:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
 .nav-brand h2 {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -1362,6 +1375,10 @@ body {
         padding: 0 1rem;
     }
 
+    .nav-brand h2 {
+        font-size: 1.2rem;
+    }
+
     .nav-menu {
         display: none;
         position: absolute;
@@ -1374,6 +1391,7 @@ body {
         box-shadow: var(--shadow-lg);
         border-bottom: 1px solid var(--border-color);
         gap: 0.5rem;
+        z-index: 1000;
     }
 
     .nav-menu.active {
@@ -1390,7 +1408,7 @@ body {
 
     .hero {
         padding: 5rem 0 3rem;
-        margin-top: 4rem;
+        margin-top: 3.5rem;
     }
 
     .hero-content {
@@ -1410,10 +1428,18 @@ body {
 
     .hero-cta {
         justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .cta-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
     }
 
     .filters {
         justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
     .projects-grid {
@@ -1454,50 +1480,92 @@ body {
     .category-nav {
         top: 3.5rem;
     }
+
+    .contact-item {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
+    .main-nav {
+        padding: 0.5rem 0;
+    }
+
+    .nav-brand h2 {
+        font-size: 1rem;
+    }
+
     .hero {
-        padding: 4rem 0 2rem;
+        padding: 3rem 0 2rem;
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
         max-width: 100%;
     }
 
     .hero-stats {
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 1rem;
+    }
+
+    .stat {
+        flex: 0 1 45%;
     }
 
     .hero-cta {
         flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 0.65rem 1rem;
+        font-size: 0.9rem;
     }
 
     .filters {
         flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
     .project-card {
-        padding: 1.5rem;
+        padding: 1.25rem;
+    }
+
+    .project-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .project-tags {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .project-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.75rem;
     }
 
     .modal-body {
-        padding: 1.75rem;
+        padding: 1.5rem;
+        max-height: 80vh;
+        overflow-y: auto;
     }
 
     .modal-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 1rem;
     }
 
     .modal-header h2 {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
     }
 
     .skills-grid {
@@ -1505,10 +1573,38 @@ body {
     }
 
     .search-bar input {
-        padding: 0.65rem 0.75rem 0.65rem 2.5rem;
-        font-size: 0.85rem;
+        padding: 0.6rem 0.75rem 0.6rem 2.2rem;
+        font-size: 0.8rem;
     }
-}
+
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem;
+    }
+
+    .contact-item i {
+        width: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .contact-details {
+        gap: 1rem;
+    }
+
+    .contact-form {
+        padding: 0;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}}
 
 /* Loading Animation */
 @keyframes shimmer {
