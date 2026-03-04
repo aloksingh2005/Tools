@@ -41,6 +41,26 @@ class PortfolioManager {
       });
     });
 
+    // Mobile filter buttons
+    const mobileFilterBtns = document.querySelectorAll('.filter-btn-mobile');
+    mobileFilterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const category = e.currentTarget.dataset.category;
+        this.handleFilter(category, e.currentTarget);
+        // Close mobile filters after selection
+        this.closeMobileFilters();
+      });
+    });
+
+    // Mobile filters toggle
+    const mobileFiltersBtn = document.getElementById('mobile-filters-btn');
+    if (mobileFiltersBtn) {
+      mobileFiltersBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.toggleMobileFilters();
+      });
+    }
+
     // Modal functionality
     const modal = document.getElementById('project-modal');
     const modalClose = document.getElementById('modal-close');
@@ -164,8 +184,8 @@ class PortfolioManager {
   }
 
   handleFilter(category, btnElement) {
-    // Update active filter button
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    // Update active filter button (both desktop and mobile)
+    document.querySelectorAll('.filter-btn, .filter-btn-mobile').forEach(btn => btn.classList.remove('active'));
     btnElement.classList.add('active');
 
     this.currentFilter = category;
@@ -489,6 +509,20 @@ class PortfolioManager {
     } else {
       navMenu.classList.remove('active');
       navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+  }
+
+  toggleMobileFilters() {
+    const mobileFilters = document.getElementById('mobile-filters');
+    if (mobileFilters) {
+      mobileFilters.classList.toggle('active');
+    }
+  }
+
+  closeMobileFilters() {
+    const mobileFilters = document.getElementById('mobile-filters');
+    if (mobileFilters) {
+      mobileFilters.classList.remove('active');
     }
   }
 
