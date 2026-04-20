@@ -24,16 +24,6 @@ const projectsData = [
         language: "JavaScript"
     },
     {
-        name: "Markdown Editor",
-        category: "Developer Tools",
-        description: "A modern, feature-rich online Markdown editor with live preview capabilities. Write, edit, and export Markdown documents with a clean and intuitive interface.",
-        tags: ["JavaScript", "Markdown", "Editor"],
-        repo: "https://github.com/aloksingh2005/Markdown-Editor",
-        demo: "https://aloksingh2005.github.io/Markdown-Editor/",
-        stars: 52,
-        language: "JavaScript"
-    },
-    {
         name: "Text Processing Suite",
         category: "Developer Tools",
         description: "A powerful, browser-based text processing tool that provides real-time statistics and various text manipulation features. All processing happens locally in your browser - no data is sent to any server.",
@@ -67,26 +57,6 @@ const projectsData = [
 
     // Productivity & Utilities
     {
-        name: "Password Generator",
-        category: "Productivity & Utilities",
-        description: "A feature-rich, secure, and privacy-focused password generator and strength checker tool built with vanilla JavaScript. All processing happens locally in your browser - no data is transmitted to any server.",
-        tags: ["JavaScript", "Security", "Generator"],
-        repo: "https://github.com/aloksingh2005/Password-Generator",
-        demo: "https://aloksingh2005.github.io/Password-Generator/",
-        stars: 41,
-        language: "JavaScript"
-    },
-    {
-        name: "Random Username Generator",
-        category: "Productivity & Utilities",
-        description: "A powerful, privacy-focused tool for generating secure usernames and passwords with a beautiful, modern interface.",
-        tags: ["JavaScript", "Generator", "Usernames"],
-        repo: "https://github.com/aloksingh2005/Random-Username",
-        demo: "https://aloksingh2005.github.io/Random-Username/",
-        stars: 19,
-        language: "JavaScript"
-    },
-    {
         name: "Word Counter",
         category: "Productivity & Utilities",
         description: "A feature-rich, client-side word counter application that provides real-time text analysis with a clean, responsive interface. This tool helps writers, students, and content creators quickly analyze their text with essential statistics.",
@@ -94,16 +64,6 @@ const projectsData = [
         repo: "https://github.com/aloksingh2005/Word-Counter",
         demo: "https://aloksingh2005.github.io/Word-Counter/",
         stars: 22,
-        language: "JavaScript"
-    },
-    {
-        name: "BMI Calculator",
-        category: "Productivity & Utilities",
-        description: "Advanced BMI Calculator",
-        tags: ["JavaScript", "Health", "Calculator"],
-        repo: "https://github.com/aloksingh2005/BMI-Calculator",
-        demo: "https://aloksingh2005.github.io/BMI-Calculator/",
-        stars: 24,
         language: "JavaScript"
     },
     {
@@ -124,16 +84,6 @@ const projectsData = [
         repo: "https://github.com/aloksingh2005/Time-Calculator-new",
         demo: "https://aloksingh2005.github.io/Time-Calculator-new/",
         stars: 31,
-        language: "JavaScript"
-    },
-    {
-        name: "Text Conversion",
-        category: "Productivity & Utilities",
-        description: "A comprehensive, client-side text conversion tool that supports multiple encoding formats including Binary, Base64, Morse Code, ASCII, Hexadecimal, and fun Emoji encoding!",
-        tags: ["JavaScript", "Text Processing", "Encoding"],
-        repo: "https://github.com/aloksingh2005/Text-Conversion",
-        demo: "https://aloksingh2005.github.io/Text-Conversion/",
-        stars: 35,
         language: "JavaScript"
     },
     {
