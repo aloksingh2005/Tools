@@ -87,16 +87,6 @@ const projectsData = [
         language: "JavaScript"
     },
     {
-        name: "Cash Counting",
-        category: "Productivity & Utilities",
-        description: "A modern, feature-rich cash counting application built with HTML, CSS, and JavaScript. Perfect for businesses, shops, and individuals who need to count cash quickly and accurately.",
-        tags: ["JavaScript", "Finance", "Calculator"],
-        repo: "https://github.com/aloksingh2005/Cash-Counting",
-        demo: "https://aloksingh2005.github.io/Cash-Counting/",
-        stars: 29,
-        language: "JavaScript"
-    },
-    {
         name: "Todo App",
         category: "Productivity & Utilities",
         description: "A modern, feature-rich todo list application with a clean interface. Manage your daily tasks efficiently with categories, priority levels, and local storage.",
@@ -108,16 +98,6 @@ const projectsData = [
     },
 
     // Games & Fun
-    {
-        name: "Number Guessing Game",
-        category: "Games & Fun",
-        description: "An interactive number guessing game where players try to guess a random number within a specified range. Features difficulty levels, hints, and score tracking.",
-        tags: ["JavaScript", "Game", "Interactive"],
-        repo: "https://github.com/aloksingh2005/Number-Guessing",
-        demo: "https://aloksingh2005.github.io/Number-Guessing/",
-        stars: 18,
-        language: "JavaScript"
-    },
     {
         name: "Number Counting",
         category: "Games & Fun",
@@ -193,16 +173,6 @@ const projectsData = [
         language: "JavaScript"
     },
     {
-        name: "Voice Recorder Online",
-        category: "Media Tools",
-        description: "A modern web-based voice recording application that allows users to record, playback, and download audio directly from their browser.",
-        tags: ["JavaScript", "Audio Recording", "Web Audio API"],
-        repo: "https://github.com/aloksingh2005/Voice-Recorder-Online",
-        demo: "https://aloksingh2005.github.io/Voice-Recorder-Online/",
-        stars: 42,
-        language: "JavaScript"
-    },
-    {
         name: "Video Trimmer Cropper",
         category: "Media Tools",
         description: "A powerful browser-based video editing tool that allows users to trim and crop videos without uploading them to any server. All processing happens locally for maximum privacy.",
@@ -269,18 +239,6 @@ const projectsData = [
     },
 
     // All-In-One Projects
-    {
-        name: "All-In-One App",
-        category: "All-In-One Projects",
-        description: "A comprehensive web-based application that combines 28 different tools in a single interface. This application provides utilities, media tools, communication tools, and sensor-based tools all in one place.",
-        tags: ["JavaScript", "Multi-tool", "Utilities"],
-        repo: "https://github.com/aloksingh2005/All-In-One-App",
-        demo: "https://aloksingh2005.github.io/All-In-One-App/",
-        featured: true,
-        stars: 234,
-        language: "JavaScript"
-    },
-
     // PDF Tools
     {
         name: "PDF Tool",
@@ -292,18 +250,6 @@ const projectsData = [
         pinned: true,
         featured: true,
         stars: 112,
-        language: "JavaScript"
-    },
-
-    // Time Tools
-    {
-        name: "Time Tools",
-        category: "Productivity & Utilities",
-        description: "A comprehensive web-based time management application featuring a stopwatch, countdown timer, and digital clock in one convenient tool. Built with modern web technologies and designed for both desktop and mobile use.",
-        tags: ["JavaScript", "Time Management", "Productivity"],
-        repo: "https://github.com/aloksingh2005/Time-Tools",
-        demo: "https://aloksingh2005.github.io/Time-Tools/",
-        stars: 38,
         language: "JavaScript"
     },
 
