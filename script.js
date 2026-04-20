@@ -405,6 +405,12 @@ class PortfolioManager {
       // Count unique projects
       projectCount.textContent = `${this.projects.length}+`;
     }
+
+    const categoryCount = document.getElementById('category-count');
+    if (categoryCount) {
+      const uniqueCategories = new Set(this.projects.map(project => project.category));
+      categoryCount.textContent = uniqueCategories.size;
+    }
   }
 
   animateCards() {
@@ -587,114 +593,3 @@ class PortfolioManager {
 document.addEventListener('DOMContentLoaded', () => {
   new PortfolioManager();
 });
-
-// Add some additional CSS for modal styles
-const additionalStyles = `
-  .modal-project {
-    max-width: 100%;
-  }
-  
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .modal-header h2 {
-    margin: 0;
-    font-size: 1.75rem;
-    font-weight: 800;
-  }
-  
-  .modal-meta {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-  
-  .category-badge, .language-badge, .stars-badge {
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    padding: 0.35rem 0.85rem;
-    border-radius: 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .language-badge {
-    background: var(--gradient-primary);
-    color: white;
-  }
-  
-  .stars-badge {
-    background: var(--gradient-secondary);
-    color: white;
-  }
-  
-  .modal-description {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 1.75rem;
-    color: var(--text-secondary);
-  }
-  
-  .modal-tags h4 {
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary);
-    font-weight: 600;
-  }
-  
-  .tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.75rem;
-  }
-  
-  .modal-links {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .featured-badge {
-    background: var(--gradient-secondary);
-    color: white;
-    padding: 0.6rem 1.25rem;
-    border-radius: var(--border-radius-md);
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  @media (max-width: 768px) {
-    .modal-links {
-      flex-direction: column;
-    }
-    
-    .modal-meta {
-      justify-content: center;
-    }
-    
-    .modal-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-`;
-
-// Inject additional styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = additionalStyles;
-document.head.appendChild(styleSheet);
