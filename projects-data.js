@@ -1,18 +1,6 @@
 const projectsData = [
     // Developer Tools
     {
-        name: "Regex Tester",
-        category: "Developer Tools",
-        description: "A powerful, feature-rich online regular expression tester and validator with a clean, modern interface. Test your regex patterns against text strings, visualize matches, extract groups, and analyze performance - all in real-time.",
-        tags: ["JavaScript", "RegExp", "Web Tools"],
-        repo: "https://github.com/aloksingh2005/Regex-Tester",
-        demo: "https://aloksingh2005.github.io/Regex-Tester/",
-        pinned: true,
-        featured: true,
-        stars: 45,
-        language: "JavaScript"
-    },
-    {
         name: "JSON Formatter",
         category: "Developer Tools",
         description: "A powerful, easy-to-use online tool for formatting, validating, and minifying JSON data. This tool runs entirely in your browser with no server-side processing, ensuring your data privacy and security.",
