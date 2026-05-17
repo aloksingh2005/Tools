@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alok | Developer & Software Engineer</title>
-    <meta name="description" content="Building Tools, Apps & Utilities for Web, AI & Productivity" />
+    <title>TechsOfTechs Tools | Free Online Utilities</title>
+    <meta name="description" content="Free online tools for developers, students, creators, and productivity workflows." />
     <script>
         (function () {
-            const savedTheme = localStorage.getItem('portfolio-theme');
+            const savedTheme = localStorage.getItem('tools-theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const appliedTheme = (savedTheme === 'dark' || (!savedTheme && prefersDark)) ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', appliedTheme);
@@ -26,13 +26,13 @@
         <div class="container">
             <div class="nav-wrapper">
                 <a href="#home" class="nav-brand">
-                    <h2>Alok</h2>
+                    <h2>TechsOfTechs Tools</h2>
                 </a>
 
                 <div class="nav-search">
                     <div class="search-bar">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="search-input" placeholder="Search your tools..." />
+                        <input type="text" id="search-input" placeholder="Search tools, keywords, or categories..." />
                         <button id="clear-search" class="clear-btn">
                             <i class="fas fa-times"></i>
                         </button>
@@ -41,9 +41,8 @@
 
                 <div class="nav-menu">
                     <a href="#home" class="nav-link active">Home</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#tools" class="nav-link">Tools</a>
+                    <a href="#categories" class="nav-link">Categories</a>
                 </div>
 
                 <!-- Mobile Filters (only visible on mobile) -->
@@ -74,52 +73,33 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 class="hero-title">Alok</h1>
+                    <span class="eyebrow">Tools hub</span>
+                    <h1 class="hero-title">TechsOfTechs Tools</h1>
                     <p class="hero-subtitle">
-                        Building Innovative Tools, Apps & Utilities for Web, AI &
-                        Productivity
+                        Fast, free, privacy-friendly tools for developers, students, creators, and everyday productivity.
                     </p>
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-number" id="project-count">40+</span>
-                            <span class="stat-label">Projects Built</span>
+                            <span class="stat-number" id="project-count">24</span>
+                            <span class="stat-label">Tools Live</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number" id="category-count">7</span>
+                            <span class="stat-number" id="category-count">6</span>
                             <span class="stat-label">Categories</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">1000+</span>
-                            <span class="stat-label">Users Served</span>
+                            <span class="stat-number">Direct</span>
+                            <span class="stat-label">Tool Open</span>
                         </div>
                     </div>
-                    <div class="hero-cta">
-                        <a href="#projects" class="cta-button primary"><i class="fas fa-rocket"
-                                style="margin-right: 8px;"></i> View Projects</a>
-                        <a href="#contact" class="cta-button secondary"><i class="fas fa-envelope"
-                                style="margin-right: 8px;"></i> Get In Touch</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="floating-card">
-                        <i class="fas fa-code"></i>
-                        <span>Web Dev</span>
-                    </div>
-                    <div class="floating-card">
-                        <i class="fas fa-robot"></i>
-                        <span>AI Tools</span>
-                    </div>
-                    <div class="floating-card">
-                        <i class="fas fa-tools"></i>
-                        <span>Utilities</span>
-                    </div>
+                    <p class="hero-note">Search by tool name, category, or keyword. Every card opens the tool directly.</p>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Category Filters (Simplified) -->
-    <nav class="category-nav" id="projects">
+    <nav class="category-nav" id="categories">
         <div class="container">
             <div class="filters desktop-filters">
                 <button class="filter-btn active" data-category="all">
@@ -144,23 +124,53 @@
         </div>
     </nav>
 
-    <!-- Projects Section -->
-    <main class="projects-section">
+    <section class="dashboard-highlights">
+        <div class="container">
+            <div class="highlight-grid">
+                <section class="highlight-panel panel collection-panel collection-panel--featured">
+                    <div class="collection-header">
+                        <div>
+                            <span class="section-kicker">Curated picks</span>
+                            <h2>Trending Tools</h2>
+                            <p>Most active utilities, arranged as a focused editorial selection.</p>
+                        </div>
+                        <div class="collection-note">
+                            <span>Featured now</span>
+                            <strong><span id="trending-count">0</span> tools</strong>
+                        </div>
+                    </div>
+                    <div class="collection-grid collection-grid--featured" id="trending-projects"></div>
+                </section>
+
+                <section class="highlight-panel panel collection-panel collection-panel--recent">
+                    <div class="collection-header">
+                        <div>
+                            <span class="section-kicker">Fresh arrivals</span>
+                            <h2>Recently Added</h2>
+                            <p>New additions surfaced for quick scanning and direct launch.</p>
+                        </div>
+                        <div class="collection-note">
+                            <span>Latest</span>
+                            <strong><span id="recent-count">0</span> tools</strong>
+                        </div>
+                    </div>
+                    <div class="collection-grid collection-grid--recent" id="recent-projects"></div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <main class="projects-section" id="tools">
         <div class="container">
             <div class="section-header">
-                <h2>Featured Projects</h2>
+                <h2>All Tools</h2>
                 <p class="results-count">
-                    Showing <span id="results-count">0</span> projects
+                    Showing <span id="results-count">0</span> tools in the library
                 </p>
             </div>
 
-            <!-- Pinned Projects -->
-            <div class="pinned-section">
-                <h3><i class="fas fa-thumbtack"></i> Pinned Projects</h3>
-                <div class="projects-grid" id="pinned-projects"></div>
-            </div>
-
-            <!-- All Projects -->
+            <!-- All Tools -->
             <div class="all-projects-section">
                 <div class="projects-grid" id="projects-grid"></div>
             </div>
@@ -171,7 +181,7 @@
                     <i class="fas fa-search-minus"></i>
                 </div>
                 <h3>Oops! No tools found</h3>
-                <p>We couldn't find any projects matching your current search or category filters.</p>
+                <p>We couldn't find any tools matching your current search or category filters.</p>
                 <button class="cta-button secondary"
                     onclick="document.getElementById('clear-search').click(); document.querySelector('.filter-btn[data-category=\'all\']').click();">Reset
                     Filters</button>
@@ -179,145 +189,22 @@
         </div>
     </main>
 
-    <!-- About Section -->
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>About Me</h2>
-                <p>Learn more about my journey and expertise</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Hello! I'm Alok, a passionate developer and software
-                        engineer dedicated to creating innovative tools and applications
-                        that solve real-world problems.
-                    </p>
-                    <p>
-                        With expertise in web development, AI technologies, and utility
-                        applications, I've built over 40+ projects that have served
-                        thousands of users worldwide.
-                    </p>
-                    <p>
-                        My focus is on creating efficient, user-friendly solutions that
-                        bridge the gap between complex technology and everyday usability.
-                    </p>
-                    <div class="skills">
-                        <h3>Technical Skills</h3>
-                        <div class="skills-grid">
-                            <div class="skill">JavaScript</div>
-                            <div class="skill">Python</div>
-                            <div class="skill">HTML/CSS</div>
-                            <div class="skill">React</div>
-                            <div class="skill">Node.js</div>
-                            <div class="skill">AI/ML</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <img src="img/developer.png" alt="Alok - Developer" class="developer-img" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Get In Touch</h2>
-                <p>Have a project in mind? Let's work together!</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p>
-                        Feel free to reach out if you want to collaborate with me, or
-                        simply have a chat.
-                    </p>
-                    <div class="contact-details">
-                        <a href="mailto:alokk298690@gmail.com" class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>alokk298690@gmail.com</span>
-                        </a>
-                        <a href="https://github.com/aloksingh2005" target="_blank" rel="noopener" class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <span>github.com/aloksingh2005</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Send a Message</h3>
-                    <p class="form-description">Need a custom tool? Share your requirements, and I’ll create it for you.</p>
-                    <form id="contactForm" class="validated-form" novalidate>
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required minlength="2" />
-                            <span class="validation-message">Please enter your name</span>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required />
-                            <span class="validation-message">Please enter a valid email address</span>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="message" placeholder="Your Message" rows="5" required
-                                minlength="10"></textarea>
-                            <span class="validation-message">Please enter a message (at least 10 characters)</span>
-                        </div>
-                        <div class="form-status" id="formStatus" style="display: none; margin-bottom: 1rem; padding: 0.75rem; border-radius: 0.5rem; font-size: 0.95rem;"></div>
-                        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"
-                                style="margin-right: 8px;"></i> Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-left">
-                    <h3>Alok</h3>
-                    <p>Developer & Software Engineer</p>
-                    <p>Building the future, one project at a time.</p>
+                    <h3>TechsOfTechs Tools</h3>
+                    <p>Free online tools for developers, students, creators & productivity.</p>
                 </div>
                 <div class="footer-right">
-                    <div class="social-links">
-                        <a href="https://github.com/aloksingh2005" target="_blank" rel="noopener">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#!" target="_blank" rel="noopener">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="mailto:alokk298690@gmail.com">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="#!" target="_blank" rel="noopener">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </div>
-                    <p>&copy; 2025 Alok. All rights reserved.</p>
+                    <p>Built by Alok</p>
+                    <p>&copy; 2026 TechsOfTechs Tools. All rights reserved.</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Project Modal -->
-    <div class="modal" id="project-modal">
-        <div class="modal-content">
-            <button class="modal-close" id="modal-close">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-body" id="modal-body">
-                <!-- Dynamic content -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // TODO: Replace 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' in script.js setupFormHandling() with your deployed Google Apps Script URL
-        // See GOOGLE_APPS_SCRIPT_SETUP.md for complete setup instructions
-    </script>
     <script src="projects-data.js"></script>
     <script src="script.js"></script>
 </body>

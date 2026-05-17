@@ -1,4 +1,4 @@
-class PortfolioManager {
+class ToolHubManager {
   constructor() {
     this.projects = projectsData;
     this.filteredProjects = [...this.projects];
@@ -11,48 +11,39 @@ class PortfolioManager {
   init() {
     this.setupEventListeners();
     this.setupTheme();
-    this.checkUrlForFilter(); // Check if there's a filter in the URL on load
+    this.checkUrlForFilter();
     this.renderProjects();
     this.updateStats();
     this.animateOnScroll();
     this.addHeaderAnimation();
     this.setupNavigation();
-    this.setupFormHandling();
   }
 
   setupEventListeners() {
-    // Theme toggle
     const themeToggle = document.getElementById('theme-toggle');
     themeToggle.addEventListener('click', () => this.toggleTheme());
 
-    // Search functionality
     const searchInput = document.getElementById('search-input');
     const clearSearch = document.getElementById('clear-search');
 
     searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
     clearSearch.addEventListener('click', () => this.clearSearch());
 
-    // Filter buttons
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const category = e.currentTarget.dataset.category;
         this.handleFilter(category, e.currentTarget);
       });
     });
 
-    // Mobile filter buttons
-    const mobileFilterBtns = document.querySelectorAll('.filter-btn-mobile');
-    mobileFilterBtns.forEach(btn => {
+    document.querySelectorAll('.filter-btn-mobile').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const category = e.currentTarget.dataset.category;
         this.handleFilter(category, e.currentTarget);
-        // Close mobile filters after selection
         this.closeMobileFilters();
       });
     });
 
-    // Mobile filters toggle
     const mobileFiltersBtn = document.getElementById('mobile-filters-btn');
     if (mobileFiltersBtn) {
       mobileFiltersBtn.addEventListener('click', (e) => {
@@ -61,37 +52,25 @@ class PortfolioManager {
       });
     }
 
-    // Modal functionality
-    const modal = document.getElementById('project-modal');
-    const modalClose = document.getElementById('modal-close');
-
-    modalClose.addEventListener('click', () => this.closeModal());
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) this.closeModal();
-    });
-
-    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => this.handleKeyboard(e));
 
-    // Navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-link').forEach((link) => {
       link.addEventListener('click', (e) => this.handleNavClick(e));
     });
 
-    // Mobile menu toggle
     const navToggle = document.querySelector('.nav-toggle');
-    navToggle.addEventListener('click', () => this.toggleMobileMenu());
+    if (navToggle) {
+      navToggle.addEventListener('click', () => this.toggleMobileMenu());
+    }
 
-    // Handle URL changes
     window.addEventListener('hashchange', () => this.checkUrlForFilter());
   }
 
   setupTheme() {
-    const savedTheme = localStorage.getItem('portfolio-theme');
+    const savedTheme = localStorage.getItem('tools-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
     const appliedTheme = (savedTheme === 'dark' || (!savedTheme && prefersDark)) ? 'dark' : 'light';
+
     document.documentElement.setAttribute('data-theme', appliedTheme);
     this.updateThemeIcon(appliedTheme === 'dark');
   }
@@ -101,10 +80,9 @@ class PortfolioManager {
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
     document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('portfolio-theme', newTheme);
+    localStorage.setItem('tools-theme', newTheme);
     this.updateThemeIcon(newTheme === 'dark');
 
-    // Add animation effect
     document.body.style.transition = 'background-color 0.5s ease, color 0.5s ease';
     setTimeout(() => {
       document.body.style.transition = '';
@@ -113,7 +91,9 @@ class PortfolioManager {
 
   updateThemeIcon(isDark) {
     const themeIcon = document.querySelector('#theme-toggle i');
-    themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    if (themeIcon) {
+      themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
   }
 
   handleSearch(term) {
@@ -141,64 +121,57 @@ class PortfolioManager {
 
   checkUrlForFilter() {
     const hash = window.location.hash;
-    if (hash.startsWith('#filter=')) {
-      // Convert hash to readable string: "#filter=developer-tools" -> "Developer Tools"
-      let categorySlug = '';
-      try {
-        categorySlug = decodeURIComponent(hash.replace('#filter=', ''));
-      } catch (error) {
-        this.currentFilter = 'all';
-        this.filterProjects();
-        return;
-      }
+    if (!hash.startsWith('#filter=')) {
+      return;
+    }
 
-      // Reconstruct likely original category string (basic heuristic)
-      let categoryName = 'all';
-      const btns = document.querySelectorAll('.filter-btn');
-
-      for (let btn of btns) {
-        let datasetCat = btn.dataset.category;
-        // Slugify the dataset category for comparison
-        let slug = datasetCat.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
-        if (slug === categorySlug || datasetCat === categorySlug) {
-          categoryName = datasetCat;
-          // Update active button visually
-          btns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          break;
-        }
-      }
-
-      this.currentFilter = categoryName;
+    let categorySlug = '';
+    try {
+      categorySlug = decodeURIComponent(hash.replace('#filter=', ''));
+    } catch (error) {
+      this.currentFilter = 'all';
       this.filterProjects();
+      return;
+    }
 
-      // Scroll to projects section if page just loaded
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        setTimeout(() => {
-          const offsetTop = projectsSection.offsetTop - 80;
-          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-        }, 100);
+    let categoryName = 'all';
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    for (const btn of filterButtons) {
+      const datasetCategory = btn.dataset.category;
+      const slug = datasetCategory.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+      if (slug === categorySlug || datasetCategory === categorySlug) {
+        categoryName = datasetCategory;
+        filterButtons.forEach((filterBtn) => filterBtn.classList.remove('active'));
+        btn.classList.add('active');
+        break;
       }
+    }
+
+    this.currentFilter = categoryName;
+    this.filterProjects();
+
+    const toolsSection = document.getElementById('tools');
+    if (toolsSection) {
+      setTimeout(() => {
+        const offsetTop = toolsSection.offsetTop - 80;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }, 100);
     }
   }
 
   handleFilter(category, btnElement) {
-    // Update active filter button (both desktop and mobile)
-    document.querySelectorAll('.filter-btn, .filter-btn-mobile').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.filter-btn, .filter-btn-mobile').forEach((btn) => btn.classList.remove('active'));
     btnElement.classList.add('active');
 
     this.currentFilter = category;
 
-    // Update URL hash for sharing
     if (category === 'all') {
-      // Remove filter from hash carefully to not break page anchors
       if (window.location.hash.startsWith('#filter=')) {
         const cleanUrl = `${window.location.pathname}${window.location.search}`;
         history.replaceState(null, '', cleanUrl);
       }
     } else {
-      // Create a slug for the URL
       const slug = category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
       window.location.hash = `filter=${encodeURIComponent(slug)}`;
     }
@@ -207,12 +180,12 @@ class PortfolioManager {
   }
 
   filterProjects() {
-    this.filteredProjects = this.projects.filter(project => {
+    this.filteredProjects = this.projects.filter((project) => {
       const matchesFilter = this.currentFilter === 'all' || project.category === this.currentFilter;
       const matchesSearch = !this.searchTerm ||
         project.name.toLowerCase().includes(this.searchTerm) ||
         project.description.toLowerCase().includes(this.searchTerm) ||
-        project.tags.some(tag => tag.toLowerCase().includes(this.searchTerm));
+        project.tags.some((tag) => tag.toLowerCase().includes(this.searchTerm));
 
       return matchesFilter && matchesSearch;
     });
@@ -221,162 +194,131 @@ class PortfolioManager {
   }
 
   renderProjects() {
-    const pinnedContainer = document.getElementById('pinned-projects');
+    const trendingContainer = document.getElementById('trending-projects');
+    const recentContainer = document.getElementById('recent-projects');
     const projectsContainer = document.getElementById('projects-grid');
     const noResults = document.getElementById('no-results');
     const resultsCount = document.getElementById('results-count');
+    const trendingCount = document.getElementById('trending-count');
+    const recentCount = document.getElementById('recent-count');
+    const dashboardHighlights = document.querySelector('.dashboard-highlights');
 
-    // Separate pinned and regular projects
-    const pinnedProjects = this.filteredProjects.filter(p => p.pinned);
-    const regularProjects = this.filteredProjects.filter(p => !p.pinned);
+    const trendingProjects = [...this.filteredProjects]
+      .filter((project) => project.pinned || project.featured || project.trending)
+      .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+      .slice(0, 4);
 
-    // Update results count
-    resultsCount.textContent = this.filteredProjects.length;
+    const trendingSet = new Set(trendingProjects);
+    const recentProjects = [...this.filteredProjects]
+      .filter((project) => !trendingSet.has(project))
+      .slice(-4)
+      .reverse();
 
-    // Show/hide no results message
-    if (this.filteredProjects.length === 0) {
-      noResults.classList.add('visible');
-      document.querySelector('.pinned-section').style.display = 'none';
-    } else {
-      noResults.classList.remove('visible');
-      document.querySelector('.pinned-section').style.display = pinnedProjects.length ? 'block' : 'none';
+    if (resultsCount) {
+      resultsCount.textContent = this.filteredProjects.length;
     }
 
-    // Render pinned projects
-    pinnedContainer.innerHTML = pinnedProjects.map(project => this.createProjectCard(project, true)).join('');
+    if (trendingCount) {
+      trendingCount.textContent = `${trendingProjects.length}`;
+    }
 
-    // Render regular projects
-    projectsContainer.innerHTML = regularProjects.map(project => this.createProjectCard(project, false)).join('');
+    if (recentCount) {
+      recentCount.textContent = `${recentProjects.length}`;
+    }
 
-    // Add click listeners to cards
-    this.addCardListeners();
+    if (this.filteredProjects.length === 0) {
+      noResults.classList.add('visible');
+      if (dashboardHighlights) {
+        dashboardHighlights.style.display = 'none';
+      }
+    } else {
+      noResults.classList.remove('visible');
+      if (dashboardHighlights) {
+        dashboardHighlights.style.display = '';
+      }
+    }
 
-    // Animate cards with staggered delay
+    if (trendingContainer) {
+      trendingContainer.innerHTML = trendingProjects
+        .map((project, index) => this.createProjectCard(project, { variant: 'spotlight', featured: index === 0 }))
+        .join('');
+    }
+
+    if (recentContainer) {
+      recentContainer.innerHTML = recentProjects
+        .map((project) => this.createProjectCard(project, { variant: 'recent' }))
+        .join('');
+    }
+
+    if (projectsContainer) {
+      projectsContainer.innerHTML = this.filteredProjects
+        .map((project) => this.createProjectCard(project, { variant: 'grid' }))
+        .join('');
+    }
+
     this.animateCards();
   }
 
-  createProjectCard(project, isPinned = false) {
-    const pinnedClass = isPinned ? 'pinned' : '';
-    const pinnedBadge = isPinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Pinned</span>' : '';
+  createProjectCard(project, options = {}) {
+    const { variant = 'grid', featured = false } = options;
+    const cardClasses = ['project-card'];
 
-    // Truncate description to 2 lines (approximately 100-120 characters)
-    let shortDescription = project.description;
-    if (shortDescription.length > 120) {
-      shortDescription = project.description.substring(0, 120) + '...';
+    if (variant !== 'grid') {
+      cardClasses.push(`project-card--${variant}`);
     }
 
+    if (variant === 'spotlight') {
+      cardClasses.push('pinned');
+    }
+
+    if (featured) {
+      cardClasses.push('project-card--featured');
+    }
+
+    const targetUrl = project.demo || project.repo || '#';
+
+    let shortDescription = project.description;
+    const descriptionLimit = featured ? 155 : variant === 'spotlight' ? 128 : variant === 'recent' ? 102 : 120;
+
+    if (shortDescription.length > descriptionLimit) {
+      shortDescription = `${project.description.substring(0, descriptionLimit)}...`;
+    }
+
+    const metaParts = [];
+    if (project.language) {
+      metaParts.push(project.language);
+    }
+
+    if (project.stars) {
+      metaParts.push(`${project.stars} stars`);
+    }
+
+    const metaText = metaParts.join(' · ');
+
     return `
-      <article class="project-card ${pinnedClass}" data-project='${JSON.stringify(project)}'>
+      <a class="${cardClasses.join(' ')}" href="${targetUrl}" target="_blank" rel="noopener" aria-label="Open ${project.name}">
         <div class="project-header">
-          <div>
-            <h3 class="project-title">${project.name}</h3>
-            ${pinnedBadge}
-          </div>
+          <span class="project-category">${project.category}</span>
+          <h3 class="project-title">${project.name}</h3>
         </div>
-        
+
         <p class="project-description">${shortDescription}</p>
-        
+
         <div class="project-tags">
-          ${project.tags.slice(0, 3).map(tag => `<span class="tag" data-tag="${tag}">${tag}</span>`).join('')}
+          ${project.tags.slice(0, 3).map((tag) => `<span class="tag" data-tag="${tag}">${tag}</span>`).join('')}
         </div>
-        
-        <div class="project-links">
-          <a href="${project.repo}" target="_blank" rel="noopener" class="project-link secondary">
-            <i class="fab fa-github"></i>
-            Get Code
-          </a>
-          <a href="${project.demo}" target="_blank" rel="noopener" class="project-link primary">
-            <i class="fas fa-external-link-alt"></i>
-            Let's Try
-          </a>
+
+        <div class="project-footer">
+          <span class="project-meta">${metaText}</span>
+          <span class="project-open">Open tool</span>
         </div>
-      </article>
+      </a>
     `;
-  }
-
-  addCardListeners() {
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach(card => {
-      card.addEventListener('click', (e) => {
-        // Don't open modal if clicking on links
-        if (e.target.closest('.project-links')) return;
-
-        const projectData = JSON.parse(card.dataset.project);
-        this.openModal(projectData);
-      });
-
-      // Add hover effect enhancement
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-8px)';
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-  }
-
-  openModal(project) {
-    const modal = document.getElementById('project-modal');
-    const modalBody = document.getElementById('modal-body');
-
-    modalBody.innerHTML = `
-      <div class="modal-project">
-        <div class="modal-header">
-          <h2>${project.name}</h2>
-          ${project.pinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Pinned</span>' : ''}
-        </div>
-        
-        <div class="modal-meta">
-          <span class="category-badge">${project.category}</span>
-          <span class="language-badge">${project.language}</span>
-          ${project.stars ? `<span class="stars-badge"><i class="fas fa-star"></i> ${project.stars}</span>` : ''}
-        </div>
-        
-        <p class="modal-description">${project.description}</p>
-        
-        <div class="modal-tags">
-          <h4>Technologies Used:</h4>
-          <div class="tags-list">
-            ${project.tags.map(tag => `<span class="tag" data-tag="${tag}">${tag}</span>`).join('')}
-          </div>
-        </div>
-        
-        <div class="modal-links">
-          <a href="${project.repo}" target="_blank" rel="noopener" class="project-link secondary">
-            <i class="fab fa-github"></i>
-            Get Code
-          </a>
-          <a href="${project.demo}" target="_blank" rel="noopener" class="project-link primary">
-            <i class="fas fa-external-link-alt"></i>
-            Let's Try
-          </a>
-        </div>
-        
-        ${project.featured ? '<div class="featured-badge"><i class="fas fa-star"></i> Featured Project</div>' : ''}
-      </div>
-    `;
-
-    modal.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-  }
-
-  closeModal() {
-    const modal = document.getElementById('project-modal');
-    modal.classList.remove('visible');
-    document.body.style.overflow = '';
   }
 
   handleKeyboard(e) {
-    if (e.key === 'Escape') {
-      const modal = document.getElementById('project-modal');
-      if (modal && modal.classList.contains('visible')) {
-        this.closeModal();
-      }
-
-      if (this.isMenuOpen) {
-        this.toggleMobileMenu();
-      }
+    if (e.key === 'Escape' && this.isMenuOpen) {
+      this.toggleMobileMenu();
       return;
     }
 
@@ -388,7 +330,9 @@ class PortfolioManager {
       activeElement.isContentEditable
     );
 
-    if (isTyping) return;
+    if (isTyping) {
+      return;
+    }
 
     if (e.key === '/') {
       const searchInput = document.getElementById('search-input');
@@ -402,36 +346,44 @@ class PortfolioManager {
   updateStats() {
     const projectCount = document.getElementById('project-count');
     if (projectCount) {
-      // Count unique projects
-      projectCount.textContent = `${this.projects.length}+`;
+      projectCount.textContent = `${this.projects.length}`;
     }
 
     const categoryCount = document.getElementById('category-count');
     if (categoryCount) {
-      const uniqueCategories = new Set(this.projects.map(project => project.category));
+      const uniqueCategories = new Set(this.projects.map((project) => project.category));
       categoryCount.textContent = uniqueCategories.size;
     }
   }
 
   animateCards() {
     const cards = document.querySelectorAll('.project-card');
-    cards.forEach((card, index) => {
-      // Reset animation
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px) scale(0.95)';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 768px)').matches;
 
-      // Staggered animation with enhanced effect
-      setTimeout(() => {
-        card.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    if (reduceMotion) {
+      cards.forEach((card) => {
         card.style.opacity = '1';
-        card.style.transform = 'translateY(0) scale(1)';
-      }, index * 100);
+        card.style.transform = 'none';
+        card.style.transition = 'none';
+      });
+      return;
+    }
+
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(12px)';
+
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.42s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.42s ease, border-color 0.42s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 60);
     });
   }
 
   animateOnScroll() {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate');
         }
@@ -441,14 +393,13 @@ class PortfolioManager {
       rootMargin: '0px 0px -50px 0px'
     });
 
-    const animateElements = document.querySelectorAll('.project-card, .section-header, .hero-content');
-    animateElements.forEach(el => observer.observe(el));
+    const animateElements = document.querySelectorAll('.project-card, .section-header, .hero-content, .highlight-panel');
+    animateElements.forEach((element) => observer.observe(element));
   }
 
   addHeaderAnimation() {
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
-      // Add a subtle animation to the hero title
       heroTitle.style.opacity = '0';
       heroTitle.style.transform = 'translateY(20px)';
 
@@ -461,9 +412,12 @@ class PortfolioManager {
   }
 
   setupNavigation() {
-    // Handle scroll for main navigation
     window.addEventListener('scroll', () => {
       const mainNav = document.querySelector('.main-nav');
+      if (!mainNav) {
+        return;
+      }
+
       if (window.scrollY > 50) {
         mainNav.classList.add('scrolled');
       } else {
@@ -471,34 +425,33 @@ class PortfolioManager {
       }
     });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        if (!targetId || targetId === '#' || targetId.startsWith('#!')) return;
-        if (!/^#[A-Za-z][\w-]*$/.test(targetId)) return;
+        if (!targetId || targetId === '#' || targetId.startsWith('#!')) {
+          return;
+        }
+        if (!/^#[A-Za-z][\w-]*$/.test(targetId)) {
+          return;
+        }
 
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-          const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
+          const offsetTop = targetElement.offsetTop - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
         }
       });
     });
   }
 
   handleNavClick(e) {
-    // Update active nav link
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link').forEach((link) => {
       link.classList.remove('active');
     });
-    e.target.classList.add('active');
 
-    // Close mobile menu if open
+    e.currentTarget.classList.add('active');
+
     if (this.isMenuOpen) {
       this.toggleMobileMenu();
     }
@@ -531,65 +484,9 @@ class PortfolioManager {
       mobileFilters.classList.remove('active');
     }
   }
-
-  setupFormHandling() {
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(contactForm);
-        const submitBtn = contactForm.querySelector('.submit-btn');
-        const originalText = submitBtn.textContent;
-        const formStatus = document.getElementById('formStatus');
-
-        // Formspree endpoint
-        const FORMSPREE_URL = 'https://formspree.io/f/mojnzgav';
-
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-        this.hideFormStatus(formStatus);
-
-        fetch(FORMSPREE_URL, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
-          .then(response => {
-            if (response.ok) {
-              this.showFormStatus(formStatus, '✅ Thank you! Your message has been sent. I\'ll get back to you soon.', 'success');
-              contactForm.reset();
-              return new Promise(resolve => setTimeout(resolve, 3000));
-            } else {
-              throw new Error('Form submission failed');
-            }
-          })
-          .catch(error => {
-            this.showFormStatus(formStatus, '❌ Error sending message. Please try again.', 'error');
-            console.error('Form error:', error);
-          })
-          .finally(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-          });
-      });
-    }
-  }
-
-  showFormStatus(statusEl, message, type) {
-    statusEl.textContent = message;
-    statusEl.style.display = 'block';
-    statusEl.className = `form-status form-status--${type}`;
-  }
-
-  hideFormStatus(statusEl) {
-    statusEl.style.display = 'none';
-  }
 }
 
-// Initialize the portfolio when DOM is loaded
+// Initialize the tool hub when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new PortfolioManager();
+  new ToolHubManager();
 });
