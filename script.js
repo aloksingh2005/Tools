@@ -197,11 +197,9 @@ class ToolHubManager {
     const trendingContainer = document.getElementById('trending-projects');
     const recentContainer = document.getElementById('recent-projects');
     const projectsContainer = document.getElementById('projects-grid');
-    const noResults = document.getElementById('no-results');
     const resultsCount = document.getElementById('results-count');
     const trendingCount = document.getElementById('trending-count');
     const recentCount = document.getElementById('recent-count');
-    const dashboardHighlights = document.querySelector('.dashboard-highlights');
 
     const trendingProjects = [...this.filteredProjects]
       .filter((project) => project.pinned || project.featured || project.trending)
@@ -224,18 +222,6 @@ class ToolHubManager {
 
     if (recentCount) {
       recentCount.textContent = `${recentProjects.length}`;
-    }
-
-    if (this.filteredProjects.length === 0) {
-      noResults.classList.add('visible');
-      if (dashboardHighlights) {
-        dashboardHighlights.style.display = 'none';
-      }
-    } else {
-      noResults.classList.remove('visible');
-      if (dashboardHighlights) {
-        dashboardHighlights.style.display = '';
-      }
     }
 
     if (trendingContainer) {

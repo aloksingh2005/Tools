@@ -1060,31 +1060,6 @@ button {
     color: var(--primary-color);
 }
 
-.no-results-icon {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: color-mix(in srgb, var(--primary-color) 12%, var(--bg-card) 88%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.no-results-icon i {
-    font-size: 1.9rem;
-    color: var(--primary-color);
-}
-
-.no-results h3 {
-    font-family: "Sora", "Plus Jakarta Sans", sans-serif;
-    font-size: 1.6rem;
-}
-
-.no-results p {
-    color: var(--text-secondary);
-    max-width: 480px;
-}
-
 .about-section {
     margin-top: 3.2rem;
     padding: 4.4rem 0;

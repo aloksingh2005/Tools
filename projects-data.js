@@ -12,6 +12,17 @@ const projectsData = [
         language: "JavaScript"
     },
     {
+        name: "TempMail",
+        category: "Developer Tools",
+        description: "A secure and lightweight temporary email service that lets users generate disposable email addresses instantly for OTPs, testing, signups, and privacy protection. Fast, clean, and easy to use with real-time inbox support.",
+        tags: ["JavaScript", "Temp Mail", "Email"],
+        repo: "https://github.com/aloksingh2005/TempMail",
+        demo: "https://aloksingh2005.github.io/TempMail/",
+        pinned: true,
+        stars: 38,
+        language: "JavaScript"
+    },
+    {
         name: "Text Processing Suite",
         category: "Developer Tools",
         description: "A powerful, browser-based text processing tool that provides real-time statistics and various text manipulation features. All processing happens locally in your browser - no data is sent to any server.",
@@ -264,6 +275,17 @@ const projectsData = [
         tags: ["JavaScript", "Agriculture", "Finance"],
         repo: "https://github.com/aloksingh2005/Dairy-Management",
         demo: "https://aloksingh2005.github.io/Dairy-Management/",
+        stars: 33,
+        language: "JavaScript"
+    },
+
+    {
+        name: "TimeBook",
+        category: "Finance & Business",
+        description: "A modern time tracking and work management application designed for freelancers, developers, and teams to track hours, manage productivity, analyze work patterns, and monitor earnings with a clean and responsive interface.",
+        tags: ["JavaScript", "Productivity", "Time Tracking"],
+        repo: "https://github.com/aloksingh2005/TimeBook",
+        demo: "https://aloksingh2005.github.io/TimeBook/",
         stars: 33,
         language: "JavaScript"
     },
