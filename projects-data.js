@@ -56,6 +56,18 @@ const projectsData = [
 
     // Productivity & Utilities
     {
+        name: "SnapShare",
+        category: "Productivity",
+        description: "A secure temporary file sharing platform with password protection, auto-expiry, one-time viewing, and download restrictions built using Express, Vite, and TypeScript.",
+        tags: ["TypeScript", "Express", "Vite", "File Sharing", "Security"],
+        repo: "https://github.com/aloksingh2005/SnapShare",
+        demo: "https://snapshare-i9u7.onrender.com/",
+        pinned: true,
+        featured: true,
+        stars: 50,
+        language: "TypeScript"
+    },
+    {
         name: "Word Counter",
         category: "Productivity & Utilities",
         description: "A feature-rich, client-side word counter application that provides real-time text analysis with a clean, responsive interface. This tool helps writers, students, and content creators quickly analyze their text with essential statistics.",
@@ -73,16 +85,6 @@ const projectsData = [
         repo: "https://github.com/aloksingh2005/Age-Calculator",
         demo: "https://aloksingh2005.github.io/Age-Calculator/",
         stars: 28,
-        language: "JavaScript"
-    },
-    {
-        name: "Time Calculator",
-        category: "Productivity & Utilities",
-        description: "A modern, intuitive time and cost calculation tool for managing customer transactions and billing.",
-        tags: ["JavaScript", "Time", "Calculator"],
-        repo: "https://github.com/aloksingh2005/Time-Calculator-new",
-        demo: "https://aloksingh2005.github.io/Time-Calculator-new/",
-        stars: 31,
         language: "JavaScript"
     },
     {
@@ -149,36 +151,6 @@ const projectsData = [
         repo: "https://github.com/aloksingh2005/Image-Editor",
         demo: "https://aloksingh2005.github.io/Image-Editor/",
         stars: 65,
-        language: "JavaScript"
-    },
-    {
-        name: "MP4 to MP3 Converter",
-        category: "Media Tools",
-        description: "A fast, secure, and user-friendly web application for converting MP4 video files to high-quality MP3 audio format.",
-        tags: ["JavaScript", "Audio Processing", "Converter"],
-        repo: "https://github.com/aloksingh2005/MP4-to-MP3-Converter",
-        demo: "https://aloksingh2005.github.io/MP4-to-MP3-Converter/",
-        stars: 48,
-        language: "JavaScript"
-    },
-    {
-        name: "Audio Joiner",
-        category: "Media Tools",
-        description: "Audio Joiner - MP3 Merger Web App",
-        tags: ["JavaScript", "Audio Processing", "Merger"],
-        repo: "https://github.com/aloksingh2005/Audio-Joiner",
-        demo: "https://aloksingh2005.github.io/Audio-Joiner/",
-        stars: 35,
-        language: "JavaScript"
-    },
-    {
-        name: "Video Trimmer Cropper",
-        category: "Media Tools",
-        description: "A powerful browser-based video editing tool that allows users to trim and crop videos without uploading them to any server. All processing happens locally for maximum privacy.",
-        tags: ["JavaScript", "Video Processing", "Editor"],
-        repo: "https://github.com/aloksingh2005/Video-Trimmer-Cropper",
-        demo: "https://aloksingh2005.github.io/Video-Trimmer-Cropper/",
-        stars: 51,
         language: "JavaScript"
     },
     {
@@ -252,8 +224,6 @@ const projectsData = [
         language: "JavaScript"
     },
 
-    // Exam Tools
-    // Removed Exam Buddy as requested
 
     // Gradient Tools
     {
