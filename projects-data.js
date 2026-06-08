@@ -92,8 +92,8 @@ const projectsData = [
         category: "Productivity & Utilities",
         description: "A modern, feature-rich todo list application with a clean interface. Manage your daily tasks efficiently with categories, priority levels, and local storage.",
         tags: ["JavaScript", "Task Management", "Productivity"],
-        repo: "https://github.com/aloksingh2005/Todo",
-        demo: "https://aloksingh2005.github.io/Todo/",
+        repo: "https://github.com/aloksingh2005/Promptly",
+        demo: "https://github.com/aloksingh2005/Promptly",
         stars: 36,
         language: "JavaScript"
     },
