@@ -4,7 +4,6 @@ class ToolHubManager {
     this.filteredProjects = [...this.projects];
     this.currentFilter = 'all';
     this.searchTerm = '';
-    this.isMenuOpen = false;
     this.init();
   }
 
@@ -13,7 +12,6 @@ class ToolHubManager {
     this.setupTheme();
     this.checkUrlForFilter();
     this.renderProjects();
-    this.updateStats();
     this.animateOnScroll();
     this.addHeaderAnimation();
     this.setupNavigation();
@@ -30,13 +28,27 @@ class ToolHubManager {
     clearSearch.addEventListener('click', () => this.clearSearch());
 
     document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.setAttribute('tabindex', '0');
+      btn.setAttribute('role', 'button');
+      // initialize aria-pressed
+      btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
+
       btn.addEventListener('click', (e) => {
         const category = e.currentTarget.dataset.category;
         this.handleFilter(category, e.currentTarget);
       });
+
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
     });
 
     document.querySelectorAll('.filter-btn-mobile').forEach((btn) => {
+      btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
+
       btn.addEventListener('click', (e) => {
         const category = e.currentTarget.dataset.category;
         this.handleFilter(category, e.currentTarget);
@@ -53,15 +65,6 @@ class ToolHubManager {
     }
 
     document.addEventListener('keydown', (e) => this.handleKeyboard(e));
-
-    document.querySelectorAll('.nav-link').forEach((link) => {
-      link.addEventListener('click', (e) => this.handleNavClick(e));
-    });
-
-    const navToggle = document.querySelector('.nav-toggle');
-    if (navToggle) {
-      navToggle.addEventListener('click', () => this.toggleMobileMenu());
-    }
 
     window.addEventListener('hashchange', () => this.checkUrlForFilter());
   }
@@ -91,8 +94,12 @@ class ToolHubManager {
 
   updateThemeIcon(isDark) {
     const themeIcon = document.querySelector('#theme-toggle i');
+    const themeLabel = document.querySelector('#theme-toggle .theme-toggle-label');
     if (themeIcon) {
       themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (themeLabel) {
+      themeLabel.textContent = isDark ? 'Light' : 'Dark';
     }
   }
 
@@ -161,8 +168,12 @@ class ToolHubManager {
   }
 
   handleFilter(category, btnElement) {
-    document.querySelectorAll('.filter-btn, .filter-btn-mobile').forEach((btn) => btn.classList.remove('active'));
+    document.querySelectorAll('.filter-btn, .filter-btn-mobile').forEach((btn) => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+    });
     btnElement.classList.add('active');
+    btnElement.setAttribute('aria-pressed', 'true');
 
     this.currentFilter = category;
 
@@ -181,11 +192,18 @@ class ToolHubManager {
 
   filterProjects() {
     this.filteredProjects = this.projects.filter((project) => {
-      const matchesFilter = this.currentFilter === 'all' || project.category === this.currentFilter;
+      const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const cf = (this.currentFilter || 'all').toString();
+
+      const matchesFilter = cf === 'all' ||
+        norm(project.category) === norm(cf) ||
+        norm(project.category).includes(norm(cf)) ||
+        norm(cf).includes(norm(project.category));
+
       const matchesSearch = !this.searchTerm ||
-        project.name.toLowerCase().includes(this.searchTerm) ||
-        project.description.toLowerCase().includes(this.searchTerm) ||
-        project.tags.some((tag) => tag.toLowerCase().includes(this.searchTerm));
+        (project.name && project.name.toLowerCase().includes(this.searchTerm)) ||
+        (project.description && project.description.toLowerCase().includes(this.searchTerm)) ||
+        (Array.isArray(project.tags) && project.tags.some((tag) => tag.toLowerCase().includes(this.searchTerm)));
 
       return matchesFilter && matchesSearch;
     });
@@ -194,47 +212,7 @@ class ToolHubManager {
   }
 
   renderProjects() {
-    const trendingContainer = document.getElementById('trending-projects');
-    const recentContainer = document.getElementById('recent-projects');
     const projectsContainer = document.getElementById('projects-grid');
-    const resultsCount = document.getElementById('results-count');
-    const trendingCount = document.getElementById('trending-count');
-    const recentCount = document.getElementById('recent-count');
-
-    const trendingProjects = [...this.filteredProjects]
-      .filter((project) => project.pinned || project.featured || project.trending)
-      .sort((a, b) => (b.stars || 0) - (a.stars || 0))
-      .slice(0, 4);
-
-    const trendingSet = new Set(trendingProjects);
-    const recentProjects = [...this.filteredProjects]
-      .filter((project) => !trendingSet.has(project))
-      .slice(-4)
-      .reverse();
-
-    if (resultsCount) {
-      resultsCount.textContent = this.filteredProjects.length;
-    }
-
-    if (trendingCount) {
-      trendingCount.textContent = `${trendingProjects.length}`;
-    }
-
-    if (recentCount) {
-      recentCount.textContent = `${recentProjects.length}`;
-    }
-
-    if (trendingContainer) {
-      trendingContainer.innerHTML = trendingProjects
-        .map((project, index) => this.createProjectCard(project, { variant: 'spotlight', featured: index === 0 }))
-        .join('');
-    }
-
-    if (recentContainer) {
-      recentContainer.innerHTML = recentProjects
-        .map((project) => this.createProjectCard(project, { variant: 'recent' }))
-        .join('');
-    }
 
     if (projectsContainer) {
       projectsContainer.innerHTML = this.filteredProjects
@@ -281,11 +259,18 @@ class ToolHubManager {
 
     const metaText = metaParts.join(' · ');
 
+    const initial = (project.name && project.name.length) ? project.name.charAt(0).toUpperCase() : '?';
+
     return `
       <a class="${cardClasses.join(' ')}" href="${targetUrl}" target="_blank" rel="noopener" aria-label="Open ${project.name}">
         <div class="project-header">
-          <span class="project-category">${project.category}</span>
-          <h3 class="project-title">${project.name}</h3>
+          <div class="project-icon" style="background: linear-gradient(135deg, ${this.pickColor(project.name)} 0%, ${this.pickColor(project.name, true)} 100%);">
+            <span class="icon-initial">${initial}</span>
+          </div>
+          <div>
+            <span class="project-category">${project.category}</span>
+            <h3 class="project-title">${project.name}</h3>
+          </div>
         </div>
 
         <p class="project-description">${shortDescription}</p>
@@ -296,18 +281,29 @@ class ToolHubManager {
 
         <div class="project-footer">
           <span class="project-meta">${metaText}</span>
-          <span class="project-open">Open tool</span>
         </div>
       </a>
     `;
   }
 
-  handleKeyboard(e) {
-    if (e.key === 'Escape' && this.isMenuOpen) {
-      this.toggleMobileMenu();
-      return;
-    }
+  pickColor(seed, lighten = false) {
+    const colors = [
+      ['#EF4444','#FCA5A5'],
+      ['#F97316','#FDBA74'],
+      ['#F59E0B','#FDE68A'],
+      ['#10B981','#6EE7B7'],
+      ['#06B6D4','#67E8F9'],
+      ['#3B82F6','#93C5FD'],
+      ['#8B5CF6','#C4B5FD'],
+      ['#EC4899','#F9A8D4']
+    ];
+    if (!seed) return lighten ? colors[3][1] : colors[3][0];
+    const sum = seed.split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+    const pair = colors[sum % colors.length];
+    return lighten ? pair[1] : pair[0];
+  }
 
+  handleKeyboard(e) {
     const activeElement = document.activeElement;
     const isTyping = activeElement && (
       activeElement.tagName === 'INPUT' ||
@@ -326,19 +322,6 @@ class ToolHubManager {
         e.preventDefault();
         searchInput.focus();
       }
-    }
-  }
-
-  updateStats() {
-    const projectCount = document.getElementById('project-count');
-    if (projectCount) {
-      projectCount.textContent = `${this.projects.length}`;
-    }
-
-    const categoryCount = document.getElementById('category-count');
-    if (categoryCount) {
-      const uniqueCategories = new Set(this.projects.map((project) => project.category));
-      categoryCount.textContent = uniqueCategories.size;
     }
   }
 
@@ -379,7 +362,7 @@ class ToolHubManager {
       rootMargin: '0px 0px -50px 0px'
     });
 
-    const animateElements = document.querySelectorAll('.project-card, .section-header, .hero-content, .highlight-panel');
+    const animateElements = document.querySelectorAll('.project-card, .hero-content');
     animateElements.forEach((element) => observer.observe(element));
   }
 
@@ -429,32 +412,6 @@ class ToolHubManager {
         }
       });
     });
-  }
-
-  handleNavClick(e) {
-    document.querySelectorAll('.nav-link').forEach((link) => {
-      link.classList.remove('active');
-    });
-
-    e.currentTarget.classList.add('active');
-
-    if (this.isMenuOpen) {
-      this.toggleMobileMenu();
-    }
-  }
-
-  toggleMobileMenu() {
-    const navMenu = document.querySelector('.nav-menu');
-    const navToggle = document.querySelector('.nav-toggle');
-    this.isMenuOpen = !this.isMenuOpen;
-
-    if (this.isMenuOpen) {
-      navMenu.classList.add('active');
-      navToggle.innerHTML = '<i class="fas fa-times"></i>';
-    } else {
-      navMenu.classList.remove('active');
-      navToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    }
   }
 
   toggleMobileFilters() {

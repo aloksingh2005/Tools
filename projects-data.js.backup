@@ -79,15 +79,6 @@ const projectsData = [
         stars: 28,
         language: "JavaScript"
     },
-    {
-        name: "Todo App",
-        category: "Productivity & Utilities",
-        description: "A modern, feature-rich todo list application with a clean interface. Manage your daily tasks efficiently with categories, priority levels, and local storage.",
-        tags: ["JavaScript", "Task Management", "Productivity"],
-        demo: "https://aloksingh2005.github.io/Promptly/",
-        stars: 36,
-        language: "JavaScript"
-    },
 
     // Games & Fun
     {

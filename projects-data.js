@@ -63,7 +63,7 @@ const projectsData = [
     },
     {
         name: "Word Counter",
-        category: "Productivity & Utilities",
+        category: "Productivity",
         description: "A feature-rich, client-side word counter application that provides real-time text analysis with a clean, responsive interface. This tool helps writers, students, and content creators quickly analyze their text with essential statistics.",
         tags: ["JavaScript", "Text Analysis", "Counter"],
         demo: "https://aloksingh2005.github.io/Word-Counter/",
@@ -72,20 +72,11 @@ const projectsData = [
     },
     {
         name: "Age Calculator",
-        category: "Productivity & Utilities",
+        category: "Productivity",
         description: "Age Calculator Pro",
         tags: ["JavaScript", "Date", "Calculator"],
         demo: "https://aloksingh2005.github.io/Age-Calculator/",
         stars: 28,
-        language: "JavaScript"
-    },
-    {
-        name: "Todo App",
-        category: "Productivity & Utilities",
-        description: "A modern, feature-rich todo list application with a clean interface. Manage your daily tasks efficiently with categories, priority levels, and local storage.",
-        tags: ["JavaScript", "Task Management", "Productivity"],
-        demo: "https://aloksingh2005.github.io/Promptly/",
-        stars: 36,
         language: "JavaScript"
     },
 
