@@ -1642,13 +1642,14 @@ button {
         order: 4;
         flex: 1 1 100%;
         max-width: none;
+        margin-top: 0.25rem;
     }
 
     .category-nav {
         display: block;
         position: relative;
         top: auto;
-        padding: 0.55rem 0 0.25rem;
+        padding: 0.65rem 0 0.55rem;
     }
 
     .desktop-filters {
@@ -1677,7 +1678,7 @@ button {
 
     .hero {
         margin-top: 68px;
-        padding: 1.45rem 0 1rem;
+        padding: 1.85rem 0 1.2rem;
         min-height: auto;
     }
 
@@ -1697,12 +1698,12 @@ button {
     .projects-section,
     .about-section,
     .contact-section {
-        padding-top: 1.35rem;
-        padding-bottom: 1.9rem;
+        padding-top: 1.55rem;
+        padding-bottom: 2.1rem;
     }
 
     .dashboard-highlights {
-        padding-top: 0.9rem;
+        padding-top: 1.1rem;
     }
 
     .highlight-panel {
@@ -1774,6 +1775,8 @@ button {
     .search-bar input {
         font-size: 0.92rem;
         padding: 0.72rem 2.2rem 0.72rem 2.3rem;
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bg-card) 95%, white 5%);
     }
 
     .search-bar > i {
@@ -1811,22 +1814,23 @@ button {
 
     .desktop-filters {
         gap: 0.42rem;
-        padding-bottom: 0.25rem;
+        padding-bottom: 0.35rem;
     }
 
     .filter-btn {
         padding: 0.52rem 0.82rem;
         font-size: 0.8rem;
+        border-radius: 10px;
     }
 
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: 0.82rem;
+        gap: 0.95rem;
     }
 
     .project-card {
         min-height: 0;
-        padding: 0.9rem;
+        padding: 0.95rem;
         border-radius: 1.1rem;
     }
 
@@ -1863,8 +1867,8 @@ button {
     }
 
     .footer {
-        margin-top: 2.2rem;
-        padding: 2.1rem 0 1.6rem;
+        margin-top: 2.5rem;
+        padding: 2.2rem 0 1.6rem;
     }
 
     .footer-left h3 {
