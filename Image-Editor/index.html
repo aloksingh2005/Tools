@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Image Editor</title>
+  <!-- Cropper.js CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <i class="fas fa-image logo-icon"></i>
+      <h1>Image Editor Pro</h1>
+    </div>
+    <div class="header-right">
+      <button id="undoBtn" class="icon-btn" title="Undo (Ctrl+Z)" disabled>
+        <i class="fas fa-undo"></i>
+      </button>
+      <button id="redoBtn" class="icon-btn" title="Redo (Ctrl+Y)" disabled>
+        <i class="fas fa-redo"></i>
+      </button>
+      <button id="darkModeToggle" class="icon-btn" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Left Sidebar - Tools & Controls -->
+    <aside class="left-sidebar">
+      <!-- Tab Navigation -->
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="adjust"><i class="fas fa-sliders-h"></i> Adjust</button>
+        <button class="tab-btn" data-tab="filters"><i class="fas fa-magic"></i> Filters</button>
+        <button class="tab-btn" data-tab="text"><i class="fas fa-font"></i> Text</button>
+      </div>
+
+      <!-- Adjust Tab -->
+      <div class="tab-content active" id="adjust-tab">
+        <!-- Transform Section -->
+        <div class="control-section">
+          <h3 class="section-title">Transform</h3>
+          <div class="action-buttons">
+            <button class="primary-btn" onclick="openResizeModal()">
+              <i class="fas fa-expand-arrows-alt"></i> Resize
+            </button>
+            <button class="primary-btn" onclick="rotateImage()">
+              <i class="fas fa-redo"></i> Rotate 90°
+            </button>
+            <button class="primary-btn" id="cropBtn" onclick="cropImage()">
+              <i class="fas fa-crop"></i> <span id="cropBtnText">Crop</span>
+            </button>
+            <button class="secondary-btn" onclick="resetImage()">
+              <i class="fas fa-undo"></i> Reset
+            </button>
+            <button class="primary-btn full-width" onclick="autoEnhance()">
+              <i class="fas fa-wand-magic-sparkles"></i> Auto Enhance
+            </button>
+          </div>
+        </div>
+
+        <div class="control-section">
+          <h3 class="section-title">Brush Tool</h3>
+          <div class="brush-tools-row">
+            <button id="moveModeBtn" class="secondary-btn" onclick="setToolMode('move')">
+              <i class="fas fa-mouse-pointer"></i> Move
+            </button>
+            <button id="brushModeBtn" class="secondary-btn" onclick="setToolMode('brush')">
+              <i class="fas fa-paint-brush"></i> Brush
+            </button>
+            <button id="eraserModeBtn" class="secondary-btn" onclick="setToolMode('eraser')">
+              <i class="fas fa-eraser"></i> Eraser
+            </button>
+            <button class="danger-btn" onclick="clearBrushStrokes()">
+              <i class="fas fa-trash"></i> Clear
+            </button>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Brush Size</label>
+              <input type="range" id="brushSize" min="2" max="80" value="20" class="slider">
+            </div>
+            <div class="form-group">
+              <label>Brush Color</label>
+              <input type="color" id="brushColor" value="#ff3b30" class="color-input">
+            </div>
+          </div>
+        </div>
+
+        <!-- Basic Adjustments -->
+        <div class="control-section">
+          <h3 class="section-title collapsible" data-section="basic-adjust">
+            Basic Adjustments <i class="fas fa-chevron-down"></i>
+          </h3>
+          <div class="section-content" id="basic-adjust">
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Brightness</span>
+                <span id="brightnessValue" class="slider-value">100%</span>
+              </label>
+              <input type="range" id="brightnessInput" min="50" max="150" value="100" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Contrast</span>
+                <span id="contrastValue" class="slider-value">100%</span>
+              </label>
+              <input type="range" id="contrastInput" min="50" max="150" value="100" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Saturation</span>
+                <span id="saturationValue" class="slider-value">100%</span>
+              </label>
+              <input type="range" id="saturationInput" min="0" max="200" value="100" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Hue</span>
+                <span id="hueValue" class="slider-value">0°</span>
+              </label>
+              <input type="range" id="hueInput" min="0" max="360" value="0" class="slider">
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Adjustments -->
+        <div class="control-section">
+          <h3 class="section-title collapsible" data-section="advanced-adjust">
+            Advanced <i class="fas fa-chevron-down"></i>
+          </h3>
+          <div class="section-content collapsed" id="advanced-adjust">
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Blur</span>
+                <span id="blurValue" class="slider-value">0px</span>
+              </label>
+              <input type="range" id="blurInput" min="0" max="10" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Sharpen</span>
+                <span id="sharpenValue" class="slider-value">0</span>
+              </label>
+              <input type="range" id="sharpenInput" min="0" max="10" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Warmth</span>
+                <span id="warmthValue" class="slider-value">0</span>
+              </label>
+              <input type="range" id="warmthInput" min="-50" max="50" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Highlights</span>
+                <span id="highlightsValue" class="slider-value">0</span>
+              </label>
+              <input type="range" id="highlightsInput" min="-50" max="50" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Shadows</span>
+                <span id="shadowsValue" class="slider-value">0</span>
+              </label>
+              <input type="range" id="shadowsInput" min="-50" max="50" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Fade</span>
+                <span id="fadeValue" class="slider-value">0%</span>
+              </label>
+              <input type="range" id="fadeInput" min="0" max="100" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Vignette</span>
+                <span id="vignetteValue" class="slider-value">0%</span>
+              </label>
+              <input type="range" id="vignetteInput" min="0" max="100" value="0" class="slider">
+            </div>
+            
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Grain</span>
+                <span id="grainValue" class="slider-value">0%</span>
+              </label>
+              <input type="range" id="grainInput" min="0" max="100" value="0" class="slider">
+            </div>
+
+            <div class="slider-group">
+              <label class="slider-label">
+                <span>Grayscale</span>
+                <span id="grayscaleValue" class="slider-value">0%</span>
+              </label>
+              <input type="range" id="grayscaleInput" min="0" max="100" value="0" class="slider">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters Tab -->
+      <div class="tab-content" id="filters-tab">
+        <div class="control-section">
+          <h3 class="section-title">Preset Filters</h3>
+          <div class="filter-grid">
+            <button class="filter-btn active" onclick="applyPresetFilter('normal', this)">
+              <div class="filter-preview"></div>
+              <span>Normal</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('vintage', this)">
+              <div class="filter-preview vintage-preview"></div>
+              <span>Vintage</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('sepia', this)">
+              <div class="filter-preview sepia-preview"></div>
+              <span>Sepia</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('clarendon', this)">
+              <div class="filter-preview clarendon-preview"></div>
+              <span>Clarendon</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('inkwell', this)">
+              <div class="filter-preview inkwell-preview"></div>
+              <span>Inkwell</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('lofi', this)">
+              <div class="filter-preview lofi-preview"></div>
+              <span>Lo-Fi</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('toaster', this)">
+              <div class="filter-preview toaster-preview"></div>
+              <span>Toaster</span>
+            </button>
+            <button class="filter-btn" onclick="applyPresetFilter('walden', this)">
+              <div class="filter-preview walden-preview"></div>
+              <span>Walden</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Tab -->
+      <div class="tab-content" id="text-tab">
+        <div class="control-section">
+          <h3 class="section-title">Add Text</h3>
+          <div class="text-controls-modern">
+            <input type="text" id="textInput" placeholder="Enter your text..." class="text-input">
+            
+            <div class="form-group">
+              <label>Font Family</label>
+              <select id="fontFamily" class="select-input">
+                <option value="Arial">Arial</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Impact">Impact</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Size</label>
+                <input type="number" id="textSize" min="10" max="200" value="30" class="number-input">
+              </div>
+              <div class="form-group">
+                <label>Color</label>
+                <input type="color" id="textColor" value="#ffffff" class="color-input">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>Font Weight</label>
+              <select id="fontWeight" class="select-input">
+                <option value="normal">Normal</option>
+                <option value="bold">Bold</option>
+                <option value="lighter">Light</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Font Style</label>
+              <select id="fontStyle" class="select-input">
+                <option value="normal">Normal</option>
+                <option value="italic">Italic</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Stroke Color</label>
+                <input type="color" id="textStrokeColor" value="#000000" class="color-input">
+              </div>
+              <div class="form-group">
+                <label>Stroke Width</label>
+                <input type="number" id="textStrokeWidth" min="0" max="20" value="0" class="number-input">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Shadow Color</label>
+                <input type="color" id="textShadowColor" value="#000000" class="color-input">
+              </div>
+              <div class="form-group">
+                <label>Shadow Blur</label>
+                <input type="number" id="textShadowBlur" min="0" max="50" value="0" class="number-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Letter Spacing</label>
+              <input type="range" id="textLetterSpacing" min="0" max="20" value="0" class="slider">
+            </div>
+
+            <div class="brush-tools-row">
+              <button class="secondary-btn" onclick="alignSelectedText('left')"><i class="fas fa-align-left"></i></button>
+              <button class="secondary-btn" onclick="alignSelectedText('center')"><i class="fas fa-align-center"></i></button>
+              <button class="secondary-btn" onclick="alignSelectedText('right')"><i class="fas fa-align-right"></i></button>
+            </div>
+            
+            <button class="primary-btn full-width" onclick="addText()">
+              <i class="fas fa-plus"></i> Add Text
+            </button>
+            
+            <button id="deleteTextBtn" class="danger-btn full-width" onclick="deleteSelectedText()" disabled>
+              <i class="fas fa-trash"></i> Delete Selected Text
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center - Canvas Area -->
+    <main class="canvas-area">
+      <div class="canvas-container">
+        <!-- Upload Area -->
+        <div class="drag-area" id="dragArea">
+          <i class="fas fa-cloud-upload-alt upload-icon"></i>
+          <p class="upload-text">Drag & Drop your image here</p>
+          <p class="upload-subtext">or click to browse</p>
+          <input type="file" id="imageInput" accept="image/*" style="display:none;" />
+        </div>
+
+        <!-- Image Preview for Cropper.js -->
+        <img id="imagePreview" style="display: none;" />
+
+        <!-- Main Canvas -->
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <!-- Download Panel -->
+      <div class="download-panel" id="downloadPanel" style="display: none;">
+        <button class="export-btn" onclick="openDownloadModal()">
+          <i class="fas fa-download"></i> Export Image
+        </button>
+      </div>
+    </main>
+
+    <!-- Right Sidebar - Layers -->
+    <aside class="right-sidebar">
+      <div class="layers-panel">
+        <div class="panel-header">
+          <h3>Layers</h3>
+        </div>
+        
+        <div class="layers-toolbar">
+          <button class="tool-btn" id="addLayerBtn" title="Add Layer">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button class="tool-btn" id="duplicateLayerBtn" title="Duplicate Layer">
+            <i class="fas fa-copy"></i>
+          </button>
+          <button class="tool-btn" id="deleteLayerBtn" title="Delete Layer">
+            <i class="fas fa-trash"></i>
+          </button>
+          <button class="tool-btn" id="moveLayerUpBtn" title="Move Up">
+            <i class="fas fa-arrow-up"></i>
+          </button>
+          <button class="tool-btn" id="moveLayerDownBtn" title="Move Down">
+            <i class="fas fa-arrow-down"></i>
+          </button>
+        </div>
+        
+        <div class="layer-properties">
+          <div class="property-group">
+            <label class="property-label">
+              <span>Opacity</span>
+              <span id="layerOpacityValue" class="property-value">100%</span>
+            </label>
+            <input type="range" id="layerOpacity" min="0" max="100" value="100" class="slider">
+          </div>
+          
+          <div class="property-group">
+            <label class="property-label">Blend Mode</label>
+            <select id="blendModeSelect" class="select-input">
+              <option value="source-over">Normal</option>
+              <option value="multiply">Multiply</option>
+              <option value="screen">Screen</option>
+              <option value="overlay">Overlay</option>
+              <option value="darken">Darken</option>
+              <option value="lighten">Lighten</option>
+              <option value="color-dodge">Color Dodge</option>
+              <option value="color-burn">Color Burn</option>
+              <option value="hard-light">Hard Light</option>
+              <option value="soft-light">Soft Light</option>
+              <option value="difference">Difference</option>
+              <option value="exclusion">Exclusion</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="layers-list" id="layersList">
+          <!-- Layers will be added here dynamically -->
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Resize Modal -->
+  <div id="resizeModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Resize Image</h3>
+        <button class="close-btn" onclick="closeResizeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Width (px)</label>
+            <input type="number" id="widthInput" value="300" class="number-input">
+          </div>
+          <div class="form-group">
+            <label>Height (px)</label>
+            <input type="number" id="heightInput" value="300" class="number-input">
+          </div>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="lockAspectRatio" checked>
+          <label for="lockAspectRatio">Lock aspect ratio</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="secondary-btn" onclick="closeResizeModal()">Cancel</button>
+        <button class="primary-btn" onclick="resizeImage()">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Modal -->
+  <div id="downloadModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Export Image</h3>
+        <button class="close-btn" onclick="closeDownloadModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Export Size Preset</label>
+          <select id="exportSizePreset" class="select-input">
+            <option value="current">Current Canvas</option>
+            <option value="original">Original Size</option>
+            <option value="instagram-square">Instagram Square (1080x1080)</option>
+            <option value="instagram-story">Instagram Story (1080x1920)</option>
+            <option value="youtube-thumb">YouTube Thumbnail (1280x720)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quality Profile</label>
+          <select id="exportProfile" class="select-input">
+            <option value="high">High Quality</option>
+            <option value="balanced">Balanced</option>
+            <option value="web">Web Optimized</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Format</label>
+          <select id="exportFormat" class="select-input" onchange="toggleQuality()">
+            <option value="png">PNG (Lossless)</option>
+            <option value="jpeg">JPEG</option>
+            <option value="webp">WebP</option>
+          </select>
+        </div>
+        <div class="form-group" id="qualityGroup" style="display: none;">
+          <label>Quality: <span id="qualityValue">90%</span></label>
+          <input type="range" id="exportQuality" min="1" max="100" value="90" class="slider">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="secondary-btn" onclick="closeDownloadModal()">Cancel</button>
+        <button class="primary-btn" onclick="downloadImage()">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cropper.js Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <!-- Custom Script -->
+  <script src="script.js"></script>
+</body>
+</html>

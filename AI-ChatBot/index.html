@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat App</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Overlay (Initially Hidden) -->
+    <div class="app-loader" id="app-loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar Menu -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>AI Chat</h2>
+                <button id="close-sidebar"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="sidebar-content">
+                <div class="profile-section">
+                    <div class="profile-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h3 id="profile-name">User Profile</h3>
+                        <p id="profile-email" class="profile-email">Click to set profile</p>
+                    </div>
+                </div>
+                <div class="menu-section">
+                    <div class="folder-header">
+                        <h3>Conversations</h3>
+                        <button id="new-folder-btn" title="Create new folder">
+                            <i class="fas fa-folder-plus"></i>
+                        </button>
+                    </div>
+                    <div id="favorites-section" class="favorites-section">
+                        <!-- Pinned/favorite conversations -->
+                    </div>
+                    <div id="folder-tree">
+                        <!-- Folders and conversations will be generated here -->
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Settings</h3>
+                    <div class="setting-item">
+                        <i class="fas fa-moon"></i>
+                        <span>Dark Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="dark-mode-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item" id="token-usage-btn">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Token Usage</span>
+                    </div>
+                    <div class="setting-item" id="search-conversations-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Search Chats</span>
+                    </div>
+                    <div class="setting-item" id="export-conversations-btn">
+                        <i class="fas fa-download"></i>
+                        <span>Export Chats</span>
+                    </div>
+                    <div class="setting-item">
+                        <i class="fas fa-trash"></i>
+                        <span>Clear All Chats</span>
+                    </div>
+                    <div class="setting-item" id="manage-api-btn">
+                        <i class="fas fa-key"></i>
+                        <span>Manage API</span>
+                    </div>
+                    <div class="setting-item" id="shortcuts-help-btn">
+                        <i class="fas fa-keyboard"></i>
+                        <span>Keyboard Shortcuts</span>
+                    </div>
+                    <div class="setting-item">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About App</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header>
+                <button id="menu-btn"><i class="fas fa-bars"></i></button>
+                <h1>AI Chat App</h1>
+            </header>
+
+            <!-- Home Screen / Model Selection -->
+            <div class="home-screen" id="home-screen">
+                <h2>Select an AI Model</h2>
+                <div class="models-grid" id="models-grid">
+                    <!-- AI models will be loaded here dynamically -->
+                </div>
+            </div>
+
+            <!-- Chat Screen (Initially Hidden) -->
+            <div class="chat-screen" id="chat-screen" style="display: none;">
+                <div class="chat-header">
+                    <button id="back-btn"><i class="fas fa-arrow-left"></i></button>
+                    <div class="model-info">
+                        <div class="model-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h2 id="current-model-name">Chatbot</h2>
+                    </div>
+                    <button id="system-prompt-btn" title="Set System Prompt"><i class="fas fa-cog"></i></button>
+                    <button id="close-chat"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+                <!-- Emoji Picker (Initially Hidden) -->
+                <div class="emoji-picker" id="emoji-picker" style="display: none;">
+                    <button class="emoji-btn">😊</button>
+                    <button class="emoji-btn">😂</button>
+                    <button class="emoji-btn">👍</button>
+                    <button class="emoji-btn">❤️</button>
+                    <button class="emoji-btn">🎉</button>
+                    <button class="emoji-btn">🤔</button>
+                    <button class="emoji-btn">👀</button>
+                    <button class="emoji-btn">🙏</button>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions" id="quick-actions">
+                    <button class="quick-action-btn" data-action="summarize" title="Summarize">
+                        <i class="fas fa-align-left"></i> Summarize
+                    </button>
+                    <button class="quick-action-btn" data-action="explain" title="Explain Simply">
+                        <i class="fas fa-lightbulb"></i> Explain
+                    </button>
+                    <button class="quick-action-btn" data-action="translate" title="Translate">
+                        <i class="fas fa-language"></i> Translate
+                    </button>
+                    <button class="quick-action-btn" data-action="code" title="Format as Code">
+                        <i class="fas fa-code"></i> Code It
+                    </button>
+                    <button class="quick-action-btn" data-action="custom" title="Custom Templates">
+                        <i class="fas fa-save"></i> Templates
+                    </button>
+                </div>
+                
+                <div class="chat-input">
+                    <button class="voice-input-btn" id="voice-input-btn">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <textarea id="message-input" placeholder="Enter a message..."></textarea>
+                    <button id="emoji-btn">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal (Initially Hidden) -->
+    <div id="about-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>About AI Chat App</h2>
+            <p>Version 1.0.0</p>
+            <p>A feature-rich chat application that allows you to interact with various AI models through inteligence.</p>
+            <p>Hand crafter and made with ❤️.</p>
+            <div class="modal-footer">
+                <p>© 2023 AI Chat App</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Conversations Modal -->
+    <div id="search-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Search Conversations</h2>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search by text, model, or date...">
+            </div>
+            <div id="search-results" class="search-results">
+                <!-- Search results will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Message Modal -->
+    <div id="edit-message-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Edit Message</h2>
+            <div class="edit-message-box">
+                <textarea id="edit-message-input" placeholder="Edit your message..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="save-edit-btn" class="btn-primary">Save & Regenerate</button>
+                <button id="cancel-edit-btn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Folder Modal -->
+    <div id="new-folder-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create New Folder</h2>
+            <div class="form-group">
+                <input type="text" id="folder-name-input" placeholder="Folder name (e.g., Work, Learning, Fun)" class="full-width-input">
+            </div>
+            <div class="modal-actions">
+                <button id="create-folder-btn" class="btn-primary">Create</button>
+                <button id="cancel-folder-btn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Conversation to Folder Modal -->
+    <div id="assign-folder-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Assign to Folder</h2>
+            <div id="folder-options">
+                <!-- Folder options will be generated here -->
+            </div>
+            <div class="modal-actions">
+                <button id="confirm-assign-btn" class="btn-primary">Assign</button>
+                <button id="cancel-assign-btn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Prompt Modal -->
+    <div id="system-prompt-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>System Prompt Settings</h2>
+            <p>Customize how the AI behaves for this model. This prompt is sent with every message.</p>
+            <div class="form-group">
+                <label for="system-prompt-input">System Prompt:</label>
+                <textarea id="system-prompt-input" placeholder="E.g., You are a helpful JavaScript expert. Always provide code examples in ES6+ syntax." rows="6" class="full-width-input"></textarea>
+            </div>
+            <div class="prompt-presets">
+                <button class="preset-btn" data-preset="default">Default</button>
+                <button class="preset-btn" data-preset="expert">Code Expert</button>
+                <button class="preset-btn" data-preset="teacher">Patient Teacher</button>
+                <button class="preset-btn" data-preset="creative">Creative Writer</button>
+            </div>
+            <div class="modal-actions">
+                <button id="save-prompt-btn" class="btn-primary">Save</button>
+                <button id="clear-prompt-btn" class="btn-secondary">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Token Usage Modal -->
+    <div id="token-usage-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Token Usage Statistics</h2>
+            <div class="usage-stats">
+                <div class="stat-card">
+                    <i class="fas fa-comments"></i>
+                    <div class="stat-info">
+                        <div class="stat-value" id="total-messages">0</div>
+                        <div class="stat-label">Total Messages</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-coins"></i>
+                    <div class="stat-info">
+                        <div class="stat-value" id="total-tokens">0</div>
+                        <div class="stat-label">Estimated Tokens</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar"></i>
+                    <div class="stat-info">
+                        <div class="stat-value" id="sessions-count">0</div>
+                        <div class="stat-label">Chat Sessions</div>
+                    </div>
+                </div>
+            </div>
+            <h3>Usage by Model</h3>
+            <div id="model-usage-list" class="model-usage-list">
+                <!-- Model usage breakdown will appear here -->
+            </div>
+            <div class="modal-actions">
+                <button id="reset-stats-btn" class="btn-secondary">Reset Stats</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Templates Modal -->
+    <div id="templates-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Quick Templates</h2>
+            <div class="form-group">
+                <label>Create New Template</label>
+                <input type="text" id="template-name-input" placeholder="Template name (e.g., Bug Report)" class="full-width-input">
+                <textarea id="template-content-input" placeholder="Template content with {input} placeholder" rows="4" class="full-width-input" style="margin-top: 10px;"></textarea>
+                <button id="save-template-btn" class="btn-primary" style="margin-top: 10px;">Save Template</button>
+            </div>
+            <h3>Saved Templates</h3>
+            <div id="templates-list">
+                <!-- Saved templates will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Help Modal -->
+    <div id="shortcuts-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Keyboard Shortcuts</h2>
+            <div class="shortcuts-list">
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+                    </div>
+                    <div class="shortcut-description">Send message</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                    </div>
+                    <div class="shortcut-description">Clear chat / New conversation</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Ctrl</kbd> + <kbd>S</kbd>
+                    </div>
+                    <div class="shortcut-description">Search conversations</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Ctrl</kbd> + <kbd>E</kbd>
+                    </div>
+                    <div class="shortcut-description">Export conversations</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Ctrl</kbd> + <kbd>B</kbd>
+                    </div>
+                    <div class="shortcut-description">Toggle sidebar</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Ctrl</kbd> + <kbd>/</kbd>
+                    </div>
+                    <div class="shortcut-description">Show this shortcuts help</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-keys">
+                        <kbd>Esc</kbd>
+                    </div>
+                    <div class="shortcut-description">Close modals / Go back</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Conversations Modal -->
+    <div id="export-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Export Conversations</h2>
+            <p>Choose export format:</p>
+            <div class="export-options">
+                <button id="export-json-btn" class="export-btn">
+                    <i class="fas fa-file-code"></i> JSON
+                </button>
+                <button id="export-markdown-btn" class="export-btn">
+                    <i class="fas fa-file-lines"></i> Markdown
+                </button>
+                <button id="export-all-txt-btn" class="export-btn">
+                    <i class="fas fa-file-alt"></i> Text (All)
+                </button>
+            </div>
+            <div id="export-status" style="margin-top: 15px; text-align: center;"></div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+    <script src="./models.js"></script>
+    <script src="./chat.js"></script>
+</body>
+</html> 

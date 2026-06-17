@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Format Converter</title>
+  <meta name="description"
+    content="Fast and simple image format converter - convert images between PNG, JPG, WebP, AVIF, BMP, and HEIC formats" />
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- External Libraries -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+</head>
+
+<body data-theme="dark">
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Image Format Converter</h1>
+      <p class="subtitle">Convert images between formats instantly</p>
+    </header>
+
+    <!-- Drag & Drop Area -->
+    <div id="drop-area" class="drop-area" role="button" tabindex="0" aria-label="Upload images">
+      <div class="upload-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+      </div>
+      <p>
+        Drag & Drop Images Here or <span class="upload-text">Click to Upload</span>
+      </p>
+      <p class="supported-formats">Supports: JPG, PNG, WebP, AVIF, GIF, BMP, TIFF, HEIC</p>
+      <input type="file" id="file-input" multiple accept="image/*,.heic,.heif" aria-label="File input" />
+    </div>
+
+    <!-- Uploaded Files List -->
+    <div id="files-list" class="files-list" role="list"></div>
+
+    <!-- Conversion Settings -->
+    <div class="settings-container">
+      <div class="settings-row">
+        <div class="setting-group">
+          <label for="format-select">Output Format:</label>
+          <select id="format-select" class="format-select" aria-label="Select output format">
+            <option value="png">PNG (Lossless)</option>
+            <option value="jpg">JPG/JPEG</option>
+            <option value="webp">WebP</option>
+            <option value="avif">AVIF</option>
+            <option value="bmp">BMP (Lossless)</option>
+          </select>
+        </div>
+
+        <div class="setting-group" id="quality-group">
+          <label for="quality-slider">Quality: <span id="quality-value" class="value-display">85</span>%</label>
+          <input type="range" id="quality-slider" min="1" max="100" value="85" class="quality-slider"
+            aria-label="Quality slider">
+          <small class="hint">Higher quality = larger file size</small>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="convert-btn" class="convert-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Convert Images
+        </button>
+        <button id="clear-btn" class="clear-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progress-container">
+      <div class="progress-info">
+        <span id="progress-text">Processing...</span>
+        <span id="progress-percentage">0%</span>
+      </div>
+      <div class="progress-bar-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- Conversion Results -->
+    <div id="conversion-results" class="conversion-results">
+      <div class="results-header">
+        <h2>Converted Images</h2>
+        <div class="results-stats">
+          <span id="total-files">0 files</span>
+          <span id="total-saved">0 KB saved</span>
+        </div>
+      </div>
+
+      <button id="download-all-btn" class="download-all-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download All as ZIP
+      </button>
+    </div>
+
+    <!-- Image Previews & Individual Downloads -->
+    <div id="preview-container" class="preview-container" role="list"></div>
+
+    <footer class="footer">
+      <p>© 2026 Image Format Converter | All Rights Reserved</p>
+      <p class="footer-note">All processing happens in your browser. Your images never leave your device.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

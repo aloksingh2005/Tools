@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Image Compressor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Ultimate Image Compressor</h1>
+      <p>Compress without compromise. Smart. Fast. Efficient.</p>
+    </header>
+
+    <main>
+      <!-- Drop Zone -->
+      <div id="drop-area" class="drop-area">
+        <div class="upload-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <p>Drag &amp; Drop Images Here or <span class="highlight">Click to Upload</span></p>
+        <p class="drop-hint">Supports JPG, PNG, WEBP, GIF, BMP</p>
+        <input type="file" id="file-input" multiple accept="image/*">
+      </div>
+
+      <!-- File List -->
+      <div id="file-list" class="file-list"></div>
+
+      <!-- Controls -->
+      <div class="compression-controls">
+
+        <!-- Quality Slider -->
+        <div class="quality-control">
+          <div class="control-header">
+            <label for="quality-slider">Compression Quality</label>
+            <span id="quality-value">80%</span>
+          </div>
+          <input type="range" id="quality-slider" min="1" max="100" value="80">
+          <div class="quality-labels">
+            <span>High Compression</span>
+            <span>Best Quality</span>
+          </div>
+        </div>
+
+        <!-- Resize Option -->
+        <div class="resize-control">
+          <div class="control-header">
+            <label for="resize-toggle">Resize Large Images</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="resize-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div id="resize-options" class="resize-options">
+            <label for="max-dimension">Max dimension (px):</label>
+            <input type="number" id="max-dimension" value="1920" min="100" max="8000" step="100">
+          </div>
+        </div>
+
+        <!-- Format + Compress -->
+        <div class="format-compress">
+          <div class="format-select">
+            <label for="format">Output Format:</label>
+            <select id="format">
+              <option value="jpg">JPG</option>
+              <option value="webp">WEBP</option>
+              <option value="png">PNG</option>
+            </select>
+          </div>
+          <button id="compress-btn" class="compress-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="8 17 12 21 16 17"></polyline>
+              <line x1="12" y1="12" x2="12" y2="21"></line>
+              <path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path>
+            </svg>
+            Compress
+          </button>
+        </div>
+      </div>
+
+      <!-- PNG Notice -->
+      <div id="png-notice" class="png-notice hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        PNG is lossless — quality slider has no effect. Resizing will still reduce file size.
+      </div>
+
+      <!-- Results Section -->
+      <div id="results-section" class="results-section hidden">
+        <h3>Compression Results</h3>
+
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          <div class="progress-stats">
+            <span>Original: <strong id="original-size">0 KB</strong></span>
+            <span>Compressed: <strong id="compressed-size">0 KB</strong>
+              &nbsp;<span id="savings-badge" class="savings-badge">0% saved</span>
+            </span>
+          </div>
+        </div>
+
+        <div id="results-container" class="results-container"></div>
+
+        <div class="download-all">
+          <button id="download-btn" class="download-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download All
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Ultimate Image Compressor &mdash; All Rights Reserved</p>
+    </footer>
+  </div>
+
+  <!-- JSZip for bundled download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

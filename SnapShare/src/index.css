@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply antialiased font-sans bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950;
+  }
+}
+
+.premium-card {
+  @apply rounded-2xl border border-slate-200/80 bg-white/85 shadow-sm backdrop-blur dark:border-slate-800/90 dark:bg-slate-900/80;
+}
+
+.gradient-hero {
+  background-image:
+    radial-gradient(circle at 10% 0%, rgba(59, 130, 246, 0.2), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(14, 165, 233, 0.14), transparent 35%);
+}
+
+.theme-ease,
+.theme-ease * {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: ease;
+}

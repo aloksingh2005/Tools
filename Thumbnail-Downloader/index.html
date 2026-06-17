@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Thumbnail Downloader - Free HD Thumbnails</title>
+    <meta name="description"
+        content="Download YouTube thumbnails in HD, 4K, SD, and default sizes. Free, fast, and no login required. Extract thumbnails instantly from any YouTube video URL.">
+    <meta name="keywords"
+        content="YouTube thumbnail downloader, HD thumbnails, video thumbnails, free download, no login">
+    <meta name="author" content="YouTube Thumbnail Tool">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="YouTube Thumbnail Downloader - Free HD Thumbnails">
+    <meta property="og:description"
+        content="Download YouTube thumbnails in multiple resolutions instantly. Free and easy to use.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎥</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Theme Toggle -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+    </button>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎥</span>
+                <h1>YouTube Thumbnail Downloader</h1>
+            </div>
+            <p class="subtitle">Download high-quality thumbnails from any YouTube video instantly</p>
+        </header>
+
+        <!-- Main Input Section -->
+        <main class="main-section">
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <input type="url" id="videoUrl" placeholder="Paste YouTube video URL here..." autocomplete="off"
+                        spellcheck="false">
+                    <button id="clearBtn" class="clear-btn" aria-label="Clear input">×</button>
+                </div>
+                <button id="getThumbnails" class="get-thumbnails-btn">
+                    <span class="btn-text">Get Thumbnails</span>
+                    <span class="btn-icon">📷</span>
+                </button>
+            </div>
+
+            <!-- Loading Animation -->
+            <div id="loadingSpinner" class="loading-spinner hidden">
+                <div class="spinner"></div>
+                <p>Extracting thumbnails...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message hidden">
+                <span class="error-icon">⚠️</span>
+                <span id="errorText">Please enter a valid YouTube URL</span>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message hidden">
+                <span class="success-icon">✅</span>
+                <span id="successText">Thumbnails loaded successfully!</span>
+            </div>
+
+            <!-- Video Info -->
+            <div id="videoInfo" class="video-info hidden">
+                <h3 id="videoTitle">Video Title</h3>
+                <p id="videoId">Video ID: <span></span></p>
+            </div>
+
+            <!-- Thumbnails Grid -->
+            <div id="thumbnailsGrid" class="thumbnails-grid hidden">
+                <h2>Available Thumbnails</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Sizes</button>
+                    <button class="filter-btn" data-filter="hd">HD Only</button>
+                    <button class="filter-btn" data-filter="sd">SD Only</button>
+                </div>
+                <div id="thumbnailCards" class="thumbnail-cards"></div>
+
+                <!-- Batch Actions -->
+                <div class="batch-actions">
+                    <button id="downloadAll" class="batch-btn">
+                        <span>📦</span> Download All as ZIP
+                    </button>
+                    <button id="copyAllLinks" class="batch-btn">
+                        <span>📋</span> Copy All Links
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How to download YouTube thumbnails?</h3>
+                    <p>Simply paste any YouTube video URL in the input field above and click "Get Thumbnails". You'll
+                        see all available thumbnail sizes that you can download instantly.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What thumbnail sizes are available?</h3>
+                    <p>We provide thumbnails in multiple resolutions: 120×90 (default), 320×180 (medium), 480×360
+                        (high), 1280×720 (max), and 1920×1080 (4K when available).</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this service free?</h3>
+                    <p>Yes, completely free! No registration, no login required. Download as many thumbnails as you need
+                        without any limitations.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Supported YouTube URL formats?</h3>
+                    <p>All YouTube URL formats: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID, and
+                        youtube.com/shorts/ID are supported.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2>Why Choose Our Thumbnail Downloader?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Lightning Fast</h3>
+                    <p>Extract thumbnails instantly without any waiting time</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📱</span>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices - desktop, tablet, and mobile</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>100% Private</h3>
+                    <p>All processing happens in your browser. No data is sent to servers</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3>Multiple Formats</h3>
+                    <p>Download thumbnails in various resolutions up to 4K quality</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage"></span>
+        <button id="toastClose" class="toast-close">×</button>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 YouTube Thumbnail Downloader. Built with ❤️ for creators worldwide.</p>
+        <p class="disclaimer">This tool extracts publicly available thumbnail images. We respect YouTube's terms of
+            service.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

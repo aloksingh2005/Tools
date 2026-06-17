@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PDF Tools - Free, private, browser-based PDF tools for merging, splitting, compressing, converting, and editing PDFs.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:title" content="PDF Tools">
+    <meta property="og:description" content="Free, private, browser-based PDF tools.">
+    <meta property="og:type" content="website">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff">
+    <title>PDF Tools</title>
+    <script src="theme-init.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 3v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/></svg>
+                </span>
+                <span class="brand-text">PDF Tools</span>
+            </a>
+            <div class="navbar-search">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="search" id="searchInput" placeholder="Search tools, keywords, or categories..." autocomplete="off">
+            </div>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+                <svg class="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <span class="theme-label">Dark</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main">
+        <section class="hero">
+            <div class="hero-inner">
+                <h1>PDF Tools</h1>
+                <p>Fast, free, privacy-friendly tools for merging, splitting, compressing, converting, and editing PDFs &mdash; all running locally in your browser.</p>
+            </div>
+        </section>
+
+        <section class="categories" id="categories">
+            <div class="categories-inner">
+                <button class="cat-pill active" data-category="all">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    All
+                </button>
+            </div>
+        </section>
+
+        <section class="tools" id="tools">
+            <div class="tools-grid" id="toolsGrid"></div>
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <p>No tools found matching your search.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>All tools run locally in your browser. Your documents never leave your computer.</p>
+    </footer>
+
+    <script src="tool-registry.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

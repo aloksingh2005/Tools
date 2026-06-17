@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Age Calculator - Calculate Age in Years, Months, Days</title>
+    <meta name="description"
+        content="Enter your date of birth and calculate your exact age in years, months, and days. Free online age calculator with birthday countdown, zodiac signs, and life statistics.">
+    <meta name="keywords" content="age calculator, birthday calculator, zodiac sign, age in days, birthday countdown">
+    <meta name="author" content="Age Calculator Pro">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Age Calculator - Calculate Your Exact Age">
+    <meta property="og:description"
+        content="Calculate your age in years, months, days with birthday countdown and zodiac signs.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/4f46e5/ffffff?text=Age+Calculator">
+</head>
+
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="langToggle" onclick="toggleLanguage()">
+            <i class="fas fa-globe"></i> EN
+        </button>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <!-- Voice Toggle -->
+    <button class="voice-toggle" onclick="toggleVoice()" title="Toggle Voice Announcements">
+        <i class="fas fa-volume-up" id="voiceIcon"></i>
+    </button>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title" data-en="🎂 Age Calculator Pro" data-hi="🎂 आयु गणना उपकरण">
+                    🎂 Age Calculator Pro
+                </h1>
+                <p class="subtitle" data-en="Discover your exact age and amazing life statistics"
+                    data-hi="अपनी सटीक आयु और जीवन के आंकड़े जानें">
+                    Discover your exact age and amazing life statistics
+                </p>
+            </div>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="dobInput" data-en="Enter Your Date of Birth" data-hi="अपनी जन्म तिथि दर्ज करें">
+                        Enter Your Date of Birth
+                    </label>
+                    <div class="date-input-wrapper">
+                        <input type="date" id="dobInput" class="date-input" max="">
+                        <i class="fas fa-calendar-alt input-icon"></i>
+                    </div>
+                </div>
+
+                <button id="calculateBtn" class="calculate-btn" onclick="calculateAge()">
+                    <i class="fas fa-calculator"></i>
+                    <span data-en="Calculate My Age" data-hi="मेरी आयु गणना करें">Calculate My Age</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card primary">
+                    <div class="stat-icon">🎈</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="mainAge">-</div>
+                        <div class="stat-label" data-en="Years Old" data-hi="साल के">Years Old</div>
+                    </div>
+                </div>
+
+                <div class="stat-card secondary">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="nextBirthdayDays">-</div>
+                        <div class="stat-label" data-en="Days to Birthday" data-hi="जन्मदिन में दिन">Days to Birthday
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card accent">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="zodiacSign">-</div>
+                        <div class="stat-label" data-en="Zodiac Sign" data-hi="राशि">Zodiac Sign</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Age -->
+            <div class="age-details">
+                <h3 data-en="Detailed Age Breakdown" data-hi="विस्तृत आयु विवरण">Detailed Age Breakdown</h3>
+                <div class="age-breakdown">
+                    <div class="age-item">
+                        <span class="age-number" id="years">0</span>
+                        <span class="age-unit" data-en="Years" data-hi="साल">Years</span>
+                    </div>
+                    <div class="age-separator">+</div>
+                    <div class="age-item">
+                        <span class="age-number" id="months">0</span>
+                        <span class="age-unit" data-en="Months" data-hi="महीने">Months</span>
+                    </div>
+                    <div class="age-separator">+</div>
+                    <div class="age-item">
+                        <span class="age-number" id="days">0</span>
+                        <span class="age-unit" data-en="Days" data-hi="दिन">Days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alternative Age Formats -->
+            <div class="alternative-formats">
+                <h3 data-en="Your Age in Different Ways" data-hi="विभिन्न तरीकों से आपकी आयु">Your Age in Different Ways
+                </h3>
+                <div class="format-grid">
+                    <div class="format-item">
+                        <i class="fas fa-sun"></i>
+                        <span id="totalDays">0</span>
+                        <small data-en="Total Days" data-hi="कुल दिन">Total Days</small>
+                    </div>
+                    <div class="format-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="totalHours">0</span>
+                        <small data-en="Hours Lived" data-hi="जीए गए घंटे">Hours Lived</small>
+                    </div>
+                    <div class="format-item">
+                        <i class="fas fa-stopwatch"></i>
+                        <span id="totalMinutes">0</span>
+                        <small data-en="Minutes Lived" data-hi="जीए गए मिनट">Minutes Lived</small>
+                    </div>
+                    <div class="format-item">
+                        <i class="fas fa-bolt"></i>
+                        <span id="totalSeconds">0</span>
+                        <small data-en="Seconds Lived" data-hi="जीए गए सेकेंड">Seconds Lived</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Life Statistics -->
+            <div class="life-stats">
+                <h3 data-en="Amazing Life Statistics" data-hi="अद्भुत जीवन आंकड़े">Amazing Life Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <i class="fas fa-heart heartbeat"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="heartbeats">0</span>
+                            <span class="stat-desc" data-en="Heartbeats" data-hi="दिल की धड़कन">Heartbeats</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-wind"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="breaths">0</span>
+                            <span class="stat-desc" data-en="Breaths Taken" data-hi="सांसें ली">Breaths Taken</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-moon"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="sleepHours">0</span>
+                            <span class="stat-desc" data-en="Hours Slept" data-hi="सोए गए घंटे">Hours Slept</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-utensils"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="meals">0</span>
+                            <span class="stat-desc" data-en="Meals Eaten" data-hi="खाए गए भोजन">Meals Eaten</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birth Information -->
+            <div class="birth-info">
+                <h3 data-en="Birth Information" data-hi="जन्म की जानकारी">Birth Information</h3>
+                <div class="birth-details">
+                    <div class="birth-item">
+                        <i class="fas fa-calendar-day"></i>
+                        <div>
+                            <span class="birth-label" data-en="Day of Week:" data-hi="सप्ताह का दिन:">Day of
+                                Week:</span>
+                            <span class="birth-value" id="dayOfWeek">-</span>
+                        </div>
+                    </div>
+                    <div class="birth-item">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <span class="birth-label" data-en="Season:" data-hi="मौसम:">Season:</span>
+                            <span class="birth-value" id="season">-</span>
+                        </div>
+                    </div>
+                    <div class="birth-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <span class="birth-label" data-en="Chinese Zodiac:" data-hi="चीनी राशि:">Chinese
+                                Zodiac:</span>
+                            <span class="birth-value" id="chineseZodiac">-</span>
+                        </div>
+                    </div>
+                    <div class="birth-item">
+                        <i class="fas fa-gem"></i>
+                        <div>
+                            <span class="birth-label" data-en="Birthstone:" data-hi="जन्म रत्न:">Birthstone:</span>
+                            <span class="birth-value" id="birthstone">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestones -->
+            <div class="milestones">
+                <h3 data-en="Upcoming Milestones" data-hi="आगामी पड़ाव">Upcoming Milestones</h3>
+                <div id="milestonesContainer" class="milestones-container">
+                    <!-- Dynamically generated milestones -->
+                </div>
+            </div>
+
+            <!-- Fun Facts -->
+            <div class="fun-facts">
+                <h3 data-en="Fun Facts About Your Age" data-hi="आपकी आयु के रोचक तथ्य">Fun Facts About Your Age</h3>
+                <div id="funFactsContainer" class="fun-facts-container">
+                    <!-- Dynamically generated fun facts -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn primary" onclick="shareResults()">
+                    <i class="fas fa-share-alt"></i>
+                    <span data-en="Share Results" data-hi="परिणाम साझा करें">Share Results</span>
+                </button>
+                <button class="action-btn secondary" onclick="printResults()">
+                    <i class="fas fa-print"></i>
+                    <span data-en="Print Results" data-hi="परिणाम प्रिंट करें">Print Results</span>
+                </button>
+                <button class="action-btn accent" onclick="downloadPDF()">
+                    <i class="fas fa-download"></i>
+                    <span data-en="Download PDF" data-hi="PDF डाउनलोड करें">Download PDF</span>
+                </button>
+                <button class="action-btn" onclick="resetCalculator()">
+                    <i class="fas fa-refresh"></i>
+                    <span data-en="Calculate Again" data-hi="फिर से गणना करें">Calculate Again</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p data-en="© 2025 Age Calculator Pro. Calculate your age with precision and discover amazing life statistics."
+                data-hi="© 2025 आयु गणना उपकरण। सटीकता के साथ अपनी आयु की गणना करें।">
+                © 2025 Age Calculator Pro. Calculate your age with precision and discover amazing life statistics.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p data-en="Calculating your amazing life journey..."
+                data-hi="आपकी अद्भुत जीवन यात्रा की गणना कर रहे हैं...">Calculating your amazing life journey...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>

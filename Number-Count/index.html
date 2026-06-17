@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Counter Animation Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .controls {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .preview {
+            flex: 2;
+            min-width: 400px;
+            max-width: 700px;
+        }
+
+        .preview-box {
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .counter-text {
+            font-size: 80px;
+            font-weight: bold;
+            text-align: center;
+            transition: color 0.3s;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .control-group input[type="number"],
+        .control-group input[type="text"],
+        .control-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #2d3748;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .control-group input[type="number"]:focus,
+        .control-group input[type="text"]:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-input-wrapper input[type="color"] {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: none;
+        }
+
+        .color-input-wrapper input[type="text"] {
+            flex: 1;
+        }
+
+        .range-slider {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .range-slider input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #2d3748;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .range-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .range-slider input[type="range"]::-webkit-slider-thumb:hover {
+            background: #764ba2;
+        }
+
+        .range-value {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #667eea;
+            margin-top: 5px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #2d3748;
+            color: #fff;
+        }
+
+        .btn-reset:hover {
+            background: #4a5568;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: #fff;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(56, 239, 125, 0.4);
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #1a1a2e;
+            font-size: 0.9rem;
+        }
+
+        .status.ready { color: #38ef7d; }
+        .status.running { color: #667eea; }
+        .status.done { color: #f6ad55; }
+
+        .presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .preset-btn {
+            padding: 6px 12px;
+            border: 1px solid #2d3748;
+            border-radius: 6px;
+            background: #1a1a2e;
+            color: #a0a0a0;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preset-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .end-text-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .end-text-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .counter-text { font-size: 50px; }
+            .preview-box { min-height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Number Counter Animation Tool</h1>
+
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label>Start Number</label>
+                <input type="number" id="startNumber" value="0">
+            </div>
+
+            <div class="control-group">
+                <label>End Number</label>
+                <input type="number" id="endNumber" value="100000">
+                <div class="presets">
+                    <button class="preset-btn" onclick="setEndNumber(1000)">1K</button>
+                    <button class="preset-btn" onclick="setEndNumber(10000)">10K</button>
+                    <button class="preset-btn" onclick="setEndNumber(100000)">1L</button>
+                    <button class="preset-btn" onclick="setEndNumber(1000000)">10L</button>
+                    <button class="preset-btn" onclick="setEndNumber(10000000)">1Cr</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>End Text (shown after counting)</label>
+                <input type="text" id="endText" value="+" placeholder="e.g. +, Lakh, Cr">
+                <div class="end-text-toggle">
+                    <input type="checkbox" id="showEndText" checked>
+                    <label for="showEndText" style="margin:0;color:#fff;">Show end text</label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Text Color</label>
+                <div class="color-input-wrapper">
+                    <input type="color" id="textColorPicker" value="#efbe06">
+                    <input type="text" id="textColorHex" value="#efbe06">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Background Color</label>
+                <div class="color-input-wrapper">
+                    <input type="color" id="bgColorPicker" value="#ffffff">
+                    <input type="text" id="bgColorHex" value="#ffffff">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Font Size: <span id="fontSizeValue">80</span>px</label>
+                <div class="range-slider">
+                    <input type="range" id="fontSize" min="20" max="200" value="80">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Animation Speed: <span id="speedValue">500</span></label>
+                <div class="range-slider">
+                    <input type="range" id="speed" min="10" max="5000" value="500" step="10">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Font Style</label>
+                <select id="fontStyle">
+                    <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                    <option value="Impact, sans-serif">Impact</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-start" id="startBtn" onclick="startAnimation()">Start</button>
+                <button class="btn btn-reset" onclick="resetAnimation()">Reset</button>
+            </div>
+            <button class="btn btn-download" onclick="downloadRecording()">Download as Video</button>
+
+            <div class="status ready" id="status">Ready</div>
+        </div>
+
+        <div class="preview">
+            <div class="preview-box" id="previewBox">
+                <div class="counter-text" id="counterText">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let animationInterval = null;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        let isRecording = false;
+
+        const startNumberInput = document.getElementById('startNumber');
+        const endNumberInput = document.getElementById('endNumber');
+        const endTextInput = document.getElementById('endText');
+        const showEndText = document.getElementById('showEndText');
+        const textColorPicker = document.getElementById('textColorPicker');
+        const textColorHex = document.getElementById('textColorHex');
+        const bgColorPicker = document.getElementById('bgColorPicker');
+        const bgColorHex = document.getElementById('bgColorHex');
+        const fontSizeSlider = document.getElementById('fontSize');
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        const speedSlider = document.getElementById('speed');
+        const speedValue = document.getElementById('speedValue');
+        const fontStyle = document.getElementById('fontStyle');
+        const counterText = document.getElementById('counterText');
+        const previewBox = document.getElementById('previewBox');
+        const startBtn = document.getElementById('startBtn');
+        const status = document.getElementById('status');
+
+        function setEndNumber(num) {
+            endNumberInput.value = num;
+        }
+
+        textColorPicker.addEventListener('input', (e) => {
+            textColorHex.value = e.target.value;
+            counterText.style.color = e.target.value;
+        });
+
+        textColorHex.addEventListener('input', (e) => {
+            if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+                textColorPicker.value = e.target.value;
+                counterText.style.color = e.target.value;
+            }
+        });
+
+        bgColorPicker.addEventListener('input', (e) => {
+            bgColorHex.value = e.target.value;
+            previewBox.style.backgroundColor = e.target.value;
+        });
+
+        bgColorHex.addEventListener('input', (e) => {
+            if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+                bgColorPicker.value = e.target.value;
+                previewBox.style.backgroundColor = e.target.value;
+            }
+        });
+
+        fontSizeSlider.addEventListener('input', (e) => {
+            fontSizeValue.textContent = e.target.value;
+            counterText.style.fontSize = e.target.value + 'px';
+        });
+
+        speedSlider.addEventListener('input', (e) => {
+            speedValue.textContent = e.target.value;
+        });
+
+        fontStyle.addEventListener('change', (e) => {
+            counterText.style.fontFamily = e.target.value;
+        });
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function startAnimation() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+            }
+
+            const startNum = parseInt(startNumberInput.value) || 0;
+            const endNum = parseInt(endNumberInput.value) || 100000;
+            const speed = parseInt(speedSlider.value) || 500;
+            const endTextStr = endTextInput.value || '+';
+            const showEnd = showEndText.checked;
+
+            let currentNum = startNum;
+            counterText.style.color = textColorPicker.value;
+            previewBox.style.backgroundColor = bgColorPicker.value;
+            counterText.style.fontSize = fontSizeSlider.value + 'px';
+            counterText.style.fontFamily = fontStyle.value;
+
+            status.className = 'status running';
+            status.textContent = 'Running...';
+            startBtn.disabled = true;
+
+            const totalSteps = 200;
+            const increment = Math.max(1, Math.ceil((endNum - startNum) / totalSteps));
+
+            animationInterval = setInterval(() => {
+                currentNum += increment;
+
+                if (currentNum >= endNum) {
+                    currentNum = endNum;
+                    clearInterval(animationInterval);
+                    animationInterval = null;
+
+                    if (showEnd) {
+                        counterText.textContent = formatNumber(currentNum) + endTextStr;
+                    } else {
+                        counterText.textContent = formatNumber(currentNum);
+                    }
+
+                    status.className = 'status done';
+                    status.textContent = 'Done!';
+                    startBtn.disabled = false;
+                    return;
+                }
+
+                counterText.textContent = formatNumber(currentNum);
+            }, speed / totalSteps);
+        }
+
+        function resetAnimation() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+
+            const startNum = parseInt(startNumberInput.value) || 0;
+            counterText.textContent = formatNumber(startNum);
+            status.className = 'status ready';
+            status.textContent = 'Ready';
+            startBtn.disabled = false;
+
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            recordedChunks = [];
+        }
+
+        async function downloadRecording() {
+            try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 1280;
+                canvas.height = 720;
+
+                const startNum = parseInt(startNumberInput.value) || 0;
+                const endNum = parseInt(endNumberInput.value) || 100000;
+                const speed = parseInt(speedSlider.value) || 500;
+                const endTextStr = endTextInput.value || '+';
+                const showEnd = showEndText.checked;
+                const increment = Math.max(1, Math.ceil((endNum - startNum) / 200));
+
+                const stream = canvas.captureStream(60);
+                const recorder = new MediaRecorder(stream, {
+                    mimeType: 'video/webm;codecs=vp9'
+                });
+
+                recordedChunks = [];
+                recorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) recordedChunks.push(e.data);
+                };
+
+                recorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'counter-animation.webm';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    status.className = 'status done';
+                    status.textContent = 'Video downloaded!';
+                    startBtn.disabled = false;
+                };
+
+                recorder.start();
+                status.className = 'status running';
+                status.textContent = 'Recording...';
+                startBtn.disabled = true;
+
+                let currentNum = startNum;
+                let frame = 0;
+                const totalFrames = 200;
+
+                function drawFrame() {
+                    const bgColor = bgColorPicker.value;
+                    const txtColor = textColorPicker.value;
+                    const size = parseInt(fontSizeSlider.value) || 80;
+                    const font = fontStyle.value;
+
+                    ctx.fillStyle = bgColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    const displayNum = frame < totalFrames
+                        ? Math.min(startNum + Math.ceil(((endNum - startNum) / totalFrames) * frame), endNum)
+                        : endNum;
+
+                    const displayText = (frame >= totalFrames && showEnd)
+                        ? formatNumber(displayNum) + endTextStr
+                        : formatNumber(displayNum);
+
+                    ctx.fillStyle = txtColor;
+                    ctx.font = `bold ${size * (canvas.width / previewBox.offsetWidth)}px ${font}`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(displayText, canvas.width / 2, canvas.height / 2);
+
+                    frame++;
+
+                    if (frame <= totalFrames + 60) {
+                        requestAnimationFrame(drawFrame);
+                    } else {
+                        recorder.stop();
+                    }
+                }
+
+                drawFrame();
+            } catch (err) {
+                status.className = 'status done';
+                status.textContent = 'Error: ' + err.message;
+                startBtn.disabled = false;
+            }
+        }
+
+        counterText.style.color = textColorPicker.value;
+        previewBox.style.backgroundColor = bgColorPicker.value;
+    </script>
+</body>
+</html>

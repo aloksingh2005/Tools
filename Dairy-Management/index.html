@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Account Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Milk Account Calculator</h1>
+
+        <div class="input-card">
+            <h3>Date Range</h3>
+            <div class="input-group">
+                <label for="startDate">Start Date (DD/MM/YY)</label>
+                <input type="text" id="startDate" placeholder="e.g., 01/03/25" oninput="updateResults()">
+            </div>
+            <div class="input-group">
+                <label for="endDate">End Date (DD/MM/YY)</label>
+                <input type="text" id="endDate" placeholder="e.g., 31/03/25" oninput="updateResults()">
+            </div>
+            <div class="quick-buttons">
+                <button onclick="setThisMonth()">This Month</button>
+                <button onclick="setLast30Days()">Last 30 Days</button>
+                <button onclick="setLast7Days()">Last 7 Days</button>
+            </div>
+        </div>
+
+        <div class="input-card">
+            <h3>Missing Delivery Dates</h3>
+            <div class="input-group">
+                <label for="missingDates">Enter dates (e.g., 05/03/25, 10/03/25)</label>
+                <input type="text" id="missingDates" placeholder="Comma-separated, DD/MM/YY" oninput="updateResults()">
+            </div>
+            <button onclick="markSundays()">No Delivery on Sundays</button>
+        </div>
+
+        <div class="input-card">
+            <h3>Milk Details</h3>
+            <div class="input-group">
+                <label for="customerName">Customer Name</label>
+                <input type="text" id="customerName" placeholder="e.g., John Doe" oninput="addCustomer()">
+                <select id="customerSelect" onchange="switchCustomer()">
+                    <option value="">Select Customer</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="milkQty">Milk Quantity per Day (liters)</label>
+                <input type="number" id="milkQty" step="0.1" min="0" value="1" oninput="updateResults()">
+            </div>
+            <div class="input-group">
+                <label for="pricePerLiter">Price per Liter</label>
+                <input type="number" id="pricePerLiter" step="0.01" min="0" value="0" oninput="updateResults()">
+                <button onclick="useLastPrice()">Use Last Price</button>
+            </div>
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <h3>Summary for <span id="currentCustomer">Customer</span></h3>
+            <div class="results-grid">
+                <div class="result-item">
+                    <span class="label">Total Days</span>
+                    <span class="value" id="totalDays">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Missing Days</span>
+                    <span class="value" id="missingDays">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Delivery Days</span>
+                    <span class="value" id="deliveryDays">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Total Milk</span>
+                    <span class="value" id="totalMilk">0 liters</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Total Cost</span>
+                    <span class="value" id="totalCost">$0</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Potential Earnings</span>
+                    <span class="value" id="potentialCost">$0</span>
+                </div>
+            </div>
+            <button onclick="toggleDetails()" id="detailsToggle">Show Daily Breakdown</button>
+            <div class="daily-details" id="dailyDetails" style="display: none;"></div>
+            <div class="export-buttons">
+                <button onclick="downloadCSV()">Download CSV</button>
+                <button onclick="shareWhatsApp()">Share via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

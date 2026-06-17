@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image to Text Converter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">📄 Image to Text Converter</h1>
+
+    <div class="drop-area" id="drop-area">
+      <p>Drag & Drop or <span>Click to Upload</span></p>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+    </div>
+
+    <div class="preview-container">
+      <img id="previewImage" src="" alt="Image Preview" class="hidden">
+    </div>
+
+    <div class="controls">
+      <button id="convertBtn" class="convert-btn">Convert to Text</button>
+      <!-- New Copy Button -->
+      <button id="copyBtn" class="copy-btn hidden">Copy Text</button>
+      <!-- Existing Download Button -->
+      <button id="downloadBtn" class="download-btn hidden">Download Text</button>
+    </div>
+
+    <div class="output-container hidden">
+      <textarea id="outputText" readonly></textarea>
+    </div>
+
+    <div id="loadingAnimation" class="hidden">
+      <div class="spinner"></div>
+      <p>Extracting text, please wait...</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

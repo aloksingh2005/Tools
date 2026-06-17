@@ -1,0 +1,172 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #3a3a5f);
+    color: #fff;
+    margin: 0;
+    padding: 20px 0;
+    /* Removed flex centering so content starts from the top */
+  }
+  
+  /* Container: full-width layout */
+  .container {
+    width: 90%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    margin: 0 auto; /* Center horizontally only */
+  }
+  
+  /* Title */
+  h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  /* Drag & Drop Area */
+  .drop-area {
+    border: 3px dashed rgba(255, 255, 255, 0.7);
+    padding: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+  }
+  
+  .drop-area.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+  }
+  
+  .drop-area span {
+    font-weight: bold;
+    color: #ffcc00;
+  }
+  
+  /* Preview Image */
+  .preview-container {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .preview-container img {
+    width: auto;
+    max-width: 200px; /* Reduced image size */
+    height: auto;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Controls */
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    /* Controls will remain directly below the preview */
+  }
+  
+  button {
+    background: #ffcc00;
+    border: none;
+    padding: 14px 28px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: #ffaa00;
+  }
+  
+  /* New Copy Button Style */
+  .copy-btn {
+    background: #007bff;
+  }
+  
+  .copy-btn:hover {
+    background: #0069d9;
+  }
+  
+  .download-btn {
+    background: #28a745;
+    display: none;
+  }
+  
+  .download-btn:hover {
+    background: #218838;
+  }
+  
+  /* Output Text */
+  .output-container {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    resize: none;
+    text-align: center;
+  }
+  
+  /* Loading Animation */
+  #loadingAnimation {
+    margin-top: 20px;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-left-color: #ffcc00;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: auto;
+  }
+  
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Hidden Elements */
+  .hidden {
+    display: none;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .drop-area {
+      width: 100%;
+      padding: 40px;
+    }
+    .preview-container img {
+      max-width: 150px;
+    }
+    .controls {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeBook - Customer Details</title>
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-180.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="customer-details">
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="menu-toggle" id="toggleSidebar" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="brand" href="calculator.html" aria-label="TimeBook home">TimeBook</a>
+        </div>
+        <div class="nav-links">
+            <a href="calculator.html" data-nav="calculator"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="history.html" data-nav="history"><i class="fas fa-history"></i> History</a>
+            <a href="customers.html" data-nav="customers"><i class="fas fa-users"></i> Customers</a>
+            <a href="analytics.html" data-nav="analytics"><i class="fas fa-chart-bar"></i> Analytics</a>
+            <a href="settings.html" data-nav="settings"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+        <div class="nav-right">
+            <select id="paletteSelect" class="select-input" aria-label="Color palette" title="Color palette">
+                <option value="mint">Verdant</option>
+                <option value="blue">Blue Quartz</option>
+            </select>
+            <button class="btn-icon" id="hardRefresh" aria-label="Reload" title="Reload">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+        <div class="sidebar-brand">TimeBook</div>
+        <ul>
+            <li><a href="calculator.html" data-nav="calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
+            <li><a href="history.html" data-nav="history"><i class="fas fa-history"></i> History</a></li>
+            <li><a href="customers.html" data-nav="customers"><i class="fas fa-users"></i> Customers</a></li>
+            <li><a href="analytics.html" data-nav="analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+            <li><a href="settings.html" data-nav="settings"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+    </aside>
+    <div class="container">
+        <header class="page-hero">
+            <div class="hero-text">
+                <p class="eyebrow">TimeBook</p>
+                <h1>Customer Details</h1>
+                <p class="subtitle">View full customer information and payment history.</p>
+            </div>
+        </header>
+        <main>
+            <section class="page-panel" aria-label="Customer details">
+                <div id="customerDetailsCard"></div>
+            </section>
+        </main>
+    </div>
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+        <div class="bottom-nav-inner">
+            <a href="calculator.html" class="bottom-nav-item" data-nav="calculator"><i class="fas fa-calculator"></i><span>Calculator</span></a>
+            <a href="history.html" class="bottom-nav-item" data-nav="history"><i class="fas fa-history"></i><span>History</span></a>
+            <a href="customers.html" class="bottom-nav-item" data-nav="customers"><i class="fas fa-users"></i><span>Customer</span></a>
+            <a href="analytics.html" class="bottom-nav-item" data-nav="analytics"><i class="fas fa-chart-bar"></i><span>Analytics</span></a>
+            <a href="settings.html" class="bottom-nav-item" data-nav="settings"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </div>
+    </nav>
+    <div id="actionModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
+        <div class="modal-content" tabindex="-1">
+            <p id="modalMessage"></p>
+            <div id="editForm" class="edit-form" style="display: none;">
+                <div class="input-group">
+                    <label for="editField">Edit Value</label>
+                    <input type="text" id="editField">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="confirmAction" class="btn btn-danger">Confirm</button>
+                <button id="cancelAction" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="pwa.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

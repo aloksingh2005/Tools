@@ -1,0 +1,6 @@
+rembg>=0.0.51
+pillow>=9.0.0
+customtkinter>=5.0
+onnxruntime>=1.14.0
+numba>=0.56.0,<0.58
+# pip install -r requirements.txt
