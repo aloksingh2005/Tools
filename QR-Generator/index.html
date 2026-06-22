@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Free Online QR Creator</title>
+    <meta name="description" content="Generate QR codes instantly for URLs, text, WiFi, vCard, and more. Free online QR code generator with download and customization options.">
+    <meta name="keywords" content="QR code generator, free QR code, create QR code, QR maker, custom QR">
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('tools-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', savedTheme === 'dark' || (!savedTheme && prefersDark) ? 'dark' : 'light');
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+            <h1>QR Code Generator</h1>
+            <p>Generate beautiful QR codes instantly — URLs, text, WiFi, vCard, and more. No server, no upload, 100% private.</p>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section">
+                <div class="type-selector">
+                    <button class="type-btn active" data-type="text">Text / URL</button>
+                    <button class="type-btn" data-type="wifi">WiFi</button>
+                    <button class="type-btn" data-type="vcard">vCard</button>
+                </div>
+
+                <div class="input-group" id="input-text">
+                    <label for="qr-text">Enter text or URL</label>
+                    <input type="text" id="qr-text" placeholder="https://example.com" value="https://tools.techsoftechs.com">
+                </div>
+
+                <div class="input-group hidden" id="input-wifi">
+                    <label for="wifi-ssid">WiFi Name (SSID)</label>
+                    <input type="text" id="wifi-ssid" placeholder="Network name">
+                    <label for="wifi-password">Password</label>
+                    <input type="text" id="wifi-password" placeholder="WiFi password">
+                    <label for="wifi-encryption">Encryption</label>
+                    <select id="wifi-encryption">
+                        <option value="WPA">WPA/WPA2</option>
+                        <option value="WEP">WEP</option>
+                        <option value="">None</option>
+                    </select>
+                </div>
+
+                <div class="input-group hidden" id="input-vcard">
+                    <label for="vcard-name">Full Name</label>
+                    <input type="text" id="vcard-name" placeholder="John Doe">
+                    <label for="vcard-phone">Phone</label>
+                    <input type="text" id="vcard-phone" placeholder="+1 555-123-4567">
+                    <label for="vcard-email">Email</label>
+                    <input type="email" id="vcard-email" placeholder="john@example.com">
+                    <label for="vcard-org">Organization</label>
+                    <input type="text" id="vcard-org" placeholder="Company Inc.">
+                </div>
+
+                <div class="options-row">
+                    <div class="option-group">
+                        <label for="qr-size">Size</label>
+                        <select id="qr-size">
+                            <option value="128">Small (128×128)</option>
+                            <option value="256" selected>Medium (256×256)</option>
+                            <option value="512">Large (512×512)</option>
+                            <option value="1024">X-Large (1024×1024)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="qr-fg">Color</label>
+                        <input type="color" id="qr-fg" value="#000000">
+                    </div>
+                    <div class="option-group">
+                        <label for="qr-bg">Background</label>
+                        <input type="color" id="qr-bg" value="#ffffff">
+                    </div>
+                </div>
+
+                <button class="generate-btn" id="generate-btn"><i class="fas fa-qrcode"></i> Generate QR Code</button>
+            </div>
+
+            <div class="output-section" id="output-section">
+                <div class="qr-display" id="qr-display"></div>
+                <div class="download-actions">
+                    <button class="action-btn" id="download-png"><i class="fas fa-download"></i> Download PNG</button>
+                    <button class="action-btn secondary" id="download-svg"><i class="fas fa-code"></i> Download SVG</button>
+                </div>
+            </div>
+        </main>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item"><strong>Is this QR code generator free?</strong><p>Yes, completely free with no limits. All processing happens in your browser — no server involved.</p></div>
+            <div class="faq-item"><strong>Can I change QR code colors?</strong><p>Yes. Use the color pickers to set foreground and background colors.</p></div>
+            <div class="faq-item"><strong>Do you track or store my data?</strong><p>No. Everything runs locally in your browser. Nothing is uploaded or stored.</p></div>
+            <div class="faq-item"><strong>Can I download the QR code?</strong><p>Yes. Download as PNG or SVG format.</p></div>
+        </section>
+    </div>
+    <footer class="footer">
+        <p>TechsOfTechs Tools &copy; 2026. Fully client-side, your privacy is protected.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

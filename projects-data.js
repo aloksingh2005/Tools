@@ -228,4 +228,42 @@ const projectsData = [
         language: "JavaScript"
     },
 
+    // New Tools
+    {
+        name: "QR Code Generator",
+        category: "Developer Tools",
+        description: "Generate QR codes instantly for URLs, text, WiFi networks, and vCards. Fully customizable with color, size options and PNG/SVG download.",
+        tags: ["JavaScript", "QR Code", "Utilities"],
+        demo: "https://tools.techsoftechs.com/QR-Generator/",
+        pinned: true,
+        stars: 55,
+        language: "JavaScript"
+    },
+    {
+        name: "Password Generator",
+        category: "Productivity",
+        description: "Generate strong, secure passwords with customizable length and character types. Includes strength meter and one-click copy.",
+        tags: ["JavaScript", "Security", "Utilities"],
+        demo: "https://tools.techsoftechs.com/Password-Generator/",
+        stars: 42,
+        language: "JavaScript"
+    },
+    {
+        name: "Unit Converter",
+        category: "Productivity",
+        description: "Convert between units of length, mass, temperature, and volume instantly. Accurate SI-based conversions with a clean interface.",
+        tags: ["JavaScript", "Utilities", "Converter"],
+        demo: "https://tools.techsoftechs.com/Unit-Converter/",
+        stars: 38,
+        language: "JavaScript"
+    },
+    {
+        name: "Regex Tester",
+        category: "Developer Tools",
+        description: "Test and debug regular expressions in real-time with syntax highlighting, match extraction, group support, and replace/split functionality.",
+        tags: ["JavaScript", "Regex", "Developer Tools"],
+        demo: "https://tools.techsoftechs.com/Regex-Tester/",
+        stars: 34,
+        language: "JavaScript"
+    },
 ];
