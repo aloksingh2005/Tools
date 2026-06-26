@@ -1,100 +1,13 @@
 {
-  "id": "./calculator.html",
-  "name": "TimeBook",
-  "short_name": "TimeBook",
-  "description": "A focused time tracking and INR billing app for saved sessions, customers, history, and analytics.",
-  "lang": "en-IN",
-  "dir": "ltr",
-  "start_url": "./calculator.html",
-  "scope": "./",
+  "name": "Work Hours Calculator",
+  "short_name": "Work Hours",
+  "description": "Calculate work hours, break deductions, and overtime.",
+  "start_url": ".",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
-  "orientation": "any",
-  "background_color": "#f5f3ee",
-  "theme_color": "#0f766e",
-  "categories": ["business", "productivity", "utilities", "finance"],
+  "orientation": "portrait",
+  "theme_color": "#1a1a2e",
+  "background_color": "#f0f2f5",
   "icons": [
-    {
-      "src": "icons/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-180.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/maskable-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "icons/maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Calculator",
-      "short_name": "Calc",
-      "description": "Open the TimeBook billing calculator.",
-      "url": "./calculator.html",
-      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
-    },
-    {
-      "name": "History",
-      "short_name": "History",
-      "description": "Review saved billing sessions.",
-      "url": "./history.html",
-      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
-    },
-    {
-      "name": "Customers",
-      "short_name": "Customers",
-      "description": "Manage TimeBook customers.",
-      "url": "./customers.html",
-      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
-    }
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
 }

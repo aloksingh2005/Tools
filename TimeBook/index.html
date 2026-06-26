@@ -1,31 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=calculator.html">
-    <link rel="canonical" href="calculator.html">
-    <title>TimeBook</title>
-    <meta name="theme-color" content="#0f766e">
-    <meta name="description" content="TimeBook time tracking and INR billing calculator.">
-    <meta name="application-name" content="TimeBook">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="TimeBook">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
-    <link rel="apple-touch-icon" href="icons/icon-180.png">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work Hours Calculator</title>
+  <meta name="description" content="Calculate work hours, break deductions, and overtime instantly. Free online work hours calculator." />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Work Hours" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
+<body>
 
-<body class="light-mode">
-    <div class="redirect-shell">
-        <p>Redirecting to TimeBook...</p>
-        <a href="calculator.html" class="btn">Go to Calculator</a>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">&#9788;</button>
+
+  <main class="card">
+    <h1>Work Hours</h1>
+    <p class="sub">Calculate your work hours accurately</p>
+
+    <section>
+      <label>Start Time</label>
+      <div class="row">
+        <select id="startHour" aria-label="Start hour"></select>
+        <select id="startMin" aria-label="Start minute"></select>
+        <select id="startPer" aria-label="Start period">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <label>End Time</label>
+      <div class="row">
+        <select id="endHour" aria-label="End hour"></select>
+        <select id="endMin" aria-label="End minute"></select>
+        <select id="endPer" aria-label="End period">
+          <option value="AM">AM</option>
+          <option value="PM" selected>PM</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <label>Break (minutes)</label>
+      <input type="number" id="breakVal" class="input" min="0" max="1440" value="30" />
+    </section>
+
+    <p class="err" id="errorMsg"></p>
+
+    <button class="btn btn-primary" id="calcBtn">Calculate</button>
+
+    <div class="stats" id="statsWrap" style="display:none">
+      <div class="stat"><span class="stat-val" id="resHm">--</span><span class="stat-lbl">Worked</span></div>
+      <div class="stat"><span class="stat-val" id="resDec">--</span><span class="stat-lbl">Decimal</span></div>
+      <div class="stat"><span class="stat-val" id="resMin">--</span><span class="stat-lbl">Minutes</span></div>
+      <div class="stat"><span class="stat-val" id="resBreak">--</span><span class="stat-lbl">Break</span></div>
     </div>
-    <script src="pwa.js"></script>
-</body>
 
+    <div class="bar-wrap" id="barWrap" style="display:none">
+      <div class="bar-fill" id="barFill"></div>
+    </div>
+
+    <div class="actions" id="actionsWrap" style="display:none">
+      <button class="btn btn-outline" id="copyBtn">Copy</button>
+      <button class="btn btn-outline" id="resetBtn">Reset</button>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js");
+      });
+    }
+  </script>
+</body>
 </html>

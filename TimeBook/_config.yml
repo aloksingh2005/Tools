@@ -1,5 +1,0 @@
-# Jekyll config: exclude folders that should not be parsed
-exclude:
-  - node_modules
-  - server/node_modules
-  - vendor
