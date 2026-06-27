@@ -33,7 +33,9 @@ A modern, user-friendly desktop application to remove image backgrounds instantl
 - 💾 **Easy Export** – Save transparent PNG with one click
 - 🔄 **Multi-threaded** – UI stays responsive while processing large images
 - 🏗️ **Standalone Build** – Create a Windows `.exe` and share with anyone (no Python needed!)
-- 🔒 **100% Private** – All processing happens locally; nothing is uploaded
+- 🌐 **Dual Mode** – Choose between local AI (rembg, offline) or online API (remove.bg, faster for large images)
+- 🔑 **API Key Support** – Bring your own remove.bg API key; persists across sessions
+- 🔒 **100% Private** – All processing happens locally when using local mode; nothing is uploaded
 
 ---
 
@@ -125,10 +127,13 @@ pyinstaller app.spec
 ## 📱 Using the App
 
 1. **Click "Select Image"** → Choose `.png`, `.jpg`, `.bmp`, or `.gif`
-2. **Click "Remove Background"** → Wait 5-30 seconds (depends on image size)
-3. **Click "Save Image"** → Save transparent PNG
+2. **Select Mode** → Choose **"Local (rembg - offline)"** for offline AI processing, or **"API (remove.bg)"** for faster cloud-based removal
+3. **Enter API Key** (only in API mode) → Paste your remove.bg API key (get one free at [remove.bg/api](https://www.remove.bg/api))
+4. **Click "Remove Background"** → Wait 5-30 seconds (depends on image size and mode)
+5. **Click "Save Image"** → Save transparent PNG
 
-💡 **Tip:** Start with small images (512×512)
+💡 **Tip:** Start with small images (512×512)  
+💡 **Tip:** API mode is faster for large images but requires an internet connection and a remove.bg API key
 
 ---
 
@@ -167,7 +172,7 @@ result.save("transparent.png")
 | `app.spec` | PyInstaller config for .exe |
 | `requirements.txt` | Python dependencies |
 
-**Dependencies:** rembg, customtkinter, pillow, onnxruntime, numba
+**Dependencies:** rembg, customtkinter, pillow, onnxruntime, numba, requests
 
 ---
 

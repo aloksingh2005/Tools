@@ -9,7 +9,7 @@
   const calcBtn = $("calcBtn");
   const copyBtn = $("copyBtn");
   const resetBtn = $("resetBtn");
-  const themeBtn = $("themeBtn");
+
   const toast = $("toast");
   const resHm = $("resHm");
   const resMin = $("resMin");
@@ -53,6 +53,7 @@
     this.value = val;
     var idx = val - this.min;
     var t = -idx * this.itemHeight;
+    this._offset = t;
 
     if (instant) {
       this.track.style.transition = "none";
@@ -79,8 +80,7 @@
 
     function onStart(e) {
       startY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
-      var t = self.track.style.transform;
-      startT = t ? parseInt(t.replace(/[^\d-]/g, "")) || 0 : 0;
+      startT = self._offset || 0;
       dragging = true;
       lastVal = self.value;
       self.track.classList.add("dragging");
@@ -96,6 +96,7 @@
       var minT = -(self.total - 1) * self.itemHeight;
       var newT = Math.max(minT, Math.min(maxT, startT + delta));
       self.track.style.transform = "translateY(" + newT + "px)";
+      self._offset = newT;
 
       var idx = Math.round(-newT / self.itemHeight);
       idx = Math.max(0, Math.min(self.total - 1, idx));
@@ -112,8 +113,7 @@
       dragging = false;
       self.track.classList.remove("dragging");
       self.track.style.transition = "";
-      var t = self.track.style.transform;
-      var currentT = t ? parseInt(t.replace(/[^\d-]/g, "")) || 0 : 0;
+      var currentT = self._offset || 0;
       var idx = Math.round(-currentT / self.itemHeight);
       idx = Math.max(0, Math.min(self.total - 1, idx));
       self._setVal(self.min + idx);
@@ -157,23 +157,6 @@
       ep: eP.value
     };
   }
-
-  /* ── Theme ── */
-  function getTheme() {
-    return document.body.classList.contains("dark") ? "dark" : "light";
-  }
-
-  function setTheme(t) {
-    document.body.classList.toggle("dark", t === "dark");
-    themeBtn.innerHTML = t === "dark" ? "&#9790;" : "&#9788;";
-    try { localStorage.setItem("wh-theme", t); } catch (_) {}
-  }
-
-  themeBtn.addEventListener("click", function () {
-    setTheme(getTheme() === "dark" ? "light" : "dark");
-  });
-
-  try { var saved = localStorage.getItem("wh-theme"); if (saved) setTheme(saved); } catch (_) {}
 
   /* ── Toast ── */
   function showToast(msg) {

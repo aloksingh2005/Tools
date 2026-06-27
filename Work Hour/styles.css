@@ -296,36 +296,6 @@ body.dark .bar-wrap {
   margin-top: 0.75rem;
 }
 
-/* ── Theme Toggle ── */
-.theme-btn {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border: 1.5px solid #e8eaf0;
-  border-radius: 50%;
-  font-size: 1.1rem;
-  cursor: pointer;
-  color: #1a1a2e;
-  transition: background 0.2s, border-color 0.2s;
-  z-index: 100;
-}
-
-body.dark .theme-btn {
-  background: #23232e;
-  border-color: #2f2f3e;
-  color: #d0d0dc;
-}
-
-.theme-btn:hover {
-  border-color: #4f6ef7;
-}
-
 /* ── Toast ── */
 .toast {
   position: fixed;
@@ -389,11 +359,5 @@ body.dark .toast {
     font-size: 1.05rem;
   }
 
-  .theme-btn {
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 34px;
-    height: 34px;
-    font-size: 0.95rem;
-  }
+
 }
