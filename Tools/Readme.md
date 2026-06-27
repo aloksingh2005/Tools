@@ -36,7 +36,6 @@ This portfolio website showcases over 40+ projects across 7 different categories
 
 ## Project Categories
 
-1. **Developer Tools** - Regex testers, formatters, editors, and development utilities
 2. **Productivity & Utilities** - Calculators, generators, and everyday tools
 3. **Media Tools** - Image and video processing applications
 4. **AI & Chatbots** - Artificial intelligence and conversational interfaces

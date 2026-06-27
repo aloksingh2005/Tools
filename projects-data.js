@@ -257,13 +257,4 @@ const projectsData = [
         stars: 38,
         language: "JavaScript"
     },
-    {
-        name: "Regex Tester",
-        category: "Developer Tools",
-        description: "Test and debug regular expressions in real-time with syntax highlighting, match extraction, group support, and replace/split functionality.",
-        tags: ["JavaScript", "Regex", "Developer Tools"],
-        demo: "https://tools.techsoftechs.com/Regex-Tester/",
-        stars: 34,
-        language: "JavaScript"
-    },
 ];
