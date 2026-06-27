@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f766e'/%3E%3Cstop offset='100%25' stop-color='%230d9488'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='58' font-weight='bold' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E" />
+    <title>BG-Remove - Background Remover | TechsOfTechs Tools</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a2e;
+            --card: #16213e;
+            --border: #2a2a4a;
+            --text: #e0e0e0;
+            --text-muted: #888;
+            --primary: #0ea5e9;
+            --primary-hover: #38bdf8;
+            --accent: #0d9488;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px 24px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #0ea5e9, #0d9488);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            border: 1px solid rgba(14, 165, 233, 0.25);
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h2 i { color: var(--primary); }
+        .card p, .card li {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .card li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card li i {
+            width: 20px;
+            color: var(--accent);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9, #0d9488);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 12px 0;
+            color: #a8d8ea;
+        }
+        .code-block .comment { color: #6a9955; }
+        footer {
+            text-align: center;
+            padding: 30px 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .card { padding: 20px; }
+            .code-block { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge"><i class="fas fa-cube"></i> Desktop App &bull; Python</div>
+            <h1>BG-Remove</h1>
+            <p>Remove image backgrounds in seconds using AI — completely locally on your computer. No internet required after initial setup. No images uploaded anywhere.</p>
+            <div class="actions">
+                <a href="https://github.com/aloksingh2005/Tools/tree/main/BG-Remove" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Source
+                </a>
+                <a href="https://github.com/aloksingh2005/Tools/archive/refs/heads/main.zip" target="_blank" class="btn btn-outline">
+                    <i class="fas fa-download"></i> Download ZIP
+                </a>
+            </div>
+        </header>
+
+        <div class="card">
+            <h2><i class="fas fa-info-circle"></i> About</h2>
+            <p>BG-Remove is a modern, user-friendly desktop application that uses AI (U&sup2;-Net neural network) to remove backgrounds from images. Built with Python, CustomTkinter for a sleek dark UI, and Pillow for image handling.</p>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-check-circle"></i> Features</h2>
+            <ul>
+                <li><i class="fas fa-palette"></i> Clean dark UI using CustomTkinter</li>
+                <li><i class="fas fa-eye"></i> Live before/after preview side-by-side</li>
+                <li><i class="fas fa-bolt"></i> One-click background removal with progress feedback</li>
+                <li><i class="fas fa-cloud"></i> Local AI (offline) or remove.bg API mode</li>
+                <li><i class="fas fa-key"></i> API key persistence across sessions</li>
+                <li><i class="fas fa-download"></i> Export as transparent PNG</li>
+                <li><i class="fas fa-lock"></i> 100% private — all processing stays on your machine</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-terminal"></i> Quick Setup</h2>
+            <p>Requires Python 3.10&ndash;3.12. Run these commands in PowerShell:</p>
+            <div class="code-block">
+                <span class="comment"># Navigate to BG-Remove folder</span><br>
+                cd BG-Remove<br><br>
+                <span class="comment"># Create virtual environment &amp; install</span><br>
+                python -m venv .venv<br>
+                .\.venv\Scripts\Activate.ps1<br>
+                pip install -r requirements.txt<br><br>
+                <span class="comment"># Launch the app</span><br>
+                python app.py
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-image"></i> Usage</h2>
+            <ul>
+                <li><i class="fas fa-1"></i> Click <strong>"Select Image"</strong> &rarr; Choose PNG, JPG, BMP, or GIF</li>
+                <li><i class="fas fa-2"></i> Choose <strong>Local</strong> (offline AI) or <strong>API</strong> (remove.bg) mode</li>
+                <li><i class="fas fa-3"></i> Click <strong>"Remove Background"</strong> &rarr; Wait a few seconds</li>
+                <li><i class="fas fa-4"></i> Click <strong>"Save Image"</strong> &rarr; Export as transparent PNG</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p><a href="https://tools.techsoftechs.com/">&#8592; Back to TechsOfTechs Tools</a></p>
+            <p style="margin-top:8px">&copy; 2026 TechsOfTechs Tools</p>
+        </footer>
+    </div>
+</body>
+</html>
