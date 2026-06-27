@@ -24,10 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("theme-toggle");
   const totalFiles = document.getElementById("total-files");
   const totalSaved = document.getElementById("total-saved");
+  const fileCountBadge = document.getElementById("file-count-badge");
+  const emptyState = document.getElementById("empty-state");
 
   // ==================== State Variables ====================
   let uploadedFiles = [];
   let convertedFiles = [];
+  let previewObjectUrls = [];
 
   // ==================== Initialization ====================
   initializeApp();
@@ -45,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     conversionResults.style.display = "none";
 
     setupEventListeners();
+    handleFormatChange();
   }
 
   // ==================== Event Listeners Setup ====================
@@ -147,29 +151,40 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
+        let dims = null;
+        try {
+          dims = await getImageDimensions(fileToAdd);
+        } catch {
+          // silently continue without dimensions
+        }
+
         uploadedFiles.push(fileToAdd);
-        displayFileInList(fileToAdd);
+        displayFileInList(fileToAdd, dims);
         addedCount++;
       }
     }
 
     if (addedCount > 0) {
+      updateFileCount();
       showNotification(`${addedCount} file(s) added successfully`, "success");
     }
   }
 
-  function displayFileInList(file) {
+  function displayFileInList(file, dims) {
     const fileItem = document.createElement("div");
     fileItem.className = "file-item";
     fileItem.setAttribute("role", "listitem");
 
-    // Create thumbnail
     const thumbnail = document.createElement("img");
     thumbnail.className = "file-thumbnail";
     thumbnail.alt = file.name;
     const reader = new FileReader();
     reader.onload = (e) => {
       thumbnail.src = e.target.result;
+    };
+    reader.onerror = () => {
+      thumbnail.alt = "Failed to load";
+      thumbnail.style.opacity = "0.4";
     };
     reader.readAsDataURL(file);
 
@@ -180,9 +195,23 @@ document.addEventListener("DOMContentLoaded", () => {
     fileName.className = "file-name";
     fileName.textContent = file.name;
 
-    const fileSize = document.createElement("div");
+    const fileMeta = document.createElement("div");
+    fileMeta.style.display = "flex";
+    fileMeta.style.gap = "12px";
+    fileMeta.style.alignItems = "center";
+
+    const fileSize = document.createElement("span");
     fileSize.className = "file-size";
     fileSize.textContent = formatFileSize(file.size);
+
+    fileMeta.appendChild(fileSize);
+
+    if (dims) {
+      const fileDims = document.createElement("span");
+      fileDims.className = "file-dims";
+      fileDims.textContent = `${dims.width} \u00d7 ${dims.height}`;
+      fileMeta.appendChild(fileDims);
+    }
 
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-file";
@@ -191,15 +220,43 @@ document.addEventListener("DOMContentLoaded", () => {
     removeBtn.addEventListener("click", () => {
       uploadedFiles = uploadedFiles.filter(f => f !== file);
       fileItem.remove();
+      updateFileCount();
       showNotification("File removed", "info");
     });
 
     fileInfo.appendChild(fileName);
-    fileInfo.appendChild(fileSize);
+    fileInfo.appendChild(fileMeta);
     fileItem.appendChild(thumbnail);
     fileItem.appendChild(fileInfo);
     fileItem.appendChild(removeBtn);
     filesList.appendChild(fileItem);
+  }
+
+  function getImageDimensions(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        resolve({ width: img.naturalWidth, height: img.naturalHeight });
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("Failed to load image"));
+      };
+      img.src = url;
+    });
+  }
+
+  function updateFileCount() {
+    const count = uploadedFiles.length;
+    if (count > 0) {
+      fileCountBadge.textContent = count;
+      fileCountBadge.hidden = false;
+    } else {
+      fileCountBadge.hidden = true;
+    }
+    emptyState.classList.toggle("hidden", count > 0);
   }
 
   // ==================== Settings Handlers ====================
@@ -229,11 +286,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    previewObjectUrls.forEach(url => URL.revokeObjectURL(url));
+    previewObjectUrls = [];
     uploadedFiles = [];
     convertedFiles = [];
     filesList.innerHTML = "";
     previewContainer.innerHTML = "";
     conversionResults.style.display = "none";
+    updateFileCount();
 
     showNotification("All files cleared", "success");
   }
@@ -246,6 +306,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Reset previous results
+    previewObjectUrls.forEach(url => URL.revokeObjectURL(url));
+    previewObjectUrls = [];
     previewContainer.innerHTML = "";
     convertedFiles = [];
     conversionResults.style.display = "none";
@@ -282,9 +344,13 @@ document.addEventListener("DOMContentLoaded", () => {
       totalFiles.textContent = `${convertedFiles.length} file${convertedFiles.length !== 1 ? 's' : ''}`;
       totalSaved.textContent = totalSavings > 0
         ? `${formatFileSize(totalSavings)} saved`
-        : `${formatFileSize(Math.abs(totalSavings))} increase`;
+        : totalSavings < 0
+        ? `${formatFileSize(Math.abs(totalSavings))} increase`
+        : "No change";
 
       progressText.textContent = "Conversion complete!";
+
+      conversionResults.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
       setTimeout(() => {
         progressContainer.style.display = "none";
@@ -376,9 +442,11 @@ document.addEventListener("DOMContentLoaded", () => {
     previewItem.className = "preview-item";
     previewItem.setAttribute("role", "listitem");
 
+    const imgUrl = URL.createObjectURL(result.blob);
+    previewObjectUrls.push(imgUrl);
     const img = document.createElement("img");
     img.className = "preview-img";
-    img.src = URL.createObjectURL(result.blob);
+    img.src = imgUrl;
     img.alt = result.name;
     previewItem.appendChild(img);
 
@@ -428,10 +496,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ==================== Download Functions ====================
   function downloadFile(result) {
+    const url = URL.createObjectURL(result.blob);
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(result.blob);
+    link.href = url;
     link.download = result.name;
     link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 100);
     showNotification(`Downloading ${result.name}`, "success");
   }
 

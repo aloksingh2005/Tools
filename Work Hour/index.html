@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Work Hours Calculator</title>
-  <meta name="description" content="Calculate work hours, break deductions, and overtime instantly. Free online work hours calculator." />
+  <title>Work Hours</title>
+  <meta name="description" content="Calculate work hours and minutes." />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#1a1a2e" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -18,14 +18,15 @@
 
   <main class="card">
     <h1>Work Hours</h1>
-    <p class="sub">Calculate your work hours accurately</p>
+    <p class="sub">Slide to set time</p>
 
     <section>
-      <label>Start Time</label>
-      <div class="row">
-        <select id="startHour" aria-label="Start hour"></select>
-        <select id="startMin" aria-label="Start minute"></select>
-        <select id="startPer" aria-label="Start period">
+      <label>Start</label>
+      <div class="time-row">
+        <div class="slide-picker" id="startHourPicker"></div>
+        <span class="sep">:</span>
+        <div class="slide-picker" id="startMinPicker"></div>
+        <select id="startPer" class="per">
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
@@ -33,20 +34,16 @@
     </section>
 
     <section>
-      <label>End Time</label>
-      <div class="row">
-        <select id="endHour" aria-label="End hour"></select>
-        <select id="endMin" aria-label="End minute"></select>
-        <select id="endPer" aria-label="End period">
+      <label>End</label>
+      <div class="time-row">
+        <div class="slide-picker" id="endHourPicker"></div>
+        <span class="sep">:</span>
+        <div class="slide-picker" id="endMinPicker"></div>
+        <select id="endPer" class="per">
           <option value="AM">AM</option>
-          <option value="PM" selected>PM</option>
+          <option value="PM">PM</option>
         </select>
       </div>
-    </section>
-
-    <section>
-      <label>Break (minutes)</label>
-      <input type="number" id="breakVal" class="input" min="0" max="1440" value="30" />
     </section>
 
     <p class="err" id="errorMsg"></p>
@@ -55,9 +52,7 @@
 
     <div class="stats" id="statsWrap" style="display:none">
       <div class="stat"><span class="stat-val" id="resHm">--</span><span class="stat-lbl">Worked</span></div>
-      <div class="stat"><span class="stat-val" id="resDec">--</span><span class="stat-lbl">Decimal</span></div>
       <div class="stat"><span class="stat-val" id="resMin">--</span><span class="stat-lbl">Minutes</span></div>
-      <div class="stat"><span class="stat-val" id="resBreak">--</span><span class="stat-lbl">Break</span></div>
     </div>
 
     <div class="bar-wrap" id="barWrap" style="display:none">
