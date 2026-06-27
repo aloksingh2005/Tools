@@ -248,17 +248,6 @@ class ToolHubManager {
       shortDescription = `${project.description.substring(0, descriptionLimit)}...`;
     }
 
-    const metaParts = [];
-    if (project.language) {
-      metaParts.push(project.language);
-    }
-
-    if (project.stars) {
-      metaParts.push(`${project.stars} stars`);
-    }
-
-    const metaText = metaParts.join(' · ');
-
     const initial = (project.name && project.name.length) ? project.name.charAt(0).toUpperCase() : '?';
 
     return `
@@ -279,9 +268,6 @@ class ToolHubManager {
           ${project.tags.slice(0, 3).map((tag) => `<span class="tag" data-tag="${tag}">${tag}</span>`).join('')}
         </div>
 
-        <div class="project-footer">
-          <span class="project-meta">${metaText}</span>
-        </div>
       </a>
     `;
   }

@@ -7,8 +7,6 @@ const projectsData = [
         tags: ["JavaScript", "JSON", "Formatter"],
         demo: "https://tools.techsoftechs.com/JSON-Formatter/",
         pinned: true,
-        stars: 38,
-        language: "JavaScript"
     },
     {
         name: "TempMail",
@@ -17,8 +15,6 @@ const projectsData = [
         tags: ["JavaScript", "Temp Mail", "Email"],
         demo: "https://tools.techsoftechs.com/TempMail/",
         pinned: true,
-        stars: 38,
-        language: "JavaScript"
     },
     {
         name: "Text Processing Suite",
@@ -26,8 +22,6 @@ const projectsData = [
         description: "A powerful, browser-based text processing tool that provides real-time statistics and various text manipulation features. All processing happens locally in your browser - no data is sent to any server.",
         tags: ["JavaScript", "Text Processing", "Utilities"],
         demo: "https://tools.techsoftechs.com/Text-Processing-Suite/",
-        stars: 29,
-        language: "JavaScript"
     },
     {
         name: "Font Preview",
@@ -35,8 +29,6 @@ const projectsData = [
         description: "The Font Preview Tool is a web-based application that allows users to preview and test Google Fonts instantly. Users can type custom text and see it rendered in various Google Fonts with real-time customization options for font size, text color, and background color. The tool also provides functionality to copy CSS code for implementing fonts in projects and export font previews as images.",
         tags: ["CSS", "Fonts", "Design"],
         demo: "https://tools.techsoftechs.com/Font-Preview/",
-        stars: 33,
-        language: "CSS"
     },
     {
         name: "Color Palette Generator",
@@ -45,8 +37,6 @@ const projectsData = [
         tags: ["JavaScript", "CSS", "Colors"],
         demo: "https://tools.techsoftechs.com/Color-Palette-Gradient/",
         pinned: true,
-        stars: 67,
-        language: "JavaScript"
     },
 
     // Productivity & Utilities
@@ -58,17 +48,13 @@ const projectsData = [
         demo: "https://snapshare-i9u7.onrender.com/",
         pinned: true,
         featured: true,
-        stars: 50,
-        language: "TypeScript"
     },
     {
-        name: "Word Counter",
+        name: "Word Count Animation",
         category: "Productivity",
         description: "A feature-rich, client-side word counter application that provides real-time text analysis with a clean, responsive interface. This tool helps writers, students, and content creators quickly analyze their text with essential statistics.",
         tags: ["JavaScript", "Text Analysis", "Counter"],
-        demo: "https://tools.techsoftechs.com/Word-Counter/",
-        stars: 22,
-        language: "JavaScript"
+        demo: "https://tools.techsoftechs.com/Word-Counter-Animation/",
     },
     {
         name: "Age Calculator",
@@ -76,8 +62,6 @@ const projectsData = [
         description: "Age Calculator Pro",
         tags: ["JavaScript", "Date", "Calculator"],
         demo: "https://tools.techsoftechs.com/Age-Calculator/",
-        stars: 28,
-        language: "JavaScript"
     },
 
     // Games & Fun
@@ -87,8 +71,6 @@ const projectsData = [
         description: "A fun and interactive number counting application perfect for learning and practicing number skills.",
         tags: ["JavaScript", "Educational", "Interactive"],
         demo: "https://tools.techsoftechs.com/Number-Count/",
-        stars: 15,
-        language: "JavaScript"
     },
 
     // Media Tools
@@ -99,8 +81,6 @@ const projectsData = [
         tags: ["JavaScript", "Image Processing", "Compression"],
         demo: "https://tools.techsoftechs.com/Image-Compressor/",
         featured: true,
-        stars: 89,
-        language: "JavaScript"
     },
     {
         name: "Image Converter",
@@ -108,8 +88,6 @@ const projectsData = [
         description: "A powerful, browser-based image conversion tool that allows users to convert images between multiple formats (PNG, JPG, WebP, AVIF) with customizable quality settings.",
         tags: ["JavaScript", "Image Processing", "Converter"],
         demo: "https://tools.techsoftechs.com/Image-Converter/",
-        stars: 56,
-        language: "JavaScript"
     },
     {
         name: "Image to Text OCR",
@@ -118,8 +96,6 @@ const projectsData = [
         tags: ["JavaScript", "OCR", "AI"],
         demo: "https://tools.techsoftechs.com/Image-To-Text/",
         pinned: true,
-        stars: 73,
-        language: "JavaScript"
     },
     {
         name: "Image Editor",
@@ -127,8 +103,6 @@ const projectsData = [
         description: "A comprehensive web-based image editing tool that allows users to resize, rotate, crop, apply filters, and add text overlays to images. Built with HTML, CSS, and JavaScript using the Canvas API and Cropper.js library.",
         tags: ["JavaScript", "Image Processing", "Editing"],
         demo: "https://tools.techsoftechs.com/Image-Editor/",
-        stars: 65,
-        language: "JavaScript"
     },
     {
         name: "Thumbnail Downloader",
@@ -136,8 +110,6 @@ const projectsData = [
         description: "A powerful, client-side YouTube thumbnail downloader that allows users to extract and download thumbnails from any YouTube video in multiple resolutions without requiring any server-side processing",
         tags: ["JavaScript", "YouTube API", "Downloader"],
         demo: "https://tools.techsoftechs.com/Thumbnail-Downloader/",
-        stars: 55,
-        language: "JavaScript"
     },
     {
         name: "YouTube Downloader",
@@ -146,8 +118,6 @@ const projectsData = [
         tags: ["Python", "YouTube API", "Downloader"],
         demo: "https://tools.techsoftechs.com/Yt_Downloader/",
         featured: true,
-        stars: 124,
-        language: "Python"
     },
     {
         name: "BG Remove",
@@ -155,8 +125,6 @@ const projectsData = [
         description: "BG-Remove (Background Remover)",
         tags: ["JavaScript", "Image Processing", "AI"],
         demo: "https://tools.techsoftechs.com/BG-Remove/",
-        stars: 72,
-        language: "JavaScript"
     },
 
     // AI & Chatbots
@@ -168,8 +136,6 @@ const projectsData = [
         demo: "https://tools.techsoftechs.com/AI-ChatBot/",
         featured: true,
         pinned: true,
-        stars: 156,
-        language: "Python"
     },
     {
         name: "Global ChatBot",
@@ -177,8 +143,6 @@ const projectsData = [
         description: "A modern mobile-friendly chat application with beautiful UI and user authentication.",
         tags: ["JavaScript", "AI", "Translation"],
         demo: "https://tools.techsoftechs.com/Global-ChatBot/",
-        stars: 87,
-        language: "JavaScript"
     },
 
     // All-In-One Projects
@@ -191,10 +155,7 @@ const projectsData = [
         demo: "https://tools.techsoftechs.com/PDF-Tools/",
         pinned: true,
         featured: true,
-        stars: 112,
-        language: "JavaScript"
     },
-
 
     // Gradient Tools
     {
@@ -203,8 +164,6 @@ const projectsData = [
         description: "A powerful, feature-rich CSS gradient generator that allows you to create beautiful linear and radial gradients with an intuitive UI. Export your gradients as CSS, download as PNG, or save your favorites for later use.",
         tags: ["JavaScript", "CSS", "Design"],
         demo: "https://tools.techsoftechs.com/Gradient-Generator/",
-        stars: 47,
-        language: "JavaScript"
     },
 
     // Dairy Management
@@ -214,18 +173,14 @@ const projectsData = [
         description: "The Milk Account Calculator is a web-based application designed to help dairy farmers and customers calculate their milk delivery accounts. It allows users to track delivery schedules, account for missed deliveries, calculate total quantities and costs, and generate reports for specific date ranges. The application is particularly useful for dairy farmers tracking customer deliveries and customers monitoring their milk consumption and costs.",
         tags: ["JavaScript", "Agriculture", "Finance"],
         demo: "https://tools.techsoftechs.com/Dairy-Management/",
-        stars: 33,
-        language: "JavaScript"
     },
 
     {
-        name: "TimeBook",
+        name: "Work Hours",
         category: "Finance & Business",
         description: "A modern time tracking and work management application designed for freelancers, developers, and teams to track hours, manage productivity, analyze work patterns, and monitor earnings with a clean and responsive interface.",
         tags: ["JavaScript", "Productivity", "Time Tracking"],
-        demo: "https://tools.techsoftechs.com/TimeBook/",
-        stars: 33,
-        language: "JavaScript"
+        demo: "https://tools.techsoftechs.com/Work%20Hour/",
     },
 
     // New Tools
@@ -236,8 +191,6 @@ const projectsData = [
         tags: ["JavaScript", "QR Code", "Utilities"],
         demo: "https://tools.techsoftechs.com/QR-Generator/",
         pinned: true,
-        stars: 55,
-        language: "JavaScript"
     },
     {
         name: "Password Generator",
@@ -245,8 +198,6 @@ const projectsData = [
         description: "Generate strong, secure passwords with customizable length and character types. Includes strength meter and one-click copy.",
         tags: ["JavaScript", "Security", "Utilities"],
         demo: "https://tools.techsoftechs.com/Password-Generator/",
-        stars: 42,
-        language: "JavaScript"
     },
     {
         name: "Unit Converter",
@@ -254,7 +205,5 @@ const projectsData = [
         description: "Convert between units of length, mass, temperature, and volume instantly. Accurate SI-based conversions with a clean interface.",
         tags: ["JavaScript", "Utilities", "Converter"],
         demo: "https://tools.techsoftechs.com/Unit-Converter/",
-        stars: 38,
-        language: "JavaScript"
     },
 ];
